@@ -1,0 +1,67 @@
+name: Build and Deploy Staging
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-client:
+    name: Client Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Client Dependencies
+        run: npm --prefix ./client install ./client
+      - name: Build
+        run: npm --prefix ./client run build ./client
+        env:
+          REACT_APP_MAINDOMAIN: ${{ secrets.STAGING_MAINDOMAIN }}
+          REACT_APP_APIKEY: ${{ secrets.STAGING_APIKEY }}
+          REACT_APP_AUTHDOMAIN: ${{ secrets.STAGING_AUTHDOMAIN }}
+          REACT_APP_DATABASEURL: ${{ secrets.STAGING_DATABASEURL }}
+          REACT_APP_PROJECTID: ${{ secrets.STAGING_PROJECTID }}
+          REACT_APP_STORAGEBUCKET: ${{ secrets.STAGING_STORAGEBUCKET }}
+          REACT_APP_MESSAGINGSENDERID: ${{ secrets.STAGING_MESSAGINGSENDERID }}
+          REACT_APP_APPID: ${{ secrets.STAGING_APPID }}
+          REACT_APP_MEASUREMENTID: ${{ secrets.STAGING_MEASUREMENTID }}
+          # REACT_APP_PROJECTAPI: ${{ secrets.STAGING_PROJECTAPI }}
+      - name: Archive Production Client Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: client/build
+  # deploy-functions:
+  #   name: Functions Deploy
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@master
+  #     - name: Install Functions Dependencies
+  #       run: npm --prefix ./functions install ./functions
+  #     - name: Deploy to Firebase
+  #       uses: w9jds/firebase-action@master
+  #       with:
+  #         args: deploy --only functions
+  #       env:
+  #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  #         PROJECT_ID: pomodoro-staging
+  deploy-client:
+    name: Client Deploy
+    needs: build-client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Download Client Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: build
+          path: client/build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: pomodoro-staging

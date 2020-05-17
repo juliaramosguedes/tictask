@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { css, cx } from 'emotion';
 
 const useGetTimer = (seconds) => {
   const [timeLeft, setTimeLeft] = useState(seconds);
@@ -66,12 +67,12 @@ export default () => {
   const initiatePomodoro = () => {
     resetTimer(pomodoroInterval);
     setCounter(counter + 1);
-    setActiveTimer("pomodoro");
+    setActiveTimer('pomodoro');
   };
 
   const initiateBreak = () => {
     resetTimer(breakInterval);
-    setActiveTimer("break");
+    setActiveTimer('break');
   };
 
   const stopTimer = () => {
@@ -89,8 +90,6 @@ export default () => {
         <button onClick={initiatePomodoro}>Iniciar</button>
       )}
       <button onClick={initiateBreak}>Intervalo</button>
-      <p>{activeTimer}</p>
-      <p>{counter}</p>
     </div>
   );
 };
