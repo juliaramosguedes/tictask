@@ -2,7 +2,6 @@ import { injectGlobal } from 'emotion';
 import { SizeMinWidthScreenTablet, SizeMinWidthScreenDesktop } from './ui';
 
 injectGlobal`
-
 body::before {
   content: 'mobile';
   display: none;
@@ -36,6 +35,8 @@ body::before {
 }
 
 html {
+  margin: 0;
+  padding: 0;
   height: 100%;
   font-family: sans-serif;
   line-height: 1.15;

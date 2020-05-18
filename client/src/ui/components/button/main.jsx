@@ -10,6 +10,7 @@ export default ({
   borderRadius = '4px',
   small = false,
   transparent = false,
+  gradient = '',
   width = 'auto',
   ...props
 }) => (
@@ -19,11 +20,13 @@ export default ({
       'main-button',
       css`
         background-color: ${transparent ? 'transparent' : color};
+        background-image: ${gradient};
         border: ${border ? '1px solid ' + color : 'none'};
         margin: 0;
         padding: ${padding};
         width: ${width};
         border-radius: ${borderRadius};
+        cursor: pointer;
 
         p {
           color: ${transparent ? color : 'white'};

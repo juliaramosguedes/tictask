@@ -8,6 +8,7 @@ export default ({
   noMargin = false,
   color = ColorNeutralDarker,
   width = '100%',
+  white = false,
   center = false,
   ...props
 }) => (
@@ -19,7 +20,7 @@ export default ({
       css`
         font-size: ${12 + size * 2}px;
         font-weight: ${weight};
-        color: ${color};
+        color: ${white ? 'white' : color};
         margin: ${noMargin ? 0 : '0 0 8px'};
         width: ${width};
         text-align: ${center ? 'center' : 'start'};
