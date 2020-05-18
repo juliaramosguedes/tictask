@@ -84,7 +84,7 @@ export default () => {
       }
       height="100vh"
     >
-      <Separator transparent height="33vh" />
+      <Separator transparent height="30vh" />
       <Title size={12} center white={activeTimer}>
         {timeLeft}
       </Title>
