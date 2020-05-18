@@ -1,0 +1,5 @@
+export const INTERVAL = {
+  POMODORO: 25,
+  SHORTBREAK: 5,
+  LONGBREAK: 30,
+};
