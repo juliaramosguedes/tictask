@@ -1,7 +1,5 @@
-import { injectGlobal } from "emotion";
-
-const SizeMinWidthScreenTablet = "501px";
-const SizeMinWidthScreenDesktop = "769px";
+import { injectGlobal } from 'emotion';
+import { SizeMinWidthScreenTablet, SizeMinWidthScreenDesktop } from './ui';
 
 injectGlobal`
 

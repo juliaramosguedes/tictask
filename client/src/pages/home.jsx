@@ -11,20 +11,6 @@ import {
 } from '../ui';
 import { INTERVAL } from '../constants';
 
-const ButtonsContainer = (props) => (
-  <Container
-    {...props}
-    className={cx(
-      'home-container',
-      css`
-        display: flex;
-        justify-content: center;
-      `,
-      props.className
-    )}
-  />
-);
-
 export default () => {
   const secondsInAMinute = 60;
 
@@ -77,10 +63,10 @@ export default () => {
 
   return (
     <Container>
-      <Title size={4} center>
+      <Title size={12} center>
         {timeLeft}
       </Title>
-      <ButtonsContainer>
+      <Container display="flex">
         {loading ? (
           <Button.Main
             onClick={stopTimer}
@@ -91,14 +77,14 @@ export default () => {
           </Button.Main>
         ) : (
           <>
-            <Button.Main onClick={initiatePomodoro} width="150px">
+            <Button.Main onClick={initiatePomodoro} width="120px">
               <p>Iniciar</p>
             </Button.Main>
             <Separator transparent width="16px" />
             <Button.Main
               onClick={initiateBreak}
               color={ColorSemanticAlert}
-              width="150px"
+              width="120px"
               border
               transparent
             >
@@ -106,7 +92,7 @@ export default () => {
             </Button.Main>
           </>
         )}
-      </ButtonsContainer>
+      </Container>
     </Container>
   );
 };

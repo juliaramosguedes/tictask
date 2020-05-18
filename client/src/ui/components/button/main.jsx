@@ -6,8 +6,8 @@ export default ({
   border = false,
   children,
   color = ColorBrandBase,
-  padding = '8px 16px',
-  borderRadius = '8px',
+  padding = '16px 24px',
+  borderRadius = '4px',
   small = false,
   transparent = false,
   width = 'auto',
@@ -29,6 +29,8 @@ export default ({
           color: ${transparent ? color : 'white'};
           font-size: ${small ? 12 : 16}px;
           font-weight: bold;
+          margin: 0;
+          text-align: center;
         }
 
         svg {
@@ -38,10 +40,6 @@ export default ({
           path {
             stroke: ${transparent ? ColorBrandBase : 'white'};
           }
-        }
-
-        @media (min-width: ${SizeMinWidthScreenDesktop}) {
-          padding: ${padding ? padding : '8px 32px'};
         }
       `,
       props.className
