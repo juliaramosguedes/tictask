@@ -28,7 +28,7 @@ export const TickBoxShadow = '0px 2px 7px rgba(0, 0, 0, 0.14)';
 export const GradientInterval =
   'linear-gradient(to right top, #845ec2, #a55dbd, #c15db5, #d95fab, #ec64a0, #f76e91, #fd7b84, #ff8a7a, #ffa26e, #ffbd66, #ffda65, #f9f871)';
 export const GradientPomodoro =
-  'linear-gradient(to right top, #845ec2, #7466c8, #626ecc, #4e74cf, #377ad0, #2485d5, #0f8fd7, #0099d9, #00aadc, #00bad7, #00c8c9, #0ed4b7);';
+  'linear-gradient(to left top, #845ec2, #7466c8, #626ecc, #4e74cf, #377ad0, #2485d5, #0f8fd7, #0099d9, #00aadc, #00bad7, #00c8c9, #0ed4b7);';
 
 export const SizeMaxWidthScreenMobile = '500px';
 export const SizeMinWidthScreenTablet = '501px';
