@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { css, cx } from 'emotion';
 import { useGetTimer } from '../services';
 import {
   Button,
@@ -7,6 +6,7 @@ import {
   ColorSemanticError,
   Container,
   Separator,
+  Subtitle,
   Title,
 } from '../ui';
 import { INTERVAL } from '../constants';
@@ -47,12 +47,12 @@ export default () => {
   const initiatePomodoro = () => {
     resetTimer(INTERVAL.POMODORO);
     setCounter(counter + 1);
-    setActiveTimer('pomodoro');
+    setActiveTimer('Pomodoro');
   };
 
   const initiateBreak = () => {
     resetTimer(breakInterval);
-    setActiveTimer('break');
+    setActiveTimer('Intervalo');
   };
 
   const stopTimer = () => {
@@ -63,20 +63,29 @@ export default () => {
 
   return (
     <Container>
+      <Separator transparent height="33vh" />
       <Title size={12} center>
         {timeLeft}
       </Title>
-      <Container display="flex">
-        {loading ? (
-          <Button.Main
-            onClick={stopTimer}
-            width="150px"
-            color={ColorSemanticError}
-          >
-            <p>Interromper</p>
-          </Button.Main>
-        ) : (
-          <>
+      {loading ? (
+        <>
+          <Subtitle size={12} center>
+            {activeTimer}
+          </Subtitle>
+          <Container display="flex">
+            <Button.Main
+              onClick={stopTimer}
+              width="150px"
+              color={ColorSemanticError}
+            >
+              <p>Interromper</p>
+            </Button.Main>
+          </Container>
+        </>
+      ) : (
+        <>
+          <Separator transparent height="49px" />
+          <Container display="flex">
             <Button.Main onClick={initiatePomodoro} width="120px">
               <p>Iniciar</p>
             </Button.Main>
@@ -90,9 +99,9 @@ export default () => {
             >
               <p>Intervalo</p>
             </Button.Main>
-          </>
-        )}
-      </Container>
+          </Container>
+        </>
+      )}
     </Container>
   );
 };

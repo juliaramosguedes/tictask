@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../index';
+import { ColorBrandBase } from '../../index';
 
 export default ({
   border = false,
@@ -16,7 +16,7 @@ export default ({
   <button
     {...props}
     className={cx(
-      'button',
+      'main-button',
       css`
         background-color: ${transparent ? 'transparent' : color};
         border: ${border ? '1px solid ' + color : 'none'};

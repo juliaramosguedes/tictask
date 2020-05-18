@@ -8,19 +8,21 @@ export default ({
   noMargin = false,
   color = ColorNeutralDarker,
   width = '100%',
+  center = false,
   ...props
 }) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h2
     {...props}
     className={cx(
-      'courses-title',
+      'subtitle',
       css`
         font-size: ${12 + size * 2}px;
         font-weight: ${weight};
         color: ${color};
-        margin-bottom: ${noMargin ? 0 : '8px'};
+        margin: ${noMargin ? 0 : '0 0 8px'};
         width: ${width};
+        text-align: ${center ? 'center' : 'start'};
       `,
       props.className
     )}

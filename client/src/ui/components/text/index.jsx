@@ -15,7 +15,7 @@ export default ({
   <p
     {...props}
     className={cx(
-      'title',
+      'text',
       css`
         font-size: ${10 + size * 2}px;
         font-weight: ${bold ? 'bold' : 'normal'};

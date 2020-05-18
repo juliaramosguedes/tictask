@@ -20,7 +20,7 @@ export default ({
         font-size: ${12 + size * 4}px;
         font-weight: ${weight};
         color: ${color};
-        margin-bottom: ${noMargin ? 0 : '16px'};
+        margin: ${noMargin ? 0 : '0 0 16px'};
         width: ${width};
         text-align: ${center ? 'center' : 'start'};
       `,
