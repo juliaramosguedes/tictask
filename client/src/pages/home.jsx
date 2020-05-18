@@ -94,7 +94,11 @@ export default () => {
         </>
       ) : (
         <>
-          <Separator transparent height="49px" />
+          <Subtitle size={12} center>
+            {breakInterval === INTERVAL.LONGBREAK
+              ? 'Faça um intervalo maior dessa vez.'
+              : 'Mãos à massa!'}
+          </Subtitle>
           <Container display="flex">
             <Button.Main onClick={initiatePomodoro} width="120px">
               <p>Iniciar</p>
