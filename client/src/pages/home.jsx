@@ -21,13 +21,13 @@ export default () => {
     setTimeLeft,
   } = useGetTimer();
 
-  const [counter, setCounter] = useState(3);
+  const [counter, setCounter] = useState(0);
   const [breakInterval, setBreakInterval] = useState(INTERVAL.SHORTBREAK);
   const [activeTimer, setActiveTimer] = useState(null);
   const [playAudio, setPlayAudio] = useState(true);
 
   useEffect(() => {
-    if (counter % 4 === 0) {
+    if (counter > 0 && counter % 4 === 0) {
       setBreakInterval(INTERVAL.LONGBREAK);
     } else {
       setBreakInterval(INTERVAL.SHORTBREAK);
@@ -63,6 +63,7 @@ export default () => {
     setTimeLeft(0);
     setActiveTimer(null);
     setPlayAudio(false);
+    setBreakInterval(INTERVAL.SHORTBREAK);
   };
 
   const playRing = () => {
