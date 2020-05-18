@@ -10,20 +10,21 @@ import {
   Title,
 } from '../ui';
 import { INTERVAL } from '../constants';
+import audio from '../assets/Bell 03.mp3';
 
 export default () => {
-  const secondsInAMinute = 60;
-
   const {
-    data: timeLeft,
-    loading,
-    setLoading,
-    setData: setTimeLeft,
-  } = useGetTimer(0);
+    timeLeft,
+    running,
+    finished,
+    setRunning,
+    setTimeLeft,
+  } = useGetTimer();
 
   const [counter, setCounter] = useState(3);
   const [breakInterval, setBreakInterval] = useState(INTERVAL.SHORTBREAK);
   const [activeTimer, setActiveTimer] = useState(null);
+  const [playAudio, setPlayAudio] = useState(true);
 
   useEffect(() => {
     if (counter % 4 === 0) {
@@ -34,14 +35,16 @@ export default () => {
   }, [counter]);
 
   useEffect(() => {
-    if (!loading) {
+    if (finished && playAudio) {
       setActiveTimer(null);
+      playRing();
     }
-  }, [loading]);
+  }, [finished, playAudio]);
 
   const resetTimer = (interval) => {
-    setLoading(true);
-    setTimeLeft(interval * secondsInAMinute);
+    setRunning(true);
+    setTimeLeft(interval * 60);
+    setPlayAudio(true);
   };
 
   const initiatePomodoro = () => {
@@ -56,9 +59,15 @@ export default () => {
   };
 
   const stopTimer = () => {
-    setLoading(false);
+    setRunning(false);
     setTimeLeft(0);
     setActiveTimer(null);
+    setPlayAudio(false);
+  };
+
+  const playRing = () => {
+    const audio = document.getElementById('ring');
+    audio.play();
   };
 
   return (
@@ -67,7 +76,7 @@ export default () => {
       <Title size={12} center>
         {timeLeft}
       </Title>
-      {loading ? (
+      {running ? (
         <>
           <Subtitle size={12} center>
             {activeTimer}
@@ -102,6 +111,7 @@ export default () => {
           </Container>
         </>
       )}
+      <audio id="ring" src={audio}></audio>
     </Container>
   );
 };
