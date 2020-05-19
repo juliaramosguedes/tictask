@@ -9,6 +9,7 @@ import {
   Separator,
   Subtitle,
   Title,
+  Text,
 } from '../ui';
 import { INTERVAL } from '../constants';
 import audio from '../assets/Bell 03.mp3';
@@ -23,21 +24,18 @@ export default () => {
   } = useGetTimer();
 
   const [counter, setCounter] = useState(0);
-  const [breakInterval, setBreakInterval] = useState(INTERVAL.SHORTBREAK);
   const [activeTimer, setActiveTimer] = useState(null);
   const [playAudio, setPlayAudio] = useState(true);
 
   useEffect(() => {
-    if (counter > 0 && counter % 4 === 0) {
-      setBreakInterval(INTERVAL.LONGBREAK);
-    } else {
-      setBreakInterval(INTERVAL.SHORTBREAK);
-    }
-  }, [counter]);
-
-  useEffect(() => {
     if (finished && playAudio) {
-      setActiveTimer(null);
+      setActiveTimer(() => {
+        if (activeTimer === INTERVAL.POMODORO.KEY) {
+          return INTERVAL.SHORTBREAK.KEY;
+        } else {
+          return INTERVAL.POMODORO.KEY;
+        }
+      });
       playRing();
     }
   }, [finished, playAudio]);
@@ -49,14 +47,19 @@ export default () => {
   };
 
   const initiatePomodoro = () => {
-    resetTimer(INTERVAL.POMODORO);
+    resetTimer(INTERVAL.POMODORO.TIME);
     setCounter(counter + 1);
-    setActiveTimer('Pomodoro');
+    setActiveTimer(INTERVAL.POMODORO.KEY);
   };
 
   const initiateBreak = () => {
-    resetTimer(breakInterval);
-    setActiveTimer('Intervalo');
+    if (counter > 0 && counter % 2 === 0) {
+      setActiveTimer(INTERVAL.LONGBREAK.KEY);
+      resetTimer(INTERVAL.LONGBREAK.TIME);
+    } else {
+      setActiveTimer(INTERVAL.SHORTBREAK.KEY);
+      resetTimer(INTERVAL.SHORTBREAK.TIME);
+    }
   };
 
   const restartTimer = () => {
@@ -64,7 +67,6 @@ export default () => {
     setTimeLeft(0);
     setActiveTimer(null);
     setPlayAudio(false);
-    setBreakInterval(INTERVAL.SHORTBREAK);
     setCounter(0);
   };
 
@@ -76,58 +78,55 @@ export default () => {
   return (
     <Container
       color={
-        activeTimer === 'Pomodoro'
+        running && activeTimer === INTERVAL.POMODORO.KEY
           ? GradientPomodoro
-          : activeTimer === 'Intervalo'
+          : running &&
+            (activeTimer === INTERVAL.SHORTBREAK.KEY ||
+              activeTimer === INTERVAL.LONGBREAK.KEY)
           ? GradientInterval
           : 'tranparent'
       }
       height="100vh"
     >
       <Separator transparent height="30vh" />
-      <Title size={12} center white={activeTimer}>
+      <Title size={12} center white={running}>
         {timeLeft}
       </Title>
+      <Subtitle size={12} center white={running}>
+        {activeTimer
+          ? running
+            ? INTERVAL[activeTimer].PHRASE
+            : INTERVAL[activeTimer].NAME
+          : 'Vamos começar?'}
+      </Subtitle>
       {running ? (
-        <>
-          <Subtitle size={12} center white={activeTimer}>
-            {activeTimer}
-          </Subtitle>
-          <Container display="flex">
-            <Button.Main
-              onClick={restartTimer}
-              width="150px"
-              color={ColorSemanticError}
-            >
-              <p>Recomeçar</p>
-            </Button.Main>
-          </Container>
-        </>
+        <Container display="flex">
+          <Button.Main
+            onClick={restartTimer}
+            width="150px"
+            color={ColorSemanticError}
+          >
+            <p>Recomeçar</p>
+          </Button.Main>
+        </Container>
       ) : (
-        <>
-          <Subtitle size={12} center white={activeTimer}>
-            {breakInterval === INTERVAL.LONGBREAK
-              ? 'Faça um intervalo maior dessa vez.'
-              : 'Mãos à massa!'}
-          </Subtitle>
-          <Container display="flex">
-            <Button.Main
-              onClick={initiatePomodoro}
-              width="120px"
-              gradient={GradientPomodoro}
-            >
-              <p>Iniciar</p>
-            </Button.Main>
-            <Separator transparent width="16px" />
-            <Button.Main
-              onClick={initiateBreak}
-              gradient={GradientInterval}
-              width="120px"
-            >
-              <p>Intervalo</p>
-            </Button.Main>
-          </Container>
-        </>
+        <Container display="flex">
+          <Button.Main
+            onClick={initiatePomodoro}
+            width="120px"
+            gradient={GradientPomodoro}
+          >
+            <p>Iniciar</p>
+          </Button.Main>
+          <Separator transparent width="16px" />
+          <Button.Main
+            onClick={initiateBreak}
+            gradient={GradientInterval}
+            width="120px"
+          >
+            <p>Intervalo</p>
+          </Button.Main>
+        </Container>
       )}
       <audio id="ring" src={audio}></audio>
     </Container>

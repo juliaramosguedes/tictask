@@ -8,7 +8,7 @@ export default ({
   noMargin = false,
   color = ColorNeutralDark,
   width = '100%',
-  alignment = 'left',
+  center = false,
   white = false,
   ...props
 }) => (
@@ -22,7 +22,7 @@ export default ({
         color: ${white ? 'white' : color};
         margin-bottom: ${noMargin ? 0 : '8px'};
         width: ${width};
-        text-align: ${alignment};
+        text-align: ${center ? 'center' : 'left'};
       `,
       props.className
     )}

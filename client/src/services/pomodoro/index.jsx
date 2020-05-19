@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { INTERVAL } from '../../constants';
 
 export const useGetTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(INTERVAL.POMODORO * 60);
+  const [timeLeft, setTimeLeft] = useState(INTERVAL.POMODORO.TIME * 60);
   const [running, setRunning] = useState(false);
   const [finished, setFinished] = useState(false);
 
