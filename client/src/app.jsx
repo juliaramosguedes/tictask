@@ -17,7 +17,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <HomePage minutes={1} />
+            <HomePage />
           </Route>
           <Redirect to="/" />
         </Switch>
