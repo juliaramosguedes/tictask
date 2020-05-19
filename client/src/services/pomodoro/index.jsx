@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Duration } from 'luxon';
 import { INTERVAL } from '../../constants';
 
 export const useGetTimer = () => {
@@ -17,7 +18,7 @@ export const useGetTimer = () => {
 
     const intervalId = setInterval(() => {
       if (running) {
-        setTimeLeft(timeLeft - 1);
+        setTimeLeft((timeLeft) => timeLeft - 1);
       }
     }, 1000);
 
@@ -25,7 +26,7 @@ export const useGetTimer = () => {
   }, [timeLeft, running]);
 
   return {
-    timeLeft: new Date(timeLeft * 1000).toLocaleTimeString().slice(-5),
+    timeLeft: Duration.fromMillis(timeLeft * 1000).toFormat('mm:ss'),
     running,
     setRunning,
     finished,

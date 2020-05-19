@@ -16,7 +16,8 @@ jobs:
       - name: Build
         run: npm --prefix ./client run build ./client
         env:
-          REACT_APP_MAINDOMAIN: ${{ secrets.PRODUCTION_MAINDOMAIN }}
+          NODE_ENV: ${{ secrets.PRODUCTION_NODE_ENV }}
+          PUBLIC_URL: ${{ secrets.PRODUCTION_PUBLIC_URL }}
           REACT_APP_APIKEY: ${{ secrets.PRODUCTION_APIKEY }}
           REACT_APP_AUTHDOMAIN: ${{ secrets.PRODUCTION_AUTHDOMAIN }}
           REACT_APP_DATABASEURL: ${{ secrets.PRODUCTION_DATABASEURL }}
