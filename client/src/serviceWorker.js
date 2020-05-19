@@ -48,9 +48,7 @@ export function register(config) {
         });
       } else {
         // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config).then((reg) => {
-          setInterval(() => reg.update(), 150000);
-        });
+        registerValidSW(swUrl, config);
       }
     });
   }
@@ -120,9 +118,7 @@ function checkValidServiceWorker(swUrl, config) {
         });
       } else {
         // Service worker found. Proceed as normal.
-        registerValidSW(swUrl, config).then((reg) => {
-          setInterval(() => reg.update(), 2500);
-        });
+        registerValidSW(swUrl, config);
       }
     })
     .catch(() => {

@@ -988,7 +988,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.6":
   version "7.9.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
   integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
@@ -4537,6 +4537,14 @@ fast-levenshtein@~2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+
+fast-unique-numbers@^5.0.7:
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/fast-unique-numbers/-/fast-unique-numbers-5.0.7.tgz#70de96a1bafe9298dbb08175ee3820fc2ff720dc"
+  integrity sha512-F00BlOSDDuBgdquBNaMPzfudH7kkd8t/SOCDS56gpr4em6d3dQHUHP6hsNUKaIleA9qNy0ruVIevy9E//qz7Dg==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    tslib "^2.0.0"
 
 faye-websocket@^0.10.0:
   version "0.10.0"
@@ -10458,6 +10466,11 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
+tslib@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
+  integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
+
 tsutils@^3.17.1:
   version "3.17.1"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-3.17.1.tgz#ed719917f11ca0dee586272b2ac49e015a2dd759"
@@ -11132,6 +11145,34 @@ worker-rpc@^0.1.0:
   integrity sha512-P1WjMrUB3qgJNI9jfmpZ/htmBEjFh//6l/5y8SD9hg1Ef5zTTVVoRjTrTEzPrNBQvmhMxkoTsjOXN10GWU7aCg==
   dependencies:
     microevent.ts "~0.1.1"
+
+worker-timers-broker@^6.0.10:
+  version "6.0.10"
+  resolved "https://registry.yarnpkg.com/worker-timers-broker/-/worker-timers-broker-6.0.10.tgz#dfe6d7d0d695b6ba8cb750c99d9d48920e48d7f3"
+  integrity sha512-H0pmkqjs7aEiLVGv8ST/CjqspIiYwSEJvWw7Db7jilxJNg/T02aOk0MzKG3P/OFR3XBxQ/Ita7hThixm+up1Iw==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    fast-unique-numbers "^5.0.7"
+    tslib "^2.0.0"
+    worker-timers-worker "^6.0.7"
+
+worker-timers-worker@^6.0.7:
+  version "6.0.7"
+  resolved "https://registry.yarnpkg.com/worker-timers-worker/-/worker-timers-worker-6.0.7.tgz#571521175fc4afc9c2dfe0a047dd511e5eabace8"
+  integrity sha512-wghe695gIK7Y1Pbr2aSl9Xy4DBIXzL3JRI0w8d491hgpbfACy4mLYq/pr4wdStvpadRYABvlv6J8+SjD1AISww==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    tslib "^2.0.0"
+
+worker-timers@^6.0.11:
+  version "6.0.11"
+  resolved "https://registry.yarnpkg.com/worker-timers/-/worker-timers-6.0.11.tgz#6c2a6c412646904446cac5dc883ae8e494348e4b"
+  integrity sha512-QQs7KOoQIBqi6eaFp+phwIVMxcH+uHA2dK9XWIpm0ud2bE7RpXuuv8VXuijeSkgC2LAIdxKrtC+3ILled78BJw==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    tslib "^2.0.0"
+    worker-timers-broker "^6.0.10"
+    worker-timers-worker "^6.0.7"
 
 wrap-ansi@^2.0.0:
   version "2.1.0"
