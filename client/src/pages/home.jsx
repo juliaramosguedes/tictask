@@ -11,9 +11,13 @@ import {
   Title,
 } from '../ui';
 import { INTERVAL } from '../constants';
+import { useBreakpoint } from '../hooks';
 import audio from '../assets/Bell 03.mp3';
 
 export default () => {
+  const breakpoint = useBreakpoint();
+  const isDesktop = breakpoint === 'desktop';
+
   const {
     timeLeft,
     running,
@@ -87,11 +91,11 @@ export default () => {
       }
       height="100vh"
     >
-      <Separator transparent height="30vh" />
-      <Title size={12} center white={running}>
+      <Separator transparent height={isDesktop ? '30vh' : '20vh'} />
+      <Title size={isDesktop ? 12 : 9} center white={running}>
         {timeLeft}
       </Title>
-      <Subtitle size={12} center white={running}>
+      <Subtitle size={isDesktop ? 12 : 9} center white={running}>
         {activeTimer
           ? running
             ? INTERVAL[activeTimer].PHRASE
