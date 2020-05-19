@@ -53,7 +53,7 @@ export default () => {
   };
 
   const initiateBreak = () => {
-    if (counter > 0 && counter % 2 === 0) {
+    if (counter > 0 && counter % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
       resetTimer(INTERVAL.LONGBREAK.TIME);
     } else {
