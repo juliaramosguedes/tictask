@@ -9,7 +9,6 @@ import {
   Separator,
   Subtitle,
   Title,
-  Text,
 } from '../ui';
 import { INTERVAL } from '../constants';
 import audio from '../assets/Bell 03.mp3';
@@ -38,7 +37,7 @@ export default () => {
       });
       playRing();
     }
-  }, [finished, playAudio]);
+  }, [finished, playAudio, activeTimer]);
 
   const resetTimer = (interval) => {
     setRunning(true);
