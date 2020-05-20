@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useGetTimer } from '../services';
 import {
   Button,
+  ColorSemanticErrorLight,
   ColorSemanticError,
   Container,
   GradientInterval,
@@ -23,7 +24,7 @@ export default () => {
     running,
     finished,
     setRunning,
-    setTimeLeft,
+    setTimeToServiceWorker,
   } = useGetTimer();
 
   const [counter, setCounter] = useState(0);
@@ -45,7 +46,9 @@ export default () => {
 
   const resetTimer = (interval) => {
     setRunning(true);
-    setTimeLeft(interval * 60);
+    setTimeToServiceWorker({
+      time: interval * 60,
+    });
     setPlayAudio(true);
   };
 
@@ -67,7 +70,10 @@ export default () => {
 
   const restartTimer = () => {
     setRunning(false);
-    setTimeLeft(0);
+    setTimeToServiceWorker({
+      time: 0,
+      stop: true,
+    });
     setActiveTimer(null);
     setPlayAudio(false);
     setCounter(0);
@@ -92,7 +98,12 @@ export default () => {
       height="100vh"
     >
       <Separator transparent height={isDesktop ? '30vh' : '20vh'} />
-      <Title size={isDesktop ? 12 : 9} center white={running}>
+      <Title
+        size={isDesktop ? 12 : 9}
+        center
+        white={running}
+        color={timeLeft === '00:00' && ColorSemanticErrorLight}
+      >
         {timeLeft}
       </Title>
       <Subtitle size={isDesktop ? 12 : 9} center white={running}>

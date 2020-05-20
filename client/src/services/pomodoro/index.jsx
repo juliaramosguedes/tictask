@@ -1,36 +1,64 @@
 import { useState, useEffect } from 'react';
 import { Duration } from 'luxon';
-import * as workerTimers from 'worker-timers';
-import { INTERVAL } from '../../constants';
 
 export const useGetTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(INTERVAL.POMODORO.TIME * 60);
+  const [timeLeft, setTimeLeft] = useState(0);
   const [running, setRunning] = useState(false);
   const [finished, setFinished] = useState(false);
+  const sw = navigator.serviceWorker;
 
   useEffect(() => {
-    setFinished(false);
+    if (sw) {
+      window.addEventListener('load', () => {
+        sw.register('/sw.js')
+          .then(() => sw.ready)
+          .then(() => {
+            sw.addEventListener('message', ({ data }) => {
+              console.log('[SW] Service Worker register data: ', data);
+              setTimeLeft(data);
 
-    if (!timeLeft && running) {
-      setRunning(false);
-      setFinished(true);
-      return;
+              if (data) {
+                setFinished(false);
+              }
+
+              if (!data && running) {
+                setRunning(false);
+                setFinished(true);
+                console.log('finished true');
+              }
+            });
+          })
+          .catch((error) => {
+            console.log('[SW] Service Worker register error: ', error);
+          });
+      });
+    }
+  }, [setTimeLeft, sw, running]);
+
+  // useEffect(() => {
+  //     setFinished(false);
+
+  //   if (!timeLeft && running) {
+  //     setRunning(false);
+  //     setFinished(true);
+  //     console.log('finished true');
+  //     return;
+  //   }
+  // }, [timeLeft, running]);
+
+  const setTimeToServiceWorker = (data) => {
+    if (sw?.controller) {
+      sw.controller.postMessage(data);
     }
 
-    const intervalId = workerTimers.setInterval(() => {
-      if (running) {
-        setTimeLeft((timeLeft) => timeLeft - 1);
-      }
-    }, 1000);
-
-    return () => workerTimers.clearInterval(intervalId);
-  }, [timeLeft, running]);
+    setTimeLeft(data.time);
+  };
 
   return {
     timeLeft: Duration.fromMillis(timeLeft * 1000).toFormat('mm:ss'),
     running,
     setRunning,
     finished,
-    setTimeLeft,
+    setTimeToServiceWorker,
   };
 };
