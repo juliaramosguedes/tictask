@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useGetTimer } from '../services';
 import {
   Button,
-  ColorSemanticErrorLight,
   ColorSemanticError,
   Container,
   GradientInterval,
@@ -98,12 +97,7 @@ export default () => {
       height="100vh"
     >
       <Separator transparent height={isDesktop ? '30vh' : '20vh'} />
-      <Title
-        size={isDesktop ? 12 : 9}
-        center
-        white={running}
-        color={timeLeft === '00:00' && ColorSemanticErrorLight}
-      >
+      <Title size={isDesktop ? 12 : 9} center white={running}>
         {timeLeft}
       </Title>
       <Subtitle size={isDesktop ? 12 : 9} center white={running}>

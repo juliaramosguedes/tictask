@@ -14,18 +14,7 @@ export const useGetTimer = () => {
           .then(() => sw.ready)
           .then(() => {
             sw.addEventListener('message', ({ data }) => {
-              console.log('[SW] Service Worker register data: ', data);
               setTimeLeft(data);
-
-              if (data) {
-                setFinished(false);
-              }
-
-              if (!data && running) {
-                setRunning(false);
-                setFinished(true);
-                console.log('finished true');
-              }
             });
           })
           .catch((error) => {
@@ -33,18 +22,17 @@ export const useGetTimer = () => {
           });
       });
     }
-  }, [setTimeLeft, sw, running]);
+  }, [setTimeLeft, sw]);
 
-  // useEffect(() => {
-  //     setFinished(false);
+  useEffect(() => {
+    setFinished(false);
 
-  //   if (!timeLeft && running) {
-  //     setRunning(false);
-  //     setFinished(true);
-  //     console.log('finished true');
-  //     return;
-  //   }
-  // }, [timeLeft, running]);
+    if (!timeLeft && running) {
+      setRunning(false);
+      setFinished(true);
+      return;
+    }
+  }, [timeLeft, running]);
 
   const setTimeToServiceWorker = (data) => {
     if (sw?.controller) {
