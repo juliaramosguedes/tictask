@@ -43,7 +43,7 @@ export default () => {
     }
   }, [finished, playAudio, activeTimer]);
 
-  const resetTimer = (interval) => {
+  const initiateTimer = (interval) => {
     setRunning(true);
     setTimeToServiceWorker({
       time: interval * 60,
@@ -52,7 +52,7 @@ export default () => {
   };
 
   const initiatePomodoro = () => {
-    resetTimer(INTERVAL.POMODORO.TIME);
+    initiateTimer(INTERVAL.POMODORO.TIME);
     setCounter(counter + 1);
     setActiveTimer(INTERVAL.POMODORO.KEY);
   };
@@ -60,14 +60,14 @@ export default () => {
   const initiateBreak = () => {
     if (counter > 0 && counter % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
-      resetTimer(INTERVAL.LONGBREAK.TIME);
+      initiateTimer(INTERVAL.LONGBREAK.TIME);
     } else {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
-      resetTimer(INTERVAL.SHORTBREAK.TIME);
+      initiateTimer(INTERVAL.SHORTBREAK.TIME);
     }
   };
 
-  const restartTimer = () => {
+  const resetTimer = () => {
     setRunning(false);
     setTimeToServiceWorker({
       time: 0,
@@ -110,7 +110,7 @@ export default () => {
       {running ? (
         <Container display="flex">
           <Button.Main
-            onClick={restartTimer}
+            onClick={resetTimer}
             width="150px"
             color={ColorSemanticError}
           >
