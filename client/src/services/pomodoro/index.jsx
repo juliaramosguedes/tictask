@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Duration } from 'luxon';
-import * as workerTimers from 'worker-timers';
 import { INTERVAL } from '../../constants';
 
 export const useGetTimer = () => {
@@ -17,13 +16,13 @@ export const useGetTimer = () => {
       return;
     }
 
-    const intervalId = workerTimers.setInterval(() => {
+    const intervalId = setInterval(() => {
       if (running) {
         setTimeLeft((timeLeft) => timeLeft - 1);
       }
     }, 1000);
 
-    return () => workerTimers.clearInterval(intervalId);
+    return () => clearInterval(intervalId);
   }, [timeLeft, running]);
 
   return {

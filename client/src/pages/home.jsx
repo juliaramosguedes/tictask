@@ -43,14 +43,14 @@ export default () => {
     }
   }, [finished, playAudio, activeTimer]);
 
-  const resetTimer = (interval) => {
+  const initiateTimer = (interval) => {
     setRunning(true);
     setTimeLeft(interval * 60);
     setPlayAudio(true);
   };
 
   const initiatePomodoro = () => {
-    resetTimer(INTERVAL.POMODORO.TIME);
+    initiateTimer(INTERVAL.POMODORO.TIME);
     setCounter(counter + 1);
     setActiveTimer(INTERVAL.POMODORO.KEY);
   };
@@ -58,14 +58,14 @@ export default () => {
   const initiateBreak = () => {
     if (counter > 0 && counter % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
-      resetTimer(INTERVAL.LONGBREAK.TIME);
+      initiateTimer(INTERVAL.LONGBREAK.TIME);
     } else {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
-      resetTimer(INTERVAL.SHORTBREAK.TIME);
+      initiateTimer(INTERVAL.SHORTBREAK.TIME);
     }
   };
 
-  const restartTimer = () => {
+  const resetTimer = () => {
     setRunning(false);
     setTimeLeft(0);
     setActiveTimer(null);
@@ -105,7 +105,7 @@ export default () => {
       {running ? (
         <Container display="flex">
           <Button.Main
-            onClick={restartTimer}
+            onClick={resetTimer}
             width="150px"
             color={ColorSemanticError}
           >
