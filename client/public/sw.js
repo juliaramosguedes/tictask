@@ -10,10 +10,15 @@ let intervalRef;
 
 self.addEventListener('message', ({ data, source, waitUntil }) => {
   let timeLeft = data.time;
-  if (data.stop) {
+
+  const stop = () => {
     clearInterval(intervalRef);
     intervalRef = null;
     source.postMessage(0);
+  };
+
+  if (data.stop) {
+    stop();
     return;
   } else if (!intervalRef) {
     waitUntil(
@@ -23,6 +28,7 @@ self.addEventListener('message', ({ data, source, waitUntil }) => {
             timeLeft -= 1;
             source.postMessage(timeLeft);
           } else {
+            stop();
             resolve();
           }
         }, 1000);
