@@ -35,7 +35,7 @@ export const useGetTimer = () => {
     }, 1000);
 
     return () => workerTimers.clearInterval(intervalId);
-  }, [timeLeft, running]);
+  }, [timeLeft, timeLimit, running]);
 
   return {
     timeLeft: Duration.fromMillis(timeLeft * 1000).toFormat('mm:ss'),
