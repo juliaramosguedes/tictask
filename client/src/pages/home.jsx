@@ -92,8 +92,9 @@ export default () => {
           : 'tranparent'
       }
       height="100vh"
+      display="flex"
+      direction="column"
     >
-      <Separator transparent height={isDesktop ? '20vh' : '10vh'} />
       <Subtitle size={6} center white={running}>
         {activeTimer
           ? running
