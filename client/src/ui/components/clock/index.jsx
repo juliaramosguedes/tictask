@@ -16,24 +16,34 @@ export default ({
       'clock',
       css`
         position: relative;
-        width: 200px;
-        height: 200px;
+        width: 170px;
+        height: 170px;
         margin: 0 auto;
+        background-color: rgba(256, 256, 256, 0.3);
+        border-radius: 50%;
+        border: none;
+        z-index: 1;
 
         .base-timer__svg {
           transform: scaleX(-1);
           width: 200px;
           height: 200px;
+          top: -15px;
+          left: -15px;
+          position: absolute;
+          z-index: 2;
         }
 
         .base-timer__circle {
           fill: none;
           stroke: none;
+          z-index: 2;
         }
 
         .base-timer__path-elapsed {
           stroke-width: 1px;
           stroke: ${white ? 'white' : ColorBrandBase};
+          z-index: 2;
         }
 
         .base-timer__path-remaining {
@@ -45,31 +55,38 @@ export default ({
           fill-rule: nonzero;
           stroke: ${white ? 'white' : ColorBrandBase};
           stroke-dasharray: ${rawTimeFraction * 283} 283;
+          z-index: 2;
         }
 
         .base-timer__label {
           position: absolute;
           width: 200px;
           height: 200px;
-          top: 10px;
+          top: -10px;
+          left: -15px;
           display: flex;
           align-items: center;
           justify-content: center;
+          z-index: 2;
         }
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {
-          width: 270px;
-          height: 270px;
+          width: 230px;
+          height: 230px;
 
           .base-timer__svg {
             transform: scaleX(-1);
             width: 270px;
             height: 270px;
+            top: -20px;
+            left: -20px;
           }
 
           .base-timer__label {
             width: 270px;
             height: 270px;
+            top: -10px;
+            left: -20px;
           }
         }
       `,

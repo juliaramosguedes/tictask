@@ -101,13 +101,13 @@ export default () => {
             : INTERVAL[activeTimer].NAME
           : 'Vamos começar?'}
       </Subtitle>
-      <Separator transparent height="16px" />
+      <Separator transparent height="32px" />
       <Clock rawTimeFraction={rawTimeFraction} white={running}>
         <Title size={10} center white={running}>
           {timeLeft}
         </Title>
       </Clock>
-      <Separator transparent height="16px" />
+      <Separator transparent height="24px" />
       {running ? (
         <Container display="flex">
           <Button.Main
