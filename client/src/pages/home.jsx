@@ -99,7 +99,7 @@ export default () => {
           ? running
             ? INTERVAL[activeTimer].PHRASE
             : INTERVAL[activeTimer].NAME
-          : 'Descanse um pouco'}
+          : 'Vamos começar?'}
       </Subtitle>
       <Separator transparent height="16px" />
       <Clock rawTimeFraction={rawTimeFraction} white={running}>
