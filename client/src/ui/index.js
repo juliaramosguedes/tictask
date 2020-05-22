@@ -1,10 +1,12 @@
 export { default as Button } from './components/button';
+export { default as ColorToggle } from './components/color-toggle';
 export { default as Clock } from './components/clock';
 export { default as Container } from './components/container';
 export { default as Icon } from './components/icon';
 export { default as Loader } from './components/loader';
 export { default as Separator } from './components/separator';
 export { default as Subtitle } from './components/subtitle';
+export { default as Switch } from './components/switch';
 export { default as Text } from './components/text';
 export { default as Tooltip } from './components/tooltip';
 export { default as Title } from './components/title';

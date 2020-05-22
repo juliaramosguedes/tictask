@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorBrandBase } from '../../tokens';
+import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
   size = 1,
@@ -23,6 +23,10 @@ export default ({
         margin-bottom: ${noMargin ? 0 : '8px'};
         width: ${width};
         text-align: ${center ? 'center' : 'left'};
+
+        @media (min-width: ${SizeMinWidthScreenDesktop}) {
+          font-size: ${12 + size * 2}px;
+        }
       `,
       props.className
     )}

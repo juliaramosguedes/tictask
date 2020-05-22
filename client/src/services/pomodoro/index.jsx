@@ -27,10 +27,11 @@ export const useGetTimer = () => {
 
     const intervalId = workerTimers.setInterval(() => {
       if (running) {
-        setTimeLeft((timeLeft) => timeLeft - 1);
         setRawTimeFraction(
-          timeLeft / timeLimit - (1 / timeLimit) * (1 - timeLeft / timeLimit)
+          (timeLeft - 1) / timeLimit -
+            (1 / timeLimit) * (1 - (timeLeft - 1) / timeLimit)
         );
+        setTimeLeft((timeLeft) => timeLeft - 1);
       }
     }, 1000);
 

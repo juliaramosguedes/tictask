@@ -19,7 +19,7 @@ export default ({
         width: 170px;
         height: 170px;
         margin: 0 auto;
-        background-color: rgba(256, 256, 256, 0.3);
+        background-color: rgba(256, 256, 256, 0.1);
         border-radius: 50%;
         border: none;
         z-index: 1;
@@ -47,14 +47,14 @@ export default ({
         }
 
         .base-timer__path-remaining {
-          stroke-width: 5px;
+          stroke-width: 3px;
           stroke-linecap: square;
           transform: rotate(90deg);
           transform-origin: center;
           transition: 1s linear all;
           fill-rule: nonzero;
           stroke: ${white ? 'white' : ColorBrandBase};
-          stroke-dasharray: ${rawTimeFraction * 283} 283;
+          stroke-dasharray: ${rawTimeFraction * 280} 280;
           z-index: 2;
         }
 
