@@ -9,7 +9,6 @@ export const useGetTimer = () => {
   const [rawTimeFraction, setRawTimeFraction] = useState(1);
   const [running, setRunning] = useState(false);
   const [finished, setFinished] = useState(false);
-  const fullDashArray = 283;
 
   const onSetTime = (time) => {
     setTimeLeft(time);

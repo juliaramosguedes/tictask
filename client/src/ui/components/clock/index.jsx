@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { default as Icon } from '../icon';
-import { ColorBrandBase } from '../../tokens';
+import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
   children,
@@ -16,14 +16,14 @@ export default ({
       'clock',
       css`
         position: relative;
-        width: 300px;
-        height: 300px;
+        width: 200px;
+        height: 200px;
         margin: 0 auto;
 
         .base-timer__svg {
           transform: scaleX(-1);
-          width: 300px;
-          height: 300px;
+          width: 200px;
+          height: 200px;
         }
 
         .base-timer__circle {
@@ -49,12 +49,28 @@ export default ({
 
         .base-timer__label {
           position: absolute;
-          width: 300px;
-          height: 300px;
+          width: 200px;
+          height: 200px;
           top: 10px;
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+
+        @media (min-width: ${SizeMinWidthScreenDesktop}) {
+          width: 270px;
+          height: 270px;
+
+          .base-timer__svg {
+            transform: scaleX(-1);
+            width: 270px;
+            height: 270px;
+          }
+
+          .base-timer__label {
+            width: 270px;
+            height: 270px;
+          }
         }
       `,
       props.className

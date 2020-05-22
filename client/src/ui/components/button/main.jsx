@@ -1,16 +1,17 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorBrandBase } from '../../index';
+import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
   border = false,
   children,
   color = ColorBrandBase,
-  padding = '16px 16px',
-  borderRadius = '50%',
+  padding = '8px 8px',
+  borderRadius = '8px',
   small = false,
   transparent = false,
   gradient = '',
+  circle = false,
   width = 'auto',
   ...props
 }) => (
@@ -18,16 +19,21 @@ export default ({
     {...props}
     className={cx(
       'main-button',
+      circle && 'circle',
       css`
         background-color: ${transparent ? 'transparent' : color};
         background-image: ${gradient};
         border: ${border ? '1px solid ' + color : 'none'};
         margin: 0;
         padding: ${padding};
-        width: 100px;
-        height: 100px;
         border-radius: ${borderRadius};
         cursor: pointer;
+
+        &.circle {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+        }
 
         p {
           color: ${transparent ? color : 'white'};
@@ -43,6 +49,14 @@ export default ({
 
           path {
             stroke: ${transparent ? ColorBrandBase : 'white'};
+          }
+        }
+
+        @media (min-width: ${SizeMinWidthScreenDesktop}) {
+          &.circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
           }
         }
       `,

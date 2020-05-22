@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorBrandBase } from '../../tokens';
+import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
   size = 2,
@@ -18,12 +18,16 @@ export default ({
     className={cx(
       'title',
       css`
-        font-size: ${12 + size * 4}px;
+        font-size: ${12 + size * 3}px;
         font-weight: ${weight};
         color: ${white ? 'white' : color};
         margin: ${noMargin ? 0 : '0 0 16px'};
         width: ${width};
         text-align: ${center ? 'center' : 'start'};
+
+        @media (min-width: ${SizeMinWidthScreenDesktop}) {
+          font-size: ${12 + size * 4}px;
+        }
       `,
       props.className
     )}

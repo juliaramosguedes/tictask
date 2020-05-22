@@ -93,24 +93,31 @@ export default () => {
       }
       height="100vh"
     >
-      <Separator transparent height={isDesktop ? '30vh' : '20vh'} />
-      <Subtitle size={isDesktop ? 12 : 9} center white={running}>
+      <Separator transparent height={isDesktop ? '20vh' : '10vh'} />
+      <Subtitle size={6} center white={running}>
         {activeTimer
           ? running
             ? INTERVAL[activeTimer].PHRASE
             : INTERVAL[activeTimer].NAME
-          : 'Vamos começar?'}
+          : 'Descanse um pouco'}
       </Subtitle>
       <Separator transparent height="16px" />
       <Clock rawTimeFraction={rawTimeFraction} white={running}>
-        <Title size={isDesktop ? 12 : 9} center white={running}>
+        <Title size={10} center white={running}>
           {timeLeft}
         </Title>
       </Clock>
       <Separator transparent height="16px" />
       {running ? (
         <Container display="flex">
-          <Button.Main onClick={resetTimer} transparent color="white" border>
+          <Button.Main
+            onClick={resetTimer}
+            transparent
+            color="white"
+            border
+            small={!isDesktop}
+            circle
+          >
             <p>PARAR</p>
           </Button.Main>
         </Container>
@@ -123,6 +130,8 @@ export default () => {
               transparent
               color={ColorBrandBase}
               border
+              small={!isDesktop}
+              circle
             >
               <p>RELAXAR</p>
             </Button.Main>
@@ -132,6 +141,8 @@ export default () => {
               transparent
               color={ColorBrandBase}
               border
+              small={!isDesktop}
+              circle
             >
               <p>INICIAR</p>
             </Button.Main>
