@@ -31,7 +31,7 @@ export default () => {
   } = useGetTimer();
 
   const [counter, setCounter] = useState(0);
-  const [activeTimer, setActiveTimer] = useState(INTERVAL.SHORTBREAK.KEY);
+  const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
   const [playAudio, setPlayAudio] = useState(true);
   const [automatic, setAutomatic] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState(

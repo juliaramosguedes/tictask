@@ -13,6 +13,7 @@ export default ({
   gradient = '',
   circle = false,
   width = 'auto',
+  bold = false,
   ...props
 }) => (
   <button
@@ -38,7 +39,7 @@ export default ({
         p {
           color: ${transparent ? color : 'white'};
           font-size: ${small ? 12 : 16}px;
-          font-weight: bold;
+          font-weight: ${bold ? 'bold' : 'normal'};
           margin: 0;
           text-align: center;
         }
