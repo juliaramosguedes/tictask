@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { getColor } from '../../../utils';
-import { ColorBrandBase } from '../../index';
+import { ColorBrandBase } from '../../tokens';
 
 export default ({
   size = 32,

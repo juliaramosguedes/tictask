@@ -1,12 +1,12 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorNeutralDarker } from '../../index';
+import { ColorBrandBase } from '../../tokens';
 
 export default ({
   size = 2,
   weight = 'normal',
   noMargin = false,
-  color = ColorNeutralDarker,
+  color = ColorBrandBase,
   width = '100%',
   white = false,
   center = false,

@@ -6,8 +6,8 @@ export default ({
   border = false,
   children,
   color = ColorBrandBase,
-  padding = '16px 24px',
-  borderRadius = '4px',
+  padding = '16px 16px',
+  borderRadius = '50%',
   small = false,
   transparent = false,
   gradient = '',
@@ -24,7 +24,8 @@ export default ({
         border: ${border ? '1px solid ' + color : 'none'};
         margin: 0;
         padding: ${padding};
-        width: ${width};
+        width: 100px;
+        height: 100px;
         border-radius: ${borderRadius};
         cursor: pointer;
 

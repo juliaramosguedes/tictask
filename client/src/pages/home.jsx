@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useGetTimer } from '../services';
 import {
   Button,
-  ColorSemanticError,
+  Clock,
+  ColorBrandBase,
   Container,
   GradientInterval,
   GradientPomodoro,
@@ -23,7 +24,8 @@ export default () => {
     running,
     finished,
     setRunning,
-    setTimeLeft,
+    onSetTime,
+    rawTimeFraction,
   } = useGetTimer();
 
   const [counter, setCounter] = useState(0);
@@ -45,7 +47,7 @@ export default () => {
 
   const initiateTimer = (interval) => {
     setRunning(true);
-    setTimeLeft(interval * 60);
+    onSetTime(interval * 60);
     setPlayAudio(true);
   };
 
@@ -67,7 +69,7 @@ export default () => {
 
   const resetTimer = () => {
     setRunning(false);
-    setTimeLeft(0);
+    onSetTime(0);
     setActiveTimer(null);
     setPlayAudio(false);
     setCounter(0);
@@ -92,9 +94,6 @@ export default () => {
       height="100vh"
     >
       <Separator transparent height={isDesktop ? '30vh' : '20vh'} />
-      <Title size={isDesktop ? 12 : 9} center white={running}>
-        {timeLeft}
-      </Title>
       <Subtitle size={isDesktop ? 12 : 9} center white={running}>
         {activeTimer
           ? running
@@ -102,33 +101,41 @@ export default () => {
             : INTERVAL[activeTimer].NAME
           : 'Vamos começar?'}
       </Subtitle>
+      <Separator transparent height="16px" />
+      <Clock rawTimeFraction={rawTimeFraction} white={running}>
+        <Title size={isDesktop ? 12 : 9} center white={running}>
+          {timeLeft}
+        </Title>
+      </Clock>
+      <Separator transparent height="16px" />
       {running ? (
         <Container display="flex">
-          <Button.Main
-            onClick={resetTimer}
-            width="150px"
-            color={ColorSemanticError}
-          >
-            <p>Recomeçar</p>
+          <Button.Main onClick={resetTimer} transparent color="white" border>
+            <p>PARAR</p>
           </Button.Main>
         </Container>
       ) : (
         <Container display="flex">
-          <Button.Main
-            onClick={initiatePomodoro}
-            width="120px"
-            gradient={GradientPomodoro}
-          >
-            <p>Iniciar</p>
-          </Button.Main>
-          <Separator transparent width="16px" />
-          <Button.Main
-            onClick={initiateBreak}
-            gradient={GradientInterval}
-            width="120px"
-          >
-            <p>Intervalo</p>
-          </Button.Main>
+          {activeTimer === INTERVAL.SHORTBREAK.KEY ||
+          activeTimer === INTERVAL.LONGBREAK.KEY ? (
+            <Button.Main
+              onClick={initiateBreak}
+              transparent
+              color={ColorBrandBase}
+              border
+            >
+              <p>RELAXAR</p>
+            </Button.Main>
+          ) : (
+            <Button.Main
+              onClick={initiatePomodoro}
+              transparent
+              color={ColorBrandBase}
+              border
+            >
+              <p>INICIAR</p>
+            </Button.Main>
+          )}
         </Container>
       )}
       <audio id="ring" src={audio}></audio>

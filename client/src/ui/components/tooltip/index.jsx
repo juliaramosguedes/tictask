@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorDarkBackground } from '../../index';
+import { ColorDarkBackground } from '../../tokens';
 
 export default ({ SvgIcon, onClick, text, size, ...props }) => (
   <div

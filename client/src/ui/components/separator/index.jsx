@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { Separator as Base } from 'reakit/Separator';
-import { ColorNeutralLighter } from '../../index';
+import { ColorNeutralLighter } from '../../tokens';
 
 export default ({
   size = 0,
