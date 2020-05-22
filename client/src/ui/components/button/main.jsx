@@ -30,8 +30,8 @@ export default ({
         cursor: pointer;
 
         &.circle {
-          width: 80px;
-          height: 80px;
+          width: 70px;
+          height: 70px;
           border-radius: 50%;
         }
 
