@@ -101,7 +101,7 @@ export default () => {
             : INTERVAL[activeTimer].NAME
           : 'Vamos começar?'}
       </Subtitle>
-      <Separator transparent height="32px" />
+      <Separator transparent height="48px" />
       <Clock rawTimeFraction={rawTimeFraction} white={running}>
         <Title size={10} center white={running}>
           {timeLeft}
