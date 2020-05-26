@@ -11,18 +11,15 @@ export default ({ color = 'white', ...props }) => (
     className={cx(
       'footer',
       css`
-        position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        max-width: 70%;
+        max-width: 200px;
+        margin: 0 auto;
 
         a {
           color: ${color};
         }
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {
-          max-width: 90%;
+          max-width: 400px;
         }
       `,
       props.className

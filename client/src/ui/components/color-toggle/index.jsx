@@ -9,7 +9,7 @@ export default ({ onToggleColor, ...props }) => (
     className={cx(
       'button-toggle-color',
       css`
-        position: absolute;
+        position: fixed;
         bottom: 16px;
         right: 16px;
         border: 0;
