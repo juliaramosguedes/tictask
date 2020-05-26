@@ -228,6 +228,7 @@ export default () => {
         </Text>
       </Switch>
       <ColorToggle onClick={onToggleColor} />
+      <Separator transparent height="60px" />
       <Footer
         color={
           backgroundColor === BACKGROUND_COLOR.WHITE.KEY
