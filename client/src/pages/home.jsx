@@ -125,9 +125,8 @@ export default () => {
           : BACKGROUND_COLOR[backgroundColor].INTERVAL
       }
       height="100vh"
-      display="flex"
-      direction="column"
     >
+      <Separator transparent height={isDesktop ? '24px' : '0'} />
       <Subtitle
         size={6}
         center
@@ -228,7 +227,6 @@ export default () => {
         </Text>
       </Switch>
       <ColorToggle onClick={onToggleColor} />
-      <Separator transparent height={isDesktop ? '10vh' : '5vh'} />
       <Footer
         color={
           backgroundColor === BACKGROUND_COLOR.WHITE.KEY

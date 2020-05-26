@@ -11,8 +11,11 @@ export default ({ color = 'white', ...props }) => (
     className={cx(
       'footer',
       css`
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translate(-50%, 0);
         max-width: 200px;
-        margin: 0 auto;
 
         a {
           color: ${color};
@@ -20,12 +23,13 @@ export default ({ color = 'white', ...props }) => (
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {
           max-width: 400px;
+          bottom: 32px;
         }
       `,
       props.className
     )}
   >
-    <Text color={color} center>
+    <Text color={color} center noMargin>
       Desenvolvido com <FontAwesomeIcon icon={faHeart} color={color} /> &{' '}
       <FontAwesomeIcon icon={faCoffee} color={color} /> por{' '}
       <a href="https://www.linkedin.com/in/julia-ramos-guedes/">Julia Ramos</a>{' '}
