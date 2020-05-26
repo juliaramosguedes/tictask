@@ -15,6 +15,7 @@ import {
 } from '../ui';
 import { INTERVAL, BACKGROUND_COLOR } from '../constants';
 import { useBreakpoint } from '../hooks';
+import { Footer } from '../components';
 import audio from '../assets/Bell 03.mp3';
 
 export default () => {
@@ -227,6 +228,13 @@ export default () => {
         </Text>
       </Switch>
       <ColorToggle onClick={onToggleColor} />
+      <Footer
+        color={
+          backgroundColor === BACKGROUND_COLOR.WHITE.KEY
+            ? ColorBrandBase
+            : 'white'
+        }
+      />
       <audio id="ring" src={audio}></audio>
     </Container>
   );
