@@ -3,13 +3,14 @@ import { css, cx } from 'emotion';
 
 export default ({
   margin = '0',
-  padding = '16px',
+  padding,
   display = 'block',
   justifyContent = 'center',
   direction = 'row',
   maxWidth = '100%',
   height = 'auto',
   color = 'transparent',
+  position = 'relative',
   ...props
 }) => (
   <div
@@ -23,8 +24,9 @@ export default ({
         justify-content: ${justifyContent};
         flex-direction: ${direction};
         max-width: ${maxWidth};
-        height: ${height};
+        min-height: ${height};
         background-image: ${color};
+        position: ${position};
       `,
       props.className
     )}

@@ -125,8 +125,8 @@ export default () => {
           : BACKGROUND_COLOR[backgroundColor].INTERVAL
       }
       height="100vh"
+      padding={isDesktop ? '40px 0 66px' : '16px 0 68px'}
     >
-      <Separator transparent height={isDesktop ? '24px' : '0'} />
       <Subtitle
         size={6}
         center
@@ -151,7 +151,7 @@ export default () => {
           {timeLeft}
         </Title>
       </Clock>
-      <Separator transparent height="24px" />
+      <Separator transparent height="36px" />
       {running ? (
         <Container display="flex">
           <Button.Main
@@ -205,7 +205,7 @@ export default () => {
           )}
         </Container>
       )}
-      <Separator transparent height="12px" />
+      <Separator transparent height="24px" />
       <Switch
         onToggleAutomatic={onToggleAutomatic}
         color={
