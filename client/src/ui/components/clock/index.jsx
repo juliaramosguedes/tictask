@@ -1,15 +1,9 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { default as Icon } from '../icon';
-import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
+import { SizeMinWidthScreenDesktop } from '../../tokens';
 
-export default ({
-  children,
-  timeLeft,
-  white = false,
-  rawTimeFraction,
-  ...props
-}) => (
+export default ({ children, timeLeft, color, rawTimeFraction, ...props }) => (
   <div
     {...props}
     className={cx(
@@ -42,7 +36,7 @@ export default ({
 
         .base-timer__path-elapsed {
           stroke-width: 1px;
-          stroke: ${white ? 'white' : ColorBrandBase};
+          stroke: ${color};
           z-index: 2;
         }
 
@@ -53,7 +47,7 @@ export default ({
           transform-origin: center;
           transition: 1s linear all;
           fill-rule: nonzero;
-          stroke: ${white ? 'white' : ColorBrandBase};
+          stroke: ${color};
           stroke-dasharray: ${rawTimeFraction * 280} 280;
           z-index: 2;
         }

@@ -1,4 +1,14 @@
-import { GradientDark, GradientInterval, GradientPomodoro } from '../ui';
+import {
+  GradientPomodoro,
+  GradientDarkPomodoro,
+  GradientInterval,
+  GradientDarkInterval,
+  ColorNeutralYellow,
+  ColorBrandBase,
+  ColorNeutralGreen,
+  ColorLightGreen,
+  ColorNeutralLightDark,
+} from '../ui';
 
 export const INTERVAL = {
   POMODORO: {
@@ -6,35 +16,86 @@ export const INTERVAL = {
     NAME: 'POMODORO',
     PHRASE: 'Concentre-se!',
     KEY: 'POMODORO',
+    TYPE: 'POMODORO',
   },
   SHORTBREAK: {
     TIME: 5,
     NAME: 'INTERVALO',
     PHRASE: 'Descanse um pouco.',
     KEY: 'SHORTBREAK',
+    TYPE: 'BREAK',
   },
   LONGBREAK: {
     TIME: 15,
     NAME: 'INTERVALO LONGO',
     PHRASE: 'Faça um intervalo maior dessa vez.',
     KEY: 'LONGBREAK',
+    TYPE: 'BREAK',
   },
 };
 
-export const BACKGROUND_COLOR = {
+export const THEME = {
   WHITE: {
-    POMODORO: 'transparent',
-    INTERVAL: 'transparent',
     KEY: 'WHITE',
+    POMODORO: {
+      BACKGROUND_COLOR: 'transparent',
+      COLOR: ColorBrandBase,
+      AUTOMATIC_BUTTON: {
+        BACKGROUND_COLOR: ColorBrandBase,
+        COLOR: ColorNeutralLightDark,
+      },
+      CLOCK: ColorBrandBase,
+    },
+    BREAK: {
+      BACKGROUND_COLOR: 'transparent',
+      COLOR: ColorNeutralGreen,
+      AUTOMATIC_BUTTON: {
+        BACKGROUND_COLOR: ColorNeutralGreen,
+        COLOR: ColorNeutralLightDark,
+      },
+      CLOCK: ColorNeutralGreen,
+    },
   },
   DARK: {
-    POMODORO: GradientDark,
-    INTERVAL: GradientDark,
     KEY: 'DARK',
+    POMODORO: {
+      BACKGROUND_COLOR: GradientDarkPomodoro,
+      COLOR: 'white',
+      AUTOMATIC_BUTTON: {
+        BACKGROUND_COLOR: ColorBrandBase,
+        COLOR: 'white',
+      },
+      CLOCK: ColorBrandBase,
+    },
+    BREAK: {
+      BACKGROUND_COLOR: GradientDarkInterval,
+      COLOR: 'white',
+      AUTOMATIC_BUTTON: {
+        BACKGROUND_COLOR: ColorLightGreen,
+        COLOR: 'white',
+      },
+      CLOCK: ColorLightGreen,
+    },
   },
   BRAND: {
-    POMODORO: GradientPomodoro,
-    INTERVAL: GradientInterval,
     KEY: 'BRAND',
+    POMODORO: {
+      BACKGROUND_COLOR: GradientPomodoro,
+      COLOR: 'white',
+      AUTOMATIC_BUTTON: {
+        BACKGROUND_COLOR: ColorNeutralYellow,
+        COLOR: 'white',
+      },
+      CLOCK: 'white',
+    },
+    BREAK: {
+      BACKGROUND_COLOR: GradientInterval,
+      COLOR: 'white',
+      AUTOMATIC_BUTTON: {
+        BACKGROUND_COLOR: ColorNeutralYellow,
+        COLOR: 'white',
+      },
+      CLOCK: 'white',
+    },
   },
 };

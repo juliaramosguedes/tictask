@@ -8,6 +8,8 @@ export const ColorNeutralBackground = '#f5f7fb';
 export const ColorLightBackground = '#E5E5E5';
 export const ColorNeutralLighter = '#d6e1eb';
 export const ColorNeutralYellow = '#F8C805';
+export const ColorLightGreen = '#4FFFD0';
+export const ColorNeutralGreen = '#08A87D';
 
 export const ColorAccentBase = '#ffb800';
 export const ColorAccentLight = '#ffce4d';
@@ -27,11 +29,13 @@ export const DarkBoxShadow = '0px 2px 20px 0px rgba(0, 0, 0, 0.08)';
 export const TickBoxShadow = '0px 2px 7px rgba(0, 0, 0, 0.14)';
 
 export const GradientInterval =
-  'linear-gradient(to left top, #845ec2, #7466c8, #626ecc, #4e74cf, #0f8fd7, #00aadc, #00bad7, #00c8c9, #0ed4b7);';
+  'linear-gradient(119.02deg, #10C998 16.52%, #08A87D 48.43%, #067759 79.04%);';
+export const GradientDarkInterval =
+  'linear-gradient(119.02deg, #677D80 16.52%, #506264 48.43%, #3A4648 79.04%);';
 export const GradientPomodoro =
-  'linear-gradient(to right bottom, #f86624, #f85a2c, #f84d34, #f63f3c, #f43043, #ed2846, #e62049, #de174b, #d11949, #c41b47, #b71c45, #aa1d42)';
-export const GradientDark =
-  'linear-gradient(to right bottom, #340310, #320809, #2f0e04, #2c1204, #281606, #231806, #1e190a, #1a190e, #141810, #0f1611, #0c1311, #0c0f0f)';
+  'linear-gradient(119.02deg, #F86624 16.52%, #F0134D 48.43%, #AA1D42 79.04%);';
+export const GradientDarkPomodoro =
+  'linear-gradient(119.02deg, #340310 16.52%, #231A0E 48.43%, #0C0F0F 79.04%);';
 
 export const SizeMaxWidthScreenMobile = '500px';
 export const SizeMinWidthScreenTablet = '501px';

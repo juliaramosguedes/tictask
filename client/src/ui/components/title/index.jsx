@@ -1,14 +1,13 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
+import { SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
   size = 2,
   weight = 900,
   noMargin = false,
-  color = ColorBrandBase,
+  color,
   center = false,
-  white = false,
   width = '100%',
   ...props
 }) => (
@@ -20,7 +19,7 @@ export default ({
       css`
         font-size: ${12 + size * 3}px;
         font-weight: ${weight};
-        color: ${white ? 'white' : color};
+        color: ${color};
         margin: ${noMargin ? 0 : '0 0 16px'};
         width: ${width};
         text-align: ${center ? 'center' : 'start'};

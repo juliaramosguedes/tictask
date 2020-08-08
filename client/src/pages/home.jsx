@@ -4,8 +4,6 @@ import {
   Button,
   Clock,
   ColorToggle,
-  ColorBrandBase,
-  ColorNeutralYellow,
   Container,
   Separator,
   Subtitle,
@@ -13,7 +11,7 @@ import {
   Text,
   Title,
 } from '../ui';
-import { INTERVAL, BACKGROUND_COLOR } from '../constants';
+import { INTERVAL, THEME } from '../constants';
 import { useBreakpoint } from '../hooks';
 import { Footer } from '../components';
 import audio from '../assets/Bell 03.mp3';
@@ -35,9 +33,7 @@ export default () => {
   const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
   const [playAudio, setPlayAudio] = useState(true);
   const [automatic, setAutomatic] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState(
-    BACKGROUND_COLOR.BRAND.KEY
-  );
+  const [backgroundColor, setBackgroundColor] = useState(THEME.BRAND.KEY);
 
   const initiateTimer = useCallback(
     (interval) => {
@@ -81,12 +77,9 @@ export default () => {
   const onToggleAutomatic = () => setAutomatic(!automatic);
   const onToggleColor = () =>
     setBackgroundColor(() => {
-      if (backgroundColor === BACKGROUND_COLOR.BRAND.KEY)
-        return BACKGROUND_COLOR.WHITE.KEY;
-      if (backgroundColor === BACKGROUND_COLOR.WHITE.KEY)
-        return BACKGROUND_COLOR.DARK.KEY;
-      if (backgroundColor === BACKGROUND_COLOR.DARK.KEY)
-        return BACKGROUND_COLOR.BRAND.KEY;
+      if (backgroundColor === THEME.BRAND.KEY) return THEME.WHITE.KEY;
+      if (backgroundColor === THEME.WHITE.KEY) return THEME.DARK.KEY;
+      if (backgroundColor === THEME.DARK.KEY) return THEME.BRAND.KEY;
     });
 
   useEffect(() => {
@@ -120,9 +113,7 @@ export default () => {
   return (
     <Container
       color={
-        activeTimer === INTERVAL.POMODORO.KEY
-          ? BACKGROUND_COLOR[backgroundColor].POMODORO
-          : BACKGROUND_COLOR[backgroundColor].INTERVAL
+        THEME[backgroundColor][INTERVAL[activeTimer].TYPE].BACKGROUND_COLOR
       }
       height="100vh"
       padding={isDesktop ? '40px 0 66px' : '16px 0 68px'}
@@ -130,7 +121,7 @@ export default () => {
       <Subtitle
         size={6}
         center
-        white={backgroundColor !== BACKGROUND_COLOR.WHITE.KEY}
+        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
       >
         {activeTimer
           ? running
@@ -141,12 +132,12 @@ export default () => {
       <Separator transparent height="48px" />
       <Clock
         rawTimeFraction={rawTimeFraction}
-        white={backgroundColor === BACKGROUND_COLOR.BRAND.KEY}
+        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].CLOCK}
       >
         <Title
           size={10}
           center
-          white={backgroundColor !== BACKGROUND_COLOR.WHITE.KEY}
+          color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
         >
           {timeLeft}
         </Title>
@@ -157,11 +148,7 @@ export default () => {
           <Button.Main
             onClick={onResetTimer}
             transparent
-            color={
-              backgroundColor === BACKGROUND_COLOR.WHITE.KEY
-                ? ColorBrandBase
-                : 'white'
-            }
+            color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
             border
             small={!isDesktop}
             circle
@@ -176,11 +163,7 @@ export default () => {
             <Button.Main
               onClick={onInitiateBreak}
               transparent
-              color={
-                backgroundColor === BACKGROUND_COLOR.WHITE.KEY
-                  ? ColorBrandBase
-                  : 'white'
-              }
+              color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
               border
               small={!isDesktop}
               circle
@@ -191,11 +174,7 @@ export default () => {
             <Button.Main
               onClick={onInitiatePomodoro}
               transparent
-              color={
-                backgroundColor === BACKGROUND_COLOR.WHITE.KEY
-                  ? ColorBrandBase
-                  : 'white'
-              }
+              color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
               border
               small={!isDesktop}
               circle
@@ -209,17 +188,15 @@ export default () => {
       <Switch
         onToggleAutomatic={onToggleAutomatic}
         color={
-          backgroundColor === BACKGROUND_COLOR.BRAND.KEY
-            ? ColorNeutralYellow
-            : ColorBrandBase
+          THEME[backgroundColor][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
+            .BACKGROUND_COLOR
         }
       >
         <Text
           width="auto"
           color={
-            backgroundColor === BACKGROUND_COLOR.WHITE.KEY
-              ? ColorBrandBase
-              : 'white'
+            THEME[backgroundColor][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
+              .COLOR
           }
           size={isDesktop ? 2 : 1}
         >
@@ -228,11 +205,7 @@ export default () => {
       </Switch>
       <ColorToggle onClick={onToggleColor} />
       <Footer
-        color={
-          backgroundColor === BACKGROUND_COLOR.WHITE.KEY
-            ? ColorBrandBase
-            : 'white'
-        }
+        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
       />
       <audio id="ring" src={audio}></audio>
     </Container>
