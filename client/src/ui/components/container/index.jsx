@@ -27,6 +27,7 @@ export default ({
         min-height: ${height};
         background-image: ${color};
         position: ${position};
+        align-items: center;
       `,
       props.className
     )}

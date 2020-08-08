@@ -1,17 +1,17 @@
 import React from 'react';
 import { Duration } from 'luxon';
-import { Container, Separator, Span, Text, ColorNeutralYellow } from '../../ui';
+import { Container, Span, Text, ColorNeutralYellow } from '../../ui';
 
 export default ({ color, time, icon: Icon, span }) => (
   <Container display="flex">
     <Icon size={18} color={color} />
-    <Separator width="5px" transparent />
-    <Text color={color} center width="auto">
+    <Text color={color} center width="auto" size={2} noMargin>
+      &nbsp;
       {Duration.fromObject({
         minute: time,
       }).toFormat('hh:mm:ss')}{' '}
       &nbsp;minutos de&nbsp;
-      <Span color={ColorNeutralYellow} bold>
+      <Span color={ColorNeutralYellow} bold size={2}>
         {span}
       </Span>
     </Text>
