@@ -34,9 +34,7 @@ export default ({ color, counter, ...props }) => (
         icon={RiRecordCircleLine}
         span="foco"
       />
-      &nbsp;
       <BsDot size={24} color={'rgba(0, 0, 0, 0.2)'} />
-      &nbsp;
       <HistoryStatus
         color={color}
         time={
