@@ -37,8 +37,8 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: rgba(153, 153, 153, 0.5);
-          box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
+          background-color: rgba(153, 153, 153, 0.25);
+          box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
           -webkit-transition: 0.4s;
           transition: 0.4s;
         }
