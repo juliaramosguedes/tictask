@@ -1,4 +1,5 @@
 import React from 'react';
+import { Duration } from 'luxon';
 import { RiRecordCircleLine, RiIndeterminateCircleLine } from 'react-icons/ri';
 import { BsDot } from 'react-icons/bs';
 import {
@@ -9,8 +10,9 @@ import {
   Text,
   ColorNeutralYellow,
 } from '../../ui';
+import { INTERVAL } from '../../constants';
 
-export default ({ color, pomodoroTime = '00:00', breakTime = '00:00' }) => (
+export default ({ color, counter }) => (
   <>
     <Subtitle color={color} center noMargin weight="bold">
       Como estamos hoje?
@@ -19,7 +21,10 @@ export default ({ color, pomodoroTime = '00:00', breakTime = '00:00' }) => (
       <Text color={color} center width="auto" display="flex">
         <RiRecordCircleLine size={18} />
         <Separator width="5px" transparent />
-        {pomodoroTime} minutos de
+        {Duration.fromObject({
+          minute: counter.POMODORO * INTERVAL.POMODORO.TIME,
+        }).toFormat('hh:mm:ss')}{' '}
+        minutos de
         <Separator width="5px" transparent />
         <Span color={ColorNeutralYellow} bold>
           foco
@@ -29,7 +34,12 @@ export default ({ color, pomodoroTime = '00:00', breakTime = '00:00' }) => (
       <Text color={color} center width="auto" display="flex">
         <RiIndeterminateCircleLine size={18} />
         <Separator width="5px" transparent />
-        {breakTime} minutos de
+        {Duration.fromObject({
+          minute:
+            counter.SHORTBREAK * INTERVAL.SHORTBREAK.TIME +
+            counter.LONGBREAK * INTERVAL.LONGBREAK.TIME,
+        }).toFormat('hh:mm:ss')}{' '}
+        minutos de
         <Separator width="5px" transparent />
         <Span color={ColorNeutralYellow} bold>
           pausa

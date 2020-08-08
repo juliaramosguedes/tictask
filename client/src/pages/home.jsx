@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { DateTime } from 'luxon';
 import { useGetTimer } from '../services';
 import {
   Button,
@@ -29,11 +30,27 @@ export default () => {
     rawTimeFraction,
   } = useGetTimer();
 
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(() => {
+    let counter = localStorage.getItem('counter');
+    let date = localStorage.getItem('date');
+    date = JSON.parse(date);
+    const currentDate = DateTime.local().toFormat('yyyy-MM-dd');
+
+    if (counter && date === currentDate) {
+      counter = JSON.parse(counter);
+      return counter;
+    } else {
+      return {
+        POMODORO: 0,
+        SHORTBREAK: 0,
+        LONGBREAK: 0,
+      };
+    }
+  });
   const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
   const [playAudio, setPlayAudio] = useState(true);
   const [automatic, setAutomatic] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState(THEME.BRAND.KEY);
+  const [theme, setTheme] = useState(THEME.BRAND.KEY);
 
   const initiateTimer = useCallback(
     (interval) => {
@@ -46,12 +63,11 @@ export default () => {
 
   const onInitiatePomodoro = useCallback(() => {
     initiateTimer(INTERVAL.POMODORO.TIME);
-    setCounter(counter + 1);
     setActiveTimer(INTERVAL.POMODORO.KEY);
   }, [counter, initiateTimer]);
 
   const onInitiateBreak = useCallback(() => {
-    if (counter > 0 && counter % 4 === 0) {
+    if (counter.pomodoro > 0 && counter.pomodoro % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
       initiateTimer(INTERVAL.LONGBREAK.TIME);
     } else {
@@ -63,9 +79,7 @@ export default () => {
   const onResetTimer = () => {
     setRunning(false);
     onSetTime(0);
-    setActiveTimer(null);
     setPlayAudio(false);
-    setCounter(0);
   };
 
   const playRing = () => {
@@ -76,14 +90,29 @@ export default () => {
 
   const onToggleAutomatic = () => setAutomatic(!automatic);
   const onToggleColor = () =>
-    setBackgroundColor(() => {
-      if (backgroundColor === THEME.BRAND.KEY) return THEME.WHITE.KEY;
-      if (backgroundColor === THEME.WHITE.KEY) return THEME.DARK.KEY;
-      if (backgroundColor === THEME.DARK.KEY) return THEME.BRAND.KEY;
+    setTheme(() => {
+      if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
+      if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
+      if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
     });
 
   useEffect(() => {
     if (finished && playAudio) {
+      setCounter((counter) => ({
+        ...counter,
+        [activeTimer]: counter[activeTimer] + 1,
+      }));
+      localStorage.setItem(
+        'counter',
+        JSON.stringify({
+          ...counter,
+          [activeTimer]: counter[activeTimer] + 1,
+        })
+      );
+      localStorage.setItem(
+        'date',
+        JSON.stringify(DateTime.local().toFormat('yyyy-MM-dd'))
+      );
       setActiveTimer(() => {
         if (activeTimer === INTERVAL.POMODORO.KEY) {
           return INTERVAL.SHORTBREAK.KEY;
@@ -112,16 +141,14 @@ export default () => {
 
   return (
     <Container
-      color={
-        THEME[backgroundColor][INTERVAL[activeTimer].TYPE].BACKGROUND_COLOR
-      }
+      color={THEME[theme][INTERVAL[activeTimer].TYPE].BACKGROUND_COLOR}
       height="100vh"
       padding={isDesktop ? '40px 0 66px' : '16px 0 68px'}
     >
       <Subtitle
         size={6}
         center
-        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
+        color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
       >
         {activeTimer
           ? running
@@ -132,12 +159,12 @@ export default () => {
       <Separator transparent height="48px" />
       <Clock
         rawTimeFraction={rawTimeFraction}
-        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].CLOCK}
+        color={THEME[theme][INTERVAL[activeTimer].TYPE].CLOCK}
       >
         <Title
           size={10}
           center
-          color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
+          color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
         >
           {timeLeft}
         </Title>
@@ -148,7 +175,7 @@ export default () => {
           <Button.Main
             onClick={onResetTimer}
             transparent
-            color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
+            color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
             border
             small={!isDesktop}
             circle
@@ -163,7 +190,7 @@ export default () => {
             <Button.Main
               onClick={onInitiateBreak}
               transparent
-              color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
+              color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
               border
               small={!isDesktop}
               circle
@@ -174,7 +201,7 @@ export default () => {
             <Button.Main
               onClick={onInitiatePomodoro}
               transparent
-              color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
+              color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
               border
               small={!isDesktop}
               circle
@@ -188,15 +215,14 @@ export default () => {
       <Switch
         onToggleAutomatic={onToggleAutomatic}
         color={
-          THEME[backgroundColor][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
+          THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
             .BACKGROUND_COLOR
         }
       >
         <Text
           width="auto"
           color={
-            THEME[backgroundColor][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
-              .COLOR
+            THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON.COLOR
           }
           size={isDesktop ? 2 : 1}
         >
@@ -205,12 +231,11 @@ export default () => {
       </Switch>
       <Separator transparent size={10} />
       <History
-        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
+        color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+        counter={counter}
       />
       <ColorToggle onClick={onToggleColor} />
-      <Footer
-        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
-      />
+      <Footer color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR} />
       <audio id="ring" src={audio}></audio>
     </Container>
   );
