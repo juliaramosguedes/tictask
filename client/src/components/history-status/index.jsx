@@ -4,7 +4,7 @@ import { Container, Span, Text, ColorNeutralYellow } from '../../ui';
 
 export default ({ color, time, icon: Icon, span }) => (
   <Container display="flex">
-    <Icon size={18} color={color} />
+    <Icon size={20} color={color} />
     <Text color={color} center width="auto" size={2} noMargin>
       &nbsp;
       {Duration.fromObject({
