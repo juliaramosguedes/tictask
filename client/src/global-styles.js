@@ -62,14 +62,9 @@ body {
   height: 100%;
   /* prettier-ignore */
   font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
     'Noto Sans',
     sans-serif,
+    -apple-system,
     'Apple Color Emoji',
     'Segoe UI Emoji',
     'Segoe UI Symbol',
