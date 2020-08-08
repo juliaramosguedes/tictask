@@ -5,15 +5,12 @@ import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 export default ({
   size = 1,
   bold = false,
-  noMargin = false,
   color = ColorBrandBase,
-  width = '100%',
   center = false,
   white = false,
-  display = 'block',
   ...props
 }) => (
-  <p
+  <span
     {...props}
     className={cx(
       'text',
@@ -21,12 +18,6 @@ export default ({
         font-size: ${10 + size * 2}px;
         font-weight: ${bold ? 'bold' : 'normal'};
         color: ${white ? 'white' : color};
-        margin-bottom: ${noMargin ? 0 : '8px'};
-        width: ${width};
-        text-align: ${center ? 'center' : 'left'};
-        display: ${display};
-        justify-content: center;
-        align-items: center;
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {
           font-size: ${12 + size * 2}px;

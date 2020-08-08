@@ -13,7 +13,7 @@ import {
 } from '../ui';
 import { INTERVAL, THEME } from '../constants';
 import { useBreakpoint } from '../hooks';
-import { Footer } from '../components';
+import { Footer, History } from '../components';
 import audio from '../assets/Bell 03.mp3';
 
 export default () => {
@@ -203,6 +203,10 @@ export default () => {
           Modo automático
         </Text>
       </Switch>
+      <Separator transparent size={10} />
+      <History
+        color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}
+      />
       <ColorToggle onClick={onToggleColor} />
       <Footer
         color={THEME[backgroundColor][INTERVAL[activeTimer].TYPE].COLOR}

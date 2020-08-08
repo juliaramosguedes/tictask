@@ -1,8 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FaCoffee, FaHeart } from 'react-icons/fa';
 import { SizeMinWidthScreenDesktop, Text } from '../../ui';
 
 export default ({ color = 'white', ...props }) => (
@@ -30,8 +28,8 @@ export default ({ color = 'white', ...props }) => (
     )}
   >
     <Text color={color} center noMargin>
-      Desenvolvido com <FontAwesomeIcon icon={faHeart} color={color} /> &{' '}
-      <FontAwesomeIcon icon={faCoffee} color={color} /> por{' '}
+      Desenvolvido com <FaHeart color={color} size={14} /> &{' '}
+      <FaCoffee color={color} size={16} /> por{' '}
       <a href="https://www.linkedin.com/in/julia-ramos-guedes/">Julia Ramos</a>{' '}
       e <a href="https://www.linkedin.com/in/dedicio/">Dedicio Coelho</a>.
     </Text>
