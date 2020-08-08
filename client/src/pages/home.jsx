@@ -64,7 +64,7 @@ export default () => {
   const onInitiatePomodoro = useCallback(() => {
     initiateTimer(INTERVAL.POMODORO.TIME);
     setActiveTimer(INTERVAL.POMODORO.KEY);
-  }, [counter, initiateTimer]);
+  }, [initiateTimer]);
 
   const onInitiateBreak = useCallback(() => {
     if (counter.pomodoro > 0 && counter.pomodoro % 4 === 0) {
@@ -131,6 +131,7 @@ export default () => {
       }
     }
   }, [
+    counter,
     finished,
     playAudio,
     activeTimer,

@@ -3,7 +3,7 @@ import { css, cx } from 'emotion';
 
 export default ({
   margin = '0',
-  padding = '16px',
+  padding = '0',
   display = 'block',
   justifyContent = 'center',
   direction = 'row',
