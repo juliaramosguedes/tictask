@@ -10,7 +10,7 @@ export default ({ color, time, icon: Icon, span }) => (
       {Duration.fromObject({
         minute: time,
       }).toFormat('hh:mm:ss')}{' '}
-      &nbsp;minutos de&nbsp;
+      &nbsp;tempo de&nbsp;
       <Span color={ColorNeutralYellow} bold size={2}>
         {span}
       </Span>
