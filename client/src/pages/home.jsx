@@ -46,7 +46,9 @@ export default () => {
 
   const onCallToActionClick = useCallback(() => {
     pomodoroScroller();
-    setShowInfo(false);
+    setTimeout(() => {
+      setShowInfo(false);
+    }, 1000);
   }, [pomodoroScroller]);
 
   const onInfoClick = useCallback(() => {
