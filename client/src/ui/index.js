@@ -1,8 +1,8 @@
 export { default as Button } from './components/button';
-export { default as ColorToggle } from './components/color-toggle';
 export { default as Clock } from './components/clock';
 export { default as Container } from './components/container';
 export { default as Icon } from './components/icon';
+export { default as List } from './components/list';
 export { default as Loader } from './components/loader';
 export { default as Separator } from './components/separator';
 export { default as Span } from './components/span';
