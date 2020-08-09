@@ -225,7 +225,7 @@ export default () => {
           color={
             THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON.COLOR
           }
-          size={isDesktop ? 2 : 1}
+          size={2}
         >
           Modo automático
         </Text>
