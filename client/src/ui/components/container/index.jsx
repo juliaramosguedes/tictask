@@ -13,6 +13,7 @@ export default forwardRef(
       height = 'auto',
       color = 'transparent',
       position = 'relative',
+      backgroundColor = 'none',
       ...props
     },
     ref
@@ -31,6 +32,7 @@ export default forwardRef(
           max-width: ${maxWidth};
           min-height: ${height};
           background-image: ${color};
+          background-color: ${backgroundColor};
           position: ${position};
           align-items: center;
         `,

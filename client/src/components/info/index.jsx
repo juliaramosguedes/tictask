@@ -2,8 +2,9 @@ import React from 'react';
 import { Button, Container, List, Text, Title } from '../../ui';
 import { useBreakpoint } from '../../hooks';
 import { default as Footer } from '../footer';
+import { THEME } from '../../constants';
 
-export default ({ showInfo, onCallToActionClick, infoRef }) => {
+export default ({ showInfo, onCallToActionClick, infoRef, theme }) => {
   const breakpoint = useBreakpoint();
   const isDesktop = breakpoint === 'desktop';
 
@@ -13,11 +14,12 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
       padding={isDesktop ? '40px 40px 66px' : '16px 16px 68px'}
       ref={infoRef}
       display={!showInfo && 'none'}
+      backgroundColor={THEME[theme].INFO.BACKGROUND_COLOR}
     >
-      <Title center size={4}>
+      <Title center size={4} color={THEME[theme].INFO.COLOR}>
         O que é a técnica Pomodoro?
       </Title>
-      <Text color="black" padding="16px">
+      <Text color={THEME[theme].INFO.COLOR} padding="16px">
         A Técnica Pomodoro é um método para se obter maior produtividade no
         trabalho e estudo e foi desenvolvida pelo italiano Francesco Cirillo. A
         técnica consiste na utilização de um cronômetro para dividir o trabalho
@@ -27,13 +29,13 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
         Cirillo. O método é baseado na ideia de que pausas frequentes podem
         aumentar a agilidade mental.
       </Text>
-      <Text color="black" padding="16px">
+      <Text color={THEME[theme].INFO.COLOR} padding="16px">
         O principal propósito da técnica Pomodoro é manter o foco e a
         concentração máxima pelo prazo de 25 minutos. Com isso, é possível
         alcançar alguns objetivos, entre eles:
       </Text>
       <List
-        color="black"
+        color={THEME[theme].INFO.COLOR}
         padding="16px"
         messages={[
           'aumentar a concentração',
@@ -43,14 +45,14 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
           'saber quanto tempo você demora em cada atividade',
         ]}
       />
-      <Text color="black" padding="16px">
+      <Text color={THEME[theme].INFO.COLOR} padding="16px">
         Experimente!
       </Text>
       <Container display="flex" padding={isDesktop ? '40px 0 0' : '16px 0 0'}>
         <Button.Main
           onClick={onCallToActionClick}
           transparent
-          color="black"
+          color={THEME[theme].INFO.COLOR}
           border
           small={!isDesktop}
           circle
@@ -58,7 +60,7 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
           <p>INICIAR</p>
         </Button.Main>
       </Container>
-      <Footer color="black" />
+      <Footer color={THEME[theme].INFO.COLOR} />
     </Container>
   );
 };

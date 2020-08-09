@@ -4,8 +4,10 @@ import {
   GradientInterval,
   GradientDarkInterval,
   ColorNeutralYellow,
+  ColorDarkBrandBase,
   ColorBrandBase,
   ColorNeutralGreen,
+  ColorNeutralGray,
   ColorLightGreen,
   ColorNeutralLightDark,
 } from '../ui';
@@ -37,6 +39,10 @@ export const INTERVAL = {
 export const THEME = {
   WHITE: {
     KEY: 'WHITE',
+    INFO: {
+      BACKGROUND_COLOR: ColorDarkBrandBase,
+      COLOR: 'white',
+    },
     POMODORO: {
       BACKGROUND_COLOR: 'transparent',
       COLOR: ColorBrandBase,
@@ -58,6 +64,10 @@ export const THEME = {
   },
   DARK: {
     KEY: 'DARK',
+    INFO: {
+      BACKGROUND_COLOR: ColorNeutralGray,
+      COLOR: 'white',
+    },
     POMODORO: {
       BACKGROUND_COLOR: GradientDarkPomodoro,
       COLOR: 'white',
@@ -79,6 +89,10 @@ export const THEME = {
   },
   BRAND: {
     KEY: 'BRAND',
+    INFO: {
+      BACKGROUND_COLOR: 'white',
+      COLOR: 'black',
+    },
     POMODORO: {
       BACKGROUND_COLOR: GradientPomodoro,
       COLOR: 'white',

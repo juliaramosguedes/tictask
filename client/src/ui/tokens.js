@@ -3,6 +3,7 @@ export const ColorNeutralDark = '#484848';
 export const ColorNeutralLightDark = '#8E9294';
 export const ColorBrandLight = '#ECEBED';
 export const ColorBrandBase = '#F0134D';
+export const ColorDarkBrandBase = '#AA1D42';
 export const ColorDarkBackground = '#1D1D1B';
 export const ColorNeutralBackground = '#f5f7fb';
 export const ColorLightBackground = '#E5E5E5';
@@ -10,6 +11,7 @@ export const ColorNeutralLighter = '#d6e1eb';
 export const ColorNeutralYellow = '#F8C805';
 export const ColorLightGreen = '#4FFFD0';
 export const ColorNeutralGreen = '#08A87D';
+export const ColorNeutralGray = '#3A4648';
 
 export const ColorAccentBase = '#ffb800';
 export const ColorAccentLight = '#ffce4d';

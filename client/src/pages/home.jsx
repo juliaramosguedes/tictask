@@ -57,6 +57,7 @@ export default () => {
         showInfo={showInfo}
         onCallToActionClick={onCallToActionClick}
         infoRef={infoRef}
+        theme={theme}
       />
       <Button.Info
         color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
