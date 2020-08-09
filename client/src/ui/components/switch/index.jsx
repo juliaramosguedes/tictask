@@ -1,6 +1,5 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorBrandLight, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({ children, color, onToggleAutomatic, ...props }) => (
   <div
@@ -48,11 +47,15 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
           content: '';
           height: 20px;
           width: 20px;
-          left: 2px;
+          left: 0;
           bottom: 0;
-          background-color: ${ColorBrandLight};
           -webkit-transition: 0.4s;
           transition: 0.4s;
+          background-color: #ffffff;
+          border: 0.5px solid rgba(35, 31, 32, 0.1);
+          box-sizing: border-box;
+          box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15),
+            inset -1px -1px 1px rgba(0, 0, 0, 0.1);
         }
 
         input:checked + .slider {
@@ -64,9 +67,9 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
         }
 
         input:checked + .slider:before {
-          -webkit-transform: translateX(13px);
-          -ms-transform: translateX(13px);
-          transform: translateX(13px);
+          -webkit-transform: translateX(20px);
+          -ms-transform: translateX(20px);
+          transform: translateX(20px);
         }
 
         /* Rounded sliders */
@@ -76,20 +79,6 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
 
         .slider.round:before {
           border-radius: 50%;
-        }
-
-        @media (min-width: ${SizeMinWidthScreenDesktop}) {
-          label {
-            width: 34px;
-            height: 16px;
-          }
-
-          .slider:before {
-            height: 17px;
-            width: 17px;
-            left: 2px;
-            bottom: 0;
-          }
         }
       `,
       props.className
