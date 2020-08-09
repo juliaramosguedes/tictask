@@ -6,7 +6,7 @@ import { Button } from '../ui';
 
 const scrollerSettings = {
   isInViewportSettings: {
-    modBottom: '-70%',
+    modBottom: '0%',
   },
 };
 
@@ -40,7 +40,7 @@ export default () => {
   const onInfoClick = useCallback(() => {
     setShowInfo(true);
     infoScroller();
-  }, []);
+  }, [infoScroller]);
 
   useEffect(() => {
     if (showInfo) infoScroller();
@@ -58,7 +58,6 @@ export default () => {
         showInfo={showInfo}
         onCallToActionClick={onCallToActionClick}
         infoRef={infoRef}
-        theme={theme}
       />
       <Button.Info
         color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}

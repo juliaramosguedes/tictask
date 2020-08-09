@@ -2,6 +2,7 @@ export const ColorNeutralDarker = '#212121';
 export const ColorNeutralDark = '#484848';
 export const ColorNeutralLightDark = '#8E9294';
 export const ColorBrandLight = '#ECEBED';
+export const ColorLightBrandBase = '#FFA5B8';
 export const ColorBrandBase = '#F0134D';
 export const ColorDarkBrandBase = '#AA1D42';
 export const ColorDarkBackground = '#1D1D1B';
