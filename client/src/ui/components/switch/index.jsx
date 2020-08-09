@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { ColorBrandLight } from '../../tokens';
+import { ColorBrandLight, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({ children, color, onToggleAutomatic, ...props }) => (
   <div
@@ -19,8 +19,8 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
         label {
           position: relative;
           display: inline-block;
-          width: 30px;
-          height: 14px;
+          width: 37px;
+          height: 17px;
           margin: auto 0;
         }
 
@@ -46,8 +46,8 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
         .slider:before {
           position: absolute;
           content: '';
-          height: 14px;
-          width: 14px;
+          height: 18px;
+          width: 18px;
           left: 2px;
           bottom: 0;
           background-color: ${ColorBrandLight};
@@ -76,6 +76,20 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
 
         .slider.round:before {
           border-radius: 50%;
+        }
+
+        @media (min-width: ${SizeMinWidthScreenDesktop}) {
+          label {
+            width: 30px;
+            height: 14px;
+          }
+
+          .slider:before {
+            height: 14px;
+            width: 14px;
+            left: 2px;
+            bottom: 0;
+          }
         }
       `,
       props.className
