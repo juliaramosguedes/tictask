@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { DateTime } from 'luxon';
 import { INTERVAL, THEME } from '../constants';
 import { useScroller } from '../hooks';
 import { Pomodoro, Info } from '../components';
@@ -20,17 +21,28 @@ export default () => {
 
   const [theme, setTheme] = useState(THEME.BRAND.KEY);
   const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
-  const [showInfo, setShowInfo] = useState(true);
+  const [showInfo, setShowInfo] = useState(() => {
+    let lastVisit = localStorage.getItem('lastVisit');
 
-  const onToggleColor = useCallback(
-    () =>
-      setTheme(() => {
-        if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
-        if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
-        if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
-      }),
-    [theme]
-  );
+    if (lastVisit) {
+      return false;
+    } else {
+      localStorage.setItem(
+        'lastVisit',
+        JSON.stringify(DateTime.local().toFormat('yyyy-MM-dd'))
+      );
+      return true;
+    }
+  });
+
+  const onToggleColor = useCallback(() => {
+    pomodoroScroller();
+    setTheme(() => {
+      if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
+      if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
+      if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
+    });
+  }, [theme, pomodoroScroller]);
 
   const onCallToActionClick = useCallback(() => {
     pomodoroScroller();
