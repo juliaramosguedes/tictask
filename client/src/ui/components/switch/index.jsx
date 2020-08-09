@@ -45,10 +45,10 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
         .slider:before {
           position: absolute;
           content: '';
-          height: 20px;
-          width: 20px;
-          left: 0;
-          bottom: 0;
+          height: 21px;
+          width: 21px;
+          left: -1px;
+          bottom: -1px;
           -webkit-transition: 0.4s;
           transition: 0.4s;
           background-color: #ffffff;
@@ -67,9 +67,9 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
         }
 
         input:checked + .slider:before {
-          -webkit-transform: translateX(20px);
-          -ms-transform: translateX(20px);
-          transform: translateX(20px);
+          -webkit-transform: translateX(21px);
+          -ms-transform: translateX(21px);
+          transform: translateX(21px);
         }
 
         /* Rounded sliders */
