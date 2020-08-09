@@ -19,8 +19,8 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
         label {
           position: relative;
           display: inline-block;
-          width: 37px;
-          height: 17px;
+          width: 40px;
+          height: 19px;
           margin: auto 0;
         }
 
@@ -46,8 +46,8 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
         .slider:before {
           position: absolute;
           content: '';
-          height: 18px;
-          width: 18px;
+          height: 20px;
+          width: 20px;
           left: 2px;
           bottom: 0;
           background-color: ${ColorBrandLight};
@@ -80,13 +80,13 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {
           label {
-            width: 30px;
-            height: 14px;
+            width: 34px;
+            height: 16px;
           }
 
           .slider:before {
-            height: 14px;
-            width: 14px;
+            height: 17px;
+            width: 17px;
             left: 2px;
             bottom: 0;
           }
