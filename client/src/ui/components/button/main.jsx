@@ -14,6 +14,7 @@ export default ({
   circle = false,
   width = 'auto',
   bold = false,
+  textColor = 'white',
   ...props
 }) => (
   <button
@@ -27,6 +28,7 @@ export default ({
         border: ${border ? '1px solid ' + color : 'none'};
         margin: 0;
         padding: ${padding};
+        width: ${width};
         border-radius: ${borderRadius};
         cursor: pointer;
 
@@ -37,7 +39,7 @@ export default ({
         }
 
         p {
-          color: ${transparent ? color : 'white'};
+          color: ${transparent ? color : textColor};
           font-size: ${small ? 12 : 16}px;
           font-weight: ${bold ? 'bold' : 'normal'};
           margin: 0;

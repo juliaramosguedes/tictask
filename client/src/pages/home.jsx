@@ -6,7 +6,7 @@ import { Button } from '../ui';
 
 const scrollerSettings = {
   isInViewportSettings: {
-    modBottom: '0%',
+    modBottom: '-70%',
   },
 };
 
@@ -39,6 +39,7 @@ export default () => {
 
   const onInfoClick = useCallback(() => {
     setShowInfo(true);
+    infoScroller();
   }, []);
 
   useEffect(() => {
