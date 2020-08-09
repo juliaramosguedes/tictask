@@ -11,6 +11,7 @@ export default ({
   center = false,
   white = false,
   display = 'block',
+  maxWidth = '100%',
   messages,
   ...props
 }) => (
@@ -24,6 +25,7 @@ export default ({
         color: ${white ? 'white' : color};
         margin-bottom: ${noMargin ? 0 : '8px'};
         width: ${width};
+        max-width: ${maxWidth};
         text-align: ${center ? 'center' : 'left'};
         display: ${display};
         justify-content: center;

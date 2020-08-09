@@ -9,6 +9,7 @@ export default ({
   color,
   center = false,
   width = '100%',
+  maxWidth = '100%',
   ...props
 }) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
@@ -22,6 +23,7 @@ export default ({
         color: ${color};
         margin: ${noMargin ? 0 : '0 0 16px'};
         width: ${width};
+        max-width: ${maxWidth};
         text-align: ${center ? 'center' : 'start'};
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {
