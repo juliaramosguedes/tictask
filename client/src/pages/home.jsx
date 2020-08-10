@@ -36,19 +36,29 @@ export default () => {
   });
 
   const onToggleColor = useCallback(() => {
-    pomodoroScroller();
-    setTheme(() => {
-      if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
-      if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
-      if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
-    });
+    if (showInfo) {
+      onCallToActionClick();
+      setTimeout(() => {
+        setTheme(() => {
+          if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
+          if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
+          if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
+        });
+      }, 700);
+    } else {
+      setTheme(() => {
+        if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
+        if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
+        if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
+      });
+    }
   }, [theme, pomodoroScroller]);
 
   const onCallToActionClick = useCallback(() => {
     pomodoroScroller();
     setTimeout(() => {
       setShowInfo(false);
-    }, 1000);
+    }, 700);
   }, [pomodoroScroller]);
 
   const onInfoClick = useCallback(() => {
