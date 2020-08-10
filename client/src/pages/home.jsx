@@ -48,7 +48,7 @@ export default () => {
     pomodoroScroller();
     setTimeout(() => {
       setShowInfo(false);
-    }, 1000);
+    }, 400);
   }, [pomodoroScroller]);
 
   const onInfoClick = useCallback(() => {
@@ -57,7 +57,10 @@ export default () => {
   }, [infoScroller]);
 
   useEffect(() => {
-    if (showInfo) infoScroller();
+    if (showInfo)
+      setTimeout(() => {
+        infoScroller();
+      }, 500);
   }, [showInfo, infoScroller]);
 
   return (
