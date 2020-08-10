@@ -53,7 +53,7 @@ export default () => {
 
   const onInfoClick = useCallback(() => {
     setShowInfo(true);
-  }, [infoScroller]);
+  }, []);
 
   useEffect(() => {
     if (showInfo) infoScroller();
