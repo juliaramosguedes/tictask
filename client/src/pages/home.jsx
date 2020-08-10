@@ -53,14 +53,13 @@ export default () => {
 
   const onInfoClick = useCallback(() => {
     setShowInfo(true);
-    infoScroller();
+    setTimeout(() => {
+      infoScroller();
+    }, 400);
   }, [infoScroller]);
 
   useEffect(() => {
-    if (showInfo)
-      setTimeout(() => {
-        infoScroller();
-      }, 500);
+    if (showInfo) infoScroller();
   }, [showInfo, infoScroller]);
 
   return (
