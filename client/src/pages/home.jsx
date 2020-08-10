@@ -35,6 +35,18 @@ export default () => {
     }
   });
 
+  const onCallToActionClick = useCallback(() => {
+    pomodoroScroller();
+    setTimeout(() => {
+      setShowInfo(false);
+    }, 700);
+  }, [pomodoroScroller]);
+
+  const onInfoClick = useCallback(() => {
+    setShowInfo(true);
+    infoScroller();
+  }, [infoScroller]);
+
   const onToggleColor = useCallback(() => {
     if (showInfo) {
       onCallToActionClick();
@@ -52,19 +64,7 @@ export default () => {
         if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
       });
     }
-  }, [theme, pomodoroScroller]);
-
-  const onCallToActionClick = useCallback(() => {
-    pomodoroScroller();
-    setTimeout(() => {
-      setShowInfo(false);
-    }, 700);
-  }, [pomodoroScroller]);
-
-  const onInfoClick = useCallback(() => {
-    setShowInfo(true);
-    infoScroller();
-  }, [infoScroller]);
+  }, [theme, onCallToActionClick, showInfo]);
 
   useEffect(() => {
     if (showInfo) infoScroller();
