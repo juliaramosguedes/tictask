@@ -9,7 +9,6 @@ import {
   Subtitle,
   Switch,
   Text,
-  Title,
 } from '../../ui';
 import { INTERVAL, THEME } from '../../constants';
 import { useBreakpoint } from '../../hooks';
@@ -77,6 +76,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
     setRunning(false);
     onSetTime(0);
     setPlayAudio(false);
+    localStorage.setItem('timeLeft', 0);
   }, [setRunning, onSetTime]);
 
   const playRing = useCallback(() => {
@@ -157,16 +157,10 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
         <Separator transparent height="48px" />
         <Clock
           rawTimeFraction={rawTimeFraction}
-          color={THEME[theme][INTERVAL[activeTimer].TYPE].CLOCK}
-        >
-          <Title
-            size={10}
-            center
-            color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-          >
-            {timeLeft}
-          </Title>
-        </Clock>
+          clockColor={THEME[theme][INTERVAL[activeTimer].TYPE].CLOCK}
+          timeColor={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+          timeLeft={timeLeft}
+        />
         <Separator transparent height="36px" />
         {running ? (
           <Container display="flex">

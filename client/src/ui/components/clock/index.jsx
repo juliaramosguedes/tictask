@@ -1,9 +1,17 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { default as Icon } from '../icon';
+import { default as Title } from '../title';
 import { SizeMinWidthScreenDesktop } from '../../tokens';
 
-export default ({ children, timeLeft, color, rawTimeFraction, ...props }) => (
+export default ({
+  children,
+  timeLeft,
+  clockColor,
+  timeColor,
+  rawTimeFraction,
+  ...props
+}) => (
   <div
     {...props}
     className={cx(
@@ -13,11 +21,27 @@ export default ({ children, timeLeft, color, rawTimeFraction, ...props }) => (
         width: 170px;
         height: 170px;
         margin: 0 auto;
-        background-color: rgba(256, 256, 256, 0.1);
         border-radius: 50%;
         border: none;
         z-index: 1;
+        background-image: linear-gradient(
+          -90deg,
+          rgba(256, 256, 256, 0.2) 0%,
+          rgba(256, 256, 256, 0.5) 50%,
+          rgba(256, 256, 256, 0.2) 100%
+        );
+        background-size: 400% 400%;
+        animation: shimmer 1.5s ease-in-out 1;
+        animation-delay: 1s;
 
+        @keyframes shimmer {
+          0% {
+            background-position: 0% 0%;
+          }
+          100% {
+            background-position: -135% 0%;
+          }
+        }
         .base-timer__svg {
           transform: scaleX(-1);
           width: 200px;
@@ -36,7 +60,7 @@ export default ({ children, timeLeft, color, rawTimeFraction, ...props }) => (
 
         .base-timer__path-elapsed {
           stroke-width: 1px;
-          stroke: ${color};
+          stroke: ${clockColor};
           z-index: 2;
         }
 
@@ -47,7 +71,7 @@ export default ({ children, timeLeft, color, rawTimeFraction, ...props }) => (
           transform-origin: center;
           transition: 1s linear all;
           fill-rule: nonzero;
-          stroke: ${color};
+          stroke: ${clockColor};
           stroke-dasharray: ${rawTimeFraction * 280} 280;
           z-index: 2;
         }
@@ -69,7 +93,6 @@ export default ({ children, timeLeft, color, rawTimeFraction, ...props }) => (
           height: 230px;
 
           .base-timer__svg {
-            transform: scaleX(-1);
             width: 270px;
             height: 270px;
             top: -20px;
@@ -89,7 +112,9 @@ export default ({ children, timeLeft, color, rawTimeFraction, ...props }) => (
   >
     <Icon.Clock />
     <span id="base-timer-label" className="base-timer__label">
-      {children}
+      <Title size={10} center color={timeColor}>
+        {timeLeft}
+      </Title>
     </span>
   </div>
 );

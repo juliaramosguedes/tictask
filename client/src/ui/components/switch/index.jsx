@@ -36,7 +36,7 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: rgba(153, 153, 153, 0.25);
+          background-color: rgba(153, 153, 153, 0.45);
           box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
           -webkit-transition: 0.4s;
           transition: 0.4s;
@@ -54,8 +54,8 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
           background-color: #ffffff;
           border: 0.5px solid rgba(35, 31, 32, 0.1);
           box-sizing: border-box;
-          box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15),
-            inset -1px -1px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25),
+            inset -1px -1px 1px rgba(0, 0, 0, 0.15);
         }
 
         input:checked + .slider {
