@@ -6,8 +6,9 @@ import { SizeMinWidthScreenDesktop } from '../../tokens';
 export default (props) => (
   <button
     {...props}
+    aria-label="Button Toggle Theme"
     className={cx(
-      'button-toggle-color',
+      'button-toggle-theme',
       css`
         position: fixed;
         bottom: 16px;
@@ -16,8 +17,8 @@ export default (props) => (
         background-color: transparent;
 
         svg {
-          width: 36px;
-          height: 36px;
+          width: 42px;
+          height: 42px;
         }
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {

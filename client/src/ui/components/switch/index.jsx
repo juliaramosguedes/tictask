@@ -84,8 +84,8 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
       props.className
     )}
   >
-    <label>
-      <input type="checkbox" onClick={onToggleAutomatic} />
+    <label htmlFor="automatic-mode">
+      <input id="automatic-mode" type="checkbox" onClick={onToggleAutomatic} />
       <span className="slider round" />
     </label>
     {children}

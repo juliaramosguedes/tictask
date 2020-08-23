@@ -171,6 +171,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
               border
               small={!isDesktop}
               circle
+              aria-label="Button Stop App"
             >
               <p>PARAR</p>
             </Button.Main>
@@ -186,6 +187,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
                 border
                 small={!isDesktop}
                 circle
+                aria-label="Button Initiate Break Time"
               >
                 <p>RELAXAR</p>
               </Button.Main>
@@ -197,6 +199,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
                 border
                 small={!isDesktop}
                 circle
+                aria-label="Button Initiate Pomodoro"
               >
                 <p>INICIAR</p>
               </Button.Main>
@@ -226,7 +229,6 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
           color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
           counter={counter}
         />
-
         <audio id="ring" src={audio}></audio>
       </Container>
     </>

@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { INTERVAL, THEME } from '../constants';
-import { useScroller } from '../hooks';
-import { Pomodoro, Info } from '../components';
-import { Button } from '../ui';
+import { useScroller, useBreakpoint } from '../hooks';
+import { Pomodoro, Info, LoadingPomodoro } from '../components';
+import { Button, Container } from '../ui';
 
 const scrollerSettings = {
   isInViewportSettings: {
@@ -12,6 +12,9 @@ const scrollerSettings = {
 };
 
 export default () => {
+  const breakpoint = useBreakpoint();
+  const isDesktop = breakpoint === 'desktop';
+
   const { ref: pomodoroRef, scroller: pomodoroScroller } = useScroller(
     scrollerSettings
   );
@@ -19,6 +22,7 @@ export default () => {
     scrollerSettings
   );
 
+  const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(THEME.BRAND.KEY);
   const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
   const [showInfo, setShowInfo] = useState(() => {
@@ -67,27 +71,44 @@ export default () => {
   }, [theme, onCallToActionClick, showInfo]);
 
   useEffect(() => {
-    if (showInfo) infoScroller();
-  }, [showInfo, infoScroller]);
+    if (showInfo && !loading) infoScroller();
+  }, [showInfo, loading, infoScroller]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   return (
     <>
-      <Pomodoro
-        pomodoroRef={pomodoroRef}
-        activeTimer={activeTimer}
-        setActiveTimer={setActiveTimer}
-        theme={theme}
-      />
-      <Info
-        showInfo={showInfo}
-        onCallToActionClick={onCallToActionClick}
-        infoRef={infoRef}
-      />
-      <Button.Info
-        color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-        onClick={onInfoClick}
-      />
-      <Button.ColorToggle onClick={onToggleColor} />
+      {loading ? (
+        <Container
+          height="100vh"
+          padding={isDesktop ? '40px 40px 66px' : '16px 16px 68px'}
+        >
+          <LoadingPomodoro />
+        </Container>
+      ) : (
+        <>
+          <Pomodoro
+            pomodoroRef={pomodoroRef}
+            activeTimer={activeTimer}
+            setActiveTimer={setActiveTimer}
+            theme={theme}
+          />
+          <Info
+            showInfo={showInfo}
+            onCallToActionClick={onCallToActionClick}
+            infoRef={infoRef}
+          />
+          <Button.Info
+            color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+            onClick={onInfoClick}
+          />
+          <Button.ColorToggle onClick={onToggleColor} />
+        </>
+      )}
     </>
   );
 };

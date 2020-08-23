@@ -1,6 +1,6 @@
 {
-  "name": "Técnica Pomodoro",
-  "short_name": "Pomodoro",
+  "name": "Tic Task",
+  "short_name": "TicTask",
   "theme_color": "#FF9671",
   "background_color": "#ffffff",
   "display": "standalone",
@@ -9,7 +9,7 @@
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "64x64",
       "type": "image/x-icon"
     },
     {
@@ -21,7 +21,18 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
-  ],
-  "splash_pages": null
+  ]
 }
