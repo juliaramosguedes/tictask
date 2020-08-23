@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { TiInfoLarge } from 'react-icons/ti';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({ color, ...props }) => (
@@ -17,23 +17,18 @@ export default ({ color, ...props }) => (
         background-color: transparent;
 
         svg {
-          width: 34px;
-          height: 34px;
+          width: 36px;
+          height: 36px;
         }
 
         @media (min-width: ${SizeMinWidthScreenDesktop}) {
           top: 26px;
           right: 26px;
-
-          svg {
-            width: 40px;
-            height: 40px;
-          }
         }
       `,
       props.className
     )}
   >
-    <TiInfoLarge color={color} />
+    <AiOutlineInfoCircle color={color} />
   </button>
 );
