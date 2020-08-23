@@ -62,4 +62,4 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: pomodoro-production
+          PROJECT_ID: tictaskapp
