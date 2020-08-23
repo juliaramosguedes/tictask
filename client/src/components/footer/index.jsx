@@ -15,6 +15,9 @@ export default ({ color = 'white', ...props }) => (
         transform: translate(-50%, 0);
         max-width: 200px;
 
+        color: ${color};
+        filter: opacity(60%);
+
         a {
           color: ${color};
         }

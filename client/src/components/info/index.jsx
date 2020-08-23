@@ -64,8 +64,9 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
           border
           small={!isDesktop}
           padding="8px 36px"
-          width={isMobile && '100vh'}
+          width={isMobile ? '100vh' : '50vh'}
           bold
+          aria-label="Button Try App"
         >
           <p>EXPERIMENTAR</p>
         </Button.Main>

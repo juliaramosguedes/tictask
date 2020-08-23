@@ -6,8 +6,9 @@ import { SizeMinWidthScreenDesktop } from '../../tokens';
 export default ({ color, ...props }) => (
   <button
     {...props}
+    aria-label="Button Show Information"
     className={cx(
-      'button-toggle-color',
+      'button-show-information',
       css`
         position: absolute;
         top: 17px;
@@ -25,8 +26,8 @@ export default ({ color, ...props }) => (
           right: 26px;
 
           svg {
-            width: 49px;
-            height: 49px;
+            width: 40px;
+            height: 40px;
           }
         }
       `,

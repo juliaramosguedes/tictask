@@ -6,8 +6,9 @@ import { SizeMinWidthScreenDesktop } from '../../tokens';
 export default (props) => (
   <button
     {...props}
+    aria-label="Button Toggle Theme"
     className={cx(
-      'button-toggle-color',
+      'button-toggle-theme',
       css`
         position: fixed;
         bottom: 16px;
