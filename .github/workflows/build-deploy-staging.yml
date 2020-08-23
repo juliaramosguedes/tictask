@@ -16,8 +16,6 @@ jobs:
       - name: Build
         run: npm --prefix ./client run build ./client
         env:
-          NODE_ENV: ${{ secrets.STAGING_NODE_ENV }}
-          PUBLIC_URL: ${{ secrets.STAGING_PUBLIC_URL }}
           REACT_APP_APIKEY: ${{ secrets.STAGING_APIKEY }}
           REACT_APP_AUTHDOMAIN: ${{ secrets.STAGING_AUTHDOMAIN }}
           REACT_APP_DATABASEURL: ${{ secrets.STAGING_DATABASEURL }}
@@ -26,7 +24,6 @@ jobs:
           REACT_APP_MESSAGINGSENDERID: ${{ secrets.STAGING_MESSAGINGSENDERID }}
           REACT_APP_APPID: ${{ secrets.STAGING_APPID }}
           REACT_APP_MEASUREMENTID: ${{ secrets.STAGING_MEASUREMENTID }}
-          # REACT_APP_PROJECTAPI: ${{ secrets.STAGING_PROJECTAPI }}
       - name: Archive Production Client Artifact
         uses: actions/upload-artifact@master
         with:

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "pomodoro-staging"
+    "default": "pomodoro-staging",
+    "production": "tictaskapp"
   }
 }
