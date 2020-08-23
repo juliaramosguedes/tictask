@@ -1,5 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./app";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './app';
+import './global-styles';
+import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
+serviceWorker.register({ onUpdate: () => window.location.reload() });

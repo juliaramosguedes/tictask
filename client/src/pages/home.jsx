@@ -1,95 +1,93 @@
-import React, { useState, useEffect } from 'react';
-import { css, cx } from 'emotion';
+import React, { useState, useCallback, useEffect } from 'react';
+import { DateTime } from 'luxon';
+import { INTERVAL, THEME } from '../constants';
+import { useScroller } from '../hooks';
+import { Pomodoro, Info } from '../components';
+import { Button } from '../ui';
 
-const useGetTimer = (seconds) => {
-  const [timeLeft, setTimeLeft] = useState(seconds);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (!timeLeft) {
-      setLoading(false);
-      return;
-    }
-
-    const intervalId = setInterval(() => {
-      if (loading) {
-        setTimeLeft(timeLeft - 1);
-      }
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [timeLeft, loading]);
-
-  return {
-    data: new Date(timeLeft * 1000).toLocaleTimeString().slice(-5),
-    loading,
-    setLoading,
-    setData: setTimeLeft,
-  };
+const scrollerSettings = {
+  isInViewportSettings: {
+    modBottom: '-200%',
+  },
 };
 
 export default () => {
-  const secondsInAMinute = 60;
-  const pomodoroInterval = 1;
-  const shortBreakInterval = 1;
-  const longBreakInterval = 30;
+  const { ref: pomodoroRef, scroller: pomodoroScroller } = useScroller(
+    scrollerSettings
+  );
+  const { ref: infoRef, scroller: infoScroller } = useScroller(
+    scrollerSettings
+  );
 
-  const {
-    data: timeLeft,
-    loading,
-    setLoading,
-    setData: setTimeLeft,
-  } = useGetTimer(0);
+  const [theme, setTheme] = useState(THEME.BRAND.KEY);
+  const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
+  const [showInfo, setShowInfo] = useState(() => {
+    let lastVisit = localStorage.getItem('lastVisit');
 
-  const [counter, setCounter] = useState(3);
-  const [breakInterval, setBreakInterval] = useState(shortBreakInterval);
-  const [activeTimer, setActiveTimer] = useState(null);
-
-  useEffect(() => {
-    if (counter % 4 === 0) {
-      setBreakInterval(longBreakInterval);
+    if (lastVisit) {
+      return false;
     } else {
-      setBreakInterval(shortBreakInterval);
+      localStorage.setItem(
+        'lastVisit',
+        JSON.stringify(DateTime.local().toFormat('yyyy-MM-dd'))
+      );
+      return true;
     }
-  }, [counter]);
+  });
+
+  const onCallToActionClick = useCallback(() => {
+    pomodoroScroller();
+    setTimeout(() => {
+      setShowInfo(false);
+    }, 700);
+  }, [pomodoroScroller]);
+
+  const onInfoClick = useCallback(() => {
+    setShowInfo(true);
+    infoScroller();
+  }, [infoScroller]);
+
+  const onToggleColor = useCallback(() => {
+    if (showInfo) {
+      onCallToActionClick();
+      setTimeout(() => {
+        setTheme(() => {
+          if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
+          if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
+          if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
+        });
+      }, 700);
+    } else {
+      setTheme(() => {
+        if (theme === THEME.BRAND.KEY) return THEME.WHITE.KEY;
+        if (theme === THEME.WHITE.KEY) return THEME.DARK.KEY;
+        if (theme === THEME.DARK.KEY) return THEME.BRAND.KEY;
+      });
+    }
+  }, [theme, onCallToActionClick, showInfo]);
 
   useEffect(() => {
-    if (!loading) {
-      setActiveTimer(null);
-    }
-  }, [loading]);
-
-  const resetTimer = (interval) => {
-    setLoading(true);
-    setTimeLeft(interval * secondsInAMinute);
-  };
-
-  const initiatePomodoro = () => {
-    resetTimer(pomodoroInterval);
-    setCounter(counter + 1);
-    setActiveTimer('pomodoro');
-  };
-
-  const initiateBreak = () => {
-    resetTimer(breakInterval);
-    setActiveTimer('break');
-  };
-
-  const stopTimer = () => {
-    setLoading(false);
-    setTimeLeft(0);
-    setActiveTimer(null);
-  };
+    if (showInfo) infoScroller();
+  }, [showInfo, infoScroller]);
 
   return (
-    <div>
-      <h1>{timeLeft}</h1>
-      {loading ? (
-        <button onClick={stopTimer}>Interromper</button>
-      ) : (
-        <button onClick={initiatePomodoro}>Iniciar</button>
-      )}
-      <button onClick={initiateBreak}>Intervalo</button>
-    </div>
+    <>
+      <Pomodoro
+        pomodoroRef={pomodoroRef}
+        activeTimer={activeTimer}
+        setActiveTimer={setActiveTimer}
+        theme={theme}
+      />
+      <Info
+        showInfo={showInfo}
+        onCallToActionClick={onCallToActionClick}
+        infoRef={infoRef}
+      />
+      <Button.Info
+        color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+        onClick={onInfoClick}
+      />
+      <Button.ColorToggle onClick={onToggleColor} />
+    </>
   );
 };

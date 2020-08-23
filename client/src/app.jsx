@@ -1,19 +1,28 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import dotEnv from "dotenv";
-import { HomePage } from "./pages";
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
+import dotEnv from 'dotenv';
+import { HomePage } from './pages';
+import { BreakpointProvider } from './hooks';
 
 function App() {
   dotEnv.config();
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <HomePage minutes={1} />
-        </Route>
-      </Switch>
-    </Router>
+    <BreakpointProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+    </BreakpointProvider>
   );
 }
 

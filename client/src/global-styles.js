@@ -1,10 +1,7 @@
-import { injectGlobal } from "emotion";
-
-const SizeMinWidthScreenTablet = "501px";
-const SizeMinWidthScreenDesktop = "769px";
+import { injectGlobal } from 'emotion';
+import { SizeMinWidthScreenTablet, SizeMinWidthScreenDesktop } from './ui';
 
 injectGlobal`
-
 body::before {
   content: 'mobile';
   display: none;
@@ -38,6 +35,8 @@ body::before {
 }
 
 html {
+  margin: 0;
+  padding: 0;
   height: 100%;
   font-family: sans-serif;
   line-height: 1.15;
@@ -63,14 +62,9 @@ body {
   height: 100%;
   /* prettier-ignore */
   font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
     'Noto Sans',
     sans-serif,
+    -apple-system,
     'Apple Color Emoji',
     'Segoe UI Emoji',
     'Segoe UI Symbol',
