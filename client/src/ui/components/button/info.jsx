@@ -9,7 +9,7 @@ export default ({ color, ...props }) => (
     className={cx(
       'button-toggle-color',
       css`
-        position: fixed;
+        position: absolute;
         top: 17px;
         right: 17px;
         border: 0;
