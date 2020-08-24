@@ -221,7 +221,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
             }
             size={2}
           >
-            Modo automático
+            Play automático
           </Text>
         </Switch>
         <Separator transparent size={10} />
