@@ -20,7 +20,8 @@ export default ({ color, ...props }) => {
           <Separator transparent size={8} />
           <Subtitle color={color} size={2} center weight="bold">
             Personalizar duração
-            <br /> (minutos)
+            <br />
+            em minutos
           </Subtitle>
           <Separator transparent size={4} />
           <Input id="set-focus" color={color} label="Foco" type="number" />
