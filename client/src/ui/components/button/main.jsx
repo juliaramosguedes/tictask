@@ -3,18 +3,20 @@ import { css, cx } from 'emotion';
 import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
-  border = false,
+  border,
   children,
   color = ColorBrandBase,
+  borderColor = color,
   padding = '8px 8px',
-  borderRadius = '8px',
-  small = false,
-  transparent = false,
+  borderRadius = '4px',
+  small,
+  transparent,
   gradient = '',
-  circle = false,
+  circle,
   width = 'auto',
-  bold = false,
-  textColor = 'white',
+  bold,
+  textColor = '#ffffff',
+  flex,
   ...props
 }) => (
   <button
@@ -25,12 +27,15 @@ export default ({
       css`
         background-color: ${transparent ? 'transparent' : color};
         background-image: ${gradient};
-        border: ${border ? '1px solid ' + color : 'none'};
+        border: ${border ? '1px solid ' + borderColor : 'none'};
         margin: 0;
         padding: ${padding};
         width: ${width};
         border-radius: ${borderRadius};
         cursor: pointer;
+        ${flex &&
+        `display: flex;
+        align-items: center;`}
 
         &.circle {
           width: 70px;
@@ -40,7 +45,7 @@ export default ({
 
         p {
           color: ${transparent ? color : textColor};
-          font-size: ${small ? 12 : 16}px;
+          font-size: ${small ? 12 : 14}px;
           font-weight: ${bold ? 'bold' : 'normal'};
           margin: 0;
           text-align: center;
@@ -48,10 +53,11 @@ export default ({
 
         svg {
           width: ${small ? 16 : 24}px;
+          height: ${small ? 16 : 24}px;
           margin: 0 8px 0 0;
 
           path {
-            stroke: ${transparent ? ColorBrandBase : 'white'};
+            stroke: ${transparent ? ColorBrandBase : '#ffffff'};
           }
         }
 
@@ -60,6 +66,10 @@ export default ({
             width: 100px;
             height: 100px;
             border-radius: 50%;
+          }
+
+          p {
+            font-size: ${small ? 12 : 16}px;
           }
         }
       `,

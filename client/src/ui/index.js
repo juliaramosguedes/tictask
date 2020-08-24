@@ -2,6 +2,7 @@ export { default as Button } from './components/button';
 export { default as Clock } from './components/clock';
 export { default as Container } from './components/container';
 export { default as Icon } from './components/icon';
+export { default as Input } from './components/input';
 export { default as List } from './components/list';
 export { default as Loader } from './components/loader';
 export { default as Separator } from './components/separator';

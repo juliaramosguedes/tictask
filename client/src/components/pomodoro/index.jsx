@@ -13,6 +13,7 @@ import {
 import { INTERVAL, THEME } from '../../constants';
 import { useBreakpoint } from '../../hooks';
 import { default as History } from '../history';
+import { default as EditDuration } from '../edit-duration';
 import audio from '../../assets/Bell 03.mp3';
 
 export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
@@ -162,8 +163,8 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
           timeLeft={timeLeft}
         />
         <Separator transparent height="36px" />
-        {running ? (
-          <Container display="flex">
+        <Container display="flex" direction="column">
+          {running ? (
             <Button.Main
               onClick={onResetTimer}
               transparent
@@ -175,61 +176,66 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
             >
               <p>PARAR</p>
             </Button.Main>
-          </Container>
-        ) : (
-          <Container display="flex">
-            {activeTimer === INTERVAL.SHORTBREAK.KEY ||
-            activeTimer === INTERVAL.LONGBREAK.KEY ? (
-              <Button.Main
-                onClick={onInitiateBreak}
-                transparent
-                color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-                border
-                small={!isDesktop}
-                circle
-                aria-label="Button Initiate Break Time"
-              >
-                <p>RELAXAR</p>
-              </Button.Main>
-            ) : (
-              <Button.Main
-                onClick={onInitiatePomodoro}
-                transparent
-                color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-                border
-                small={!isDesktop}
-                circle
-                aria-label="Button Initiate Pomodoro"
-              >
-                <p>INICIAR</p>
-              </Button.Main>
-            )}
-          </Container>
-        )}
-        <Separator transparent height="24px" />
-        <Switch
-          onToggleAutomatic={onToggleAutomatic}
-          color={
-            THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
-              .BACKGROUND_COLOR
-          }
-        >
-          <Text
-            width="auto"
+          ) : (
+            <>
+              {activeTimer === INTERVAL.SHORTBREAK.KEY ||
+              activeTimer === INTERVAL.LONGBREAK.KEY ? (
+                <Button.Main
+                  onClick={onInitiateBreak}
+                  transparent
+                  color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+                  border
+                  small={!isDesktop}
+                  circle
+                  aria-label="Button Initiate Break Time"
+                >
+                  <p>RELAXAR</p>
+                </Button.Main>
+              ) : (
+                <Button.Main
+                  onClick={onInitiatePomodoro}
+                  transparent
+                  color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+                  border
+                  small={!isDesktop}
+                  circle
+                  aria-label="Button Initiate Pomodoro"
+                >
+                  <p>INICIAR</p>
+                </Button.Main>
+              )}
+            </>
+          )}
+
+          <Separator transparent height="24px" />
+          <Switch
+            onToggleAutomatic={onToggleAutomatic}
             color={
-              THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON.COLOR
+              THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
+                .BACKGROUND_COLOR
             }
-            size={2}
           >
-            Play automático
-          </Text>
-        </Switch>
-        <Separator transparent size={10} />
-        <History
-          color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-          counter={counter}
-        />
-        <audio id="ring" src={audio}></audio>
+            <Text
+              width="auto"
+              color={
+                THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON.COLOR
+              }
+              size={2}
+            >
+              Play automático
+            </Text>
+          </Switch>
+          <Separator transparent size={2} />
+          <EditDuration
+            color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+          />
+          <Separator transparent size={10} />
+          <History
+            color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+            counter={counter}
+          />
+          <audio id="ring" src={audio}></audio>
+        </Container>
       </Container>
     </>
   );

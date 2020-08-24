@@ -5,10 +5,10 @@ import { ColorNeutralLighter } from '../../tokens';
 
 export default ({
   size = 0,
-  transparent = false,
+  transparent,
   color = ColorNeutralLighter,
   width = '100%',
-  grow = false,
+  grow,
   height = '1px',
   ...props
 }) => (

@@ -60,19 +60,19 @@ export const THEME = {
     KEY: 'DARK',
     POMODORO: {
       BACKGROUND_COLOR: GradientDarkPomodoro,
-      COLOR: 'white',
+      COLOR: '#ffffff',
       AUTOMATIC_BUTTON: {
         BACKGROUND_COLOR: ColorBrandBase,
-        COLOR: 'white',
+        COLOR: '#ffffff',
       },
       CLOCK: ColorBrandBase,
     },
     BREAK: {
       BACKGROUND_COLOR: GradientDarkInterval,
-      COLOR: 'white',
+      COLOR: '#ffffff',
       AUTOMATIC_BUTTON: {
         BACKGROUND_COLOR: ColorLightGreen,
-        COLOR: 'white',
+        COLOR: '#ffffff',
       },
       CLOCK: ColorLightGreen,
     },
@@ -81,21 +81,21 @@ export const THEME = {
     KEY: 'BRAND',
     POMODORO: {
       BACKGROUND_COLOR: GradientPomodoro,
-      COLOR: 'white',
+      COLOR: '#ffffff',
       AUTOMATIC_BUTTON: {
         BACKGROUND_COLOR: ColorNeutralYellow,
-        COLOR: 'white',
+        COLOR: '#ffffff',
       },
-      CLOCK: 'white',
+      CLOCK: '#ffffff',
     },
     BREAK: {
       BACKGROUND_COLOR: GradientInterval,
-      COLOR: 'white',
+      COLOR: '#ffffff',
       AUTOMATIC_BUTTON: {
         BACKGROUND_COLOR: ColorNeutralYellow,
-        COLOR: 'white',
+        COLOR: '#ffffff',
       },
-      CLOCK: 'white',
+      CLOCK: '#ffffff',
     },
   },
 };

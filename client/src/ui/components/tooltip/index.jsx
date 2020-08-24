@@ -27,7 +27,7 @@ export default ({ SvgIcon, onClick, text, size, ...props }) => (
           margin-left: ${size * -33.33}px;
           z-index: 10;
           width: ${size * 73.33}px;
-          color: #fff;
+          color: #ffffff;
           font-size: 14px;
           font-weight: normal;
           text-align: center;

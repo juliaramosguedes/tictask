@@ -3,7 +3,7 @@ import { css, cx } from 'emotion';
 import { FaCoffee, FaHeart } from 'react-icons/fa';
 import { SizeMinWidthScreenDesktop, Text } from '../../ui';
 
-export default ({ color = 'white', ...props }) => (
+export default ({ color = '#ffffff', ...props }) => (
   <footer
     {...props}
     className={cx(

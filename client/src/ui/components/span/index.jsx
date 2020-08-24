@@ -4,10 +4,10 @@ import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
   size = 1,
-  bold = false,
+  bold,
   color = ColorBrandBase,
-  center = false,
-  white = false,
+  center,
+  white,
   ...props
 }) => (
   <span
