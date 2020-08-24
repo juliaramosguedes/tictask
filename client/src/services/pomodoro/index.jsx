@@ -70,7 +70,6 @@ export const useGetTimer = () => {
       setUpdateTime((updateTime) => ({ active: false, hidden: false }));
 
       if (storageDifference > timeLeft) {
-        setRunning(false);
         onSetTime(0);
       } else {
         onSetTime(timeLimit - storageDifference);
