@@ -14,4 +14,5 @@ export { default as Text } from './components/text';
 export { default as Tooltip } from './components/tooltip';
 export { default as Title } from './components/title';
 export * from './components/grid';
+export * from './components/field';
 export * from './tokens';

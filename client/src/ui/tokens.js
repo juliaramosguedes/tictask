@@ -13,11 +13,11 @@ export const ColorNeutralYellow = '#F8C805';
 export const ColorLightGreen = '#4FFFD0';
 export const ColorNeutralGreen = '#08A87D';
 export const ColorNeutralGray = '#3A4648';
+export const ColorTextPlaceholder = '#b3b0af';
 
 export const ColorAccentBase = '#ffb800';
 export const ColorAccentLight = '#ffce4d';
 export const ColorAccentLighter = '#ffedbf';
-
 export const ColorSemanticSuccess = '#47d474';
 export const ColorSemanticSuccessLight = '#91e5ac';
 export const ColorSemanticSuccessLighter = '#d1f4dc';
