@@ -1,17 +1,28 @@
 import React, { useState, useCallback } from 'react';
+import { useFormik } from 'formik';
 import { BsPencil } from 'react-icons/bs';
 import { Button, Container, Input, Separator, Subtitle } from '../../ui';
 
-export default ({ color, ...props }) => {
+export default ({ color, onEditDuration, ...props }) => {
   const [showEdit, setShowEdit] = useState(false);
 
   const onEditClick = useCallback(() => {
     setShowEdit(true);
   }, []);
 
-  const onSaveClick = useCallback(() => {
+  const onSubmitForm = (values) => {
+    onEditDuration(values);
     setShowEdit(false);
-  }, []);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      POMODORO: 25,
+      SHORTBREAK: 5,
+      LONGBREAK: 15,
+    },
+    onSubmit: (values) => onSubmitForm(values),
+  });
 
   return (
     <Container display="flex" direction="column">
@@ -24,26 +35,43 @@ export default ({ color, ...props }) => {
             em minutos
           </Subtitle>
           <Separator transparent size={4} />
-          <Input id="set-focus" color={color} label="Foco" type="number" />
-          <Separator transparent size={4} />
           <Input
-            id="set-short-break"
+            id="POMODORO"
             color={color}
-            label="Intervalo curto"
+            label="Foco"
             type="number"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.POMODORO}
+            error={formik.touched.POMODORO && formik.errors.POMODORO}
           />
           <Separator transparent size={4} />
           <Input
-            id="set-long-break"
+            id="SHORTBREAK"
+            color={color}
+            label="Intervalo curto"
+            type="number"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.SHORTBREAK}
+            error={formik.touched.SHORTBREAK && formik.errors.SHORTBREAK}
+          />
+          <Separator transparent size={4} />
+          <Input
+            id="LONGBREAK"
             color={color}
             label="Intervalo longo"
             type="number"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.LONGBREAK}
+            error={formik.touched.LONGBREAK && formik.errors.LONGBREAK}
           />
           <Separator transparent size={8} />
           <Button.Main
             border
             borderColor="#fff"
-            onClick={onSaveClick}
+            onClick={formik.handleSubmit}
             padding="8px 48px"
           >
             <p>SALVAR</p>

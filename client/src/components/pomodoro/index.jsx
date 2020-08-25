@@ -48,6 +48,11 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
   });
   const [playAudio, setPlayAudio] = useState(true);
   const [automatic, setAutomatic] = useState(false);
+  const [pomodoroTime, setPomodoroTime] = useState(INTERVAL.POMODORO.TIME);
+  const [shortBreakTime, setShortBreakTime] = useState(
+    INTERVAL.SHORTBREAK.TIME
+  );
+  const [longBreakTime, setLongBreakTime] = useState(INTERVAL.LONGBREAK.TIME);
 
   const initiateTimer = useCallback(
     (interval) => {
@@ -58,18 +63,28 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
     [setRunning, onSetTime, setPlayAudio]
   );
 
+  const onEditDuration = useCallback(
+    (times) => {
+      setPomodoroTime(times.POMODORO);
+      setShortBreakTime(times.SHORTBREAK);
+      setLongBreakTime(times.LONGBREAK);
+      onSetTime(times[activeTimer] * 60);
+    },
+    [setPomodoroTime, setShortBreakTime, setLongBreakTime]
+  );
+
   const onInitiatePomodoro = useCallback(() => {
-    initiateTimer(INTERVAL.POMODORO.TIME);
+    initiateTimer(pomodoroTime);
     setActiveTimer(INTERVAL.POMODORO.KEY);
   }, [initiateTimer, setActiveTimer]);
 
   const onInitiateBreak = useCallback(() => {
     if (counter.pomodoro > 0 && counter.pomodoro % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
-      initiateTimer(INTERVAL.LONGBREAK.TIME);
+      initiateTimer(longBreakTime);
     } else {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
-      initiateTimer(INTERVAL.SHORTBREAK.TIME);
+      initiateTimer(shortBreakTime);
     }
   }, [counter, initiateTimer, setActiveTimer]);
 
@@ -206,7 +221,6 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
               )}
             </>
           )}
-
           <Separator transparent height="24px" />
           <Switch
             onToggleAutomatic={onToggleAutomatic}
@@ -228,6 +242,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
           <Separator transparent size={2} />
           <EditDuration
             color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+            onEditDuration={onEditDuration}
           />
           <Separator transparent size={10} />
           <History
