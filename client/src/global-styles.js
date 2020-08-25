@@ -407,6 +407,4 @@ input::-webkit-autofill {
 /* TODO create focus rule */
 *:focus {
   outline: 0 !important;
-}
-\`;
-`;
+}`;

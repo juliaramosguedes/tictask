@@ -18,7 +18,14 @@ import {
   useBreakpoint,
 } from '../../hooks';
 
-export default ({ color, onEditDuration, pomodoroScroller, ...props }) => {
+export default ({
+  color,
+  onEditDuration,
+  pomodoroScroller,
+  settingsScroller,
+  settingsRef,
+  ...props
+}) => {
   const breakpoint = useBreakpoint();
   const isDesktop = breakpoint === 'desktop';
 
@@ -30,6 +37,9 @@ export default ({ color, onEditDuration, pomodoroScroller, ...props }) => {
 
   const onEditClick = useCallback(() => {
     setShowEdit(true);
+    setTimeout(() => {
+      settingsScroller();
+    }, 300);
   }, []);
 
   const onSubmitForm = (values) => {
@@ -76,7 +86,7 @@ export default ({ color, onEditDuration, pomodoroScroller, ...props }) => {
   const setFieldValue = useCallback(formik.setFieldValue);
 
   return (
-    <Container display="flex" direction="column">
+    <Container display="flex" direction="column" ref={settingsRef}>
       {showEdit ? (
         <>
           <Separator transparent size={8} />

@@ -19,6 +19,8 @@ import audio from '../../assets/Bell 03.mp3';
 export default ({
   pomodoroRef,
   pomodoroScroller,
+  settingsRef,
+  settingsScroller,
   activeTimer,
   setActiveTimer,
   theme,
@@ -250,6 +252,8 @@ export default ({
             color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
             onEditDuration={onEditDuration}
             pomodoroScroller={pomodoroScroller}
+            settingsRef={settingsRef}
+            settingsScroller={settingsScroller}
           />
           <Separator transparent size={10} />
           <History

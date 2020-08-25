@@ -26,6 +26,11 @@ export default () => {
     scroller: infoScroller,
     // isInViewport: isInfoInViewport,
   } = useScroller(scrollerSettings);
+  const {
+    ref: settingsRef,
+    scroller: settingsScroller,
+    // isInViewport: isSettingsInViewport,
+  } = useScroller(scrollerSettings);
 
   // const visibleSection = defaultTo(
   //   findLast(
@@ -113,6 +118,8 @@ export default () => {
             setActiveTimer={setActiveTimer}
             theme={theme}
             pomodoroScroller={pomodoroScroller}
+            settingsRef={settingsRef}
+            settingsScroller={settingsScroller}
           />
           <Info
             showInfo={showInfo}
