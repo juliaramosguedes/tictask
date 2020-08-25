@@ -40,7 +40,7 @@ export default ({
     setTimeout(() => {
       settingsScroller();
     }, 300);
-  }, []);
+  }, [settingsScroller]);
 
   const onSubmitForm = (values) => {
     onEditDuration(values);
