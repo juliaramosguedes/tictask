@@ -17,13 +17,14 @@ export default ({ icon: Icon, color, left, right, ...props }) => (
 
         &:hover {
           svg {
-            stroke-width: 2;
+            width: 20px;
+            height: 20px;
           }
         }
 
         svg {
-          width: 18px;
-          height: 18px;
+          width: 16px;
+          height: 16px;
           margin-bottom: 2px;
         }
       `,
