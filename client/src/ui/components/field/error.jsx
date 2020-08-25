@@ -1,6 +1,5 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { hexToRGB } from '../../../utils';
 
 const FieldError = ({ inline, color, ...props }) => (
   <div
@@ -8,8 +7,9 @@ const FieldError = ({ inline, color, ...props }) => (
     className={cx(
       'field-error',
       css`
-        color: ${hexToRGB(color, 0.8)};
+        color: ${color};
         font-size: 12px;
+        margin-top: 6px;
       `,
       props.className
     )}

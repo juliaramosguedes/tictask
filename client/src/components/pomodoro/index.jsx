@@ -16,7 +16,13 @@ import { default as History } from '../history';
 import { default as EditDuration } from '../edit-duration';
 import audio from '../../assets/Bell 03.mp3';
 
-export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
+export default ({
+  pomodoroRef,
+  pomodoroScroller,
+  activeTimer,
+  setActiveTimer,
+  theme,
+}) => {
   const breakpoint = useBreakpoint();
   const isDesktop = breakpoint === 'desktop';
 
@@ -243,6 +249,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
           <EditDuration
             color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
             onEditDuration={onEditDuration}
+            pomodoroScroller={pomodoroScroller}
           />
           <Separator transparent size={10} />
           <History

@@ -1,11 +1,6 @@
 import React, { forwardRef } from 'react';
 import { css, cx, injectGlobal } from 'emotion';
-import {
-  ColorBrandBase,
-  ColorTextPlaceholder,
-  ColorSemanticError,
-  DarkBoxShadow,
-} from '../../tokens';
+import { ColorTextPlaceholder, ColorSemanticError } from '../../tokens';
 
 injectGlobal`
 ::placeholder {
@@ -23,10 +18,10 @@ const Input = ({ hasError, isLoading, placeholder, color, ...props }, ref) => (
       'input',
       hasError && 'has-error',
       css`
-        background: rgba(0, 0, 0, 0.15);
-        box-shadow: ${DarkBoxShadow};
-        border: 1px solid #fff;
         box-sizing: border-box;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid ${color};
         color: ${color};
         display: inline-block;
         font-size: 16px;
@@ -46,7 +41,7 @@ const Input = ({ hasError, isLoading, placeholder, color, ...props }, ref) => (
         }
 
         &:focus {
-          border-color: ${ColorBrandBase};
+          font-weight: bold;
         }
 
         &.has-error {

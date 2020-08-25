@@ -1,6 +1,6 @@
 import React, { createElement, forwardRef } from 'react';
 
-import Input from '../input';
+import { Input } from '../input';
 import FieldLabel from './label';
 import FieldError from './error';
 import FieldAlert from './alert';

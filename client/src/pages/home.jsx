@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { DateTime } from 'luxon';
+// import { findLast, defaultTo } from 'lodash';
 import { INTERVAL, THEME } from '../constants';
 import { useScroller, useBreakpoint } from '../hooks';
 import { Pomodoro, Info, LoadingPomodoro } from '../components';
@@ -15,12 +16,27 @@ export default () => {
   const breakpoint = useBreakpoint();
   const isDesktop = breakpoint === 'desktop';
 
-  const { ref: pomodoroRef, scroller: pomodoroScroller } = useScroller(
-    scrollerSettings
-  );
-  const { ref: infoRef, scroller: infoScroller } = useScroller(
-    scrollerSettings
-  );
+  const {
+    ref: pomodoroRef,
+    scroller: pomodoroScroller,
+    // isInViewport: isPomodoroInViewport,
+  } = useScroller(scrollerSettings);
+  const {
+    ref: infoRef,
+    scroller: infoScroller,
+    // isInViewport: isInfoInViewport,
+  } = useScroller(scrollerSettings);
+
+  // const visibleSection = defaultTo(
+  //   findLast(
+  //     [
+  //       ['pomodoro', isPomodoroInViewport],
+  //       ['info', isInfoInViewport],
+  //     ],
+  //     '1'
+  //   ),
+  //   []
+  // )[0];
 
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(THEME.BRAND.KEY);
@@ -96,6 +112,7 @@ export default () => {
             activeTimer={activeTimer}
             setActiveTimer={setActiveTimer}
             theme={theme}
+            pomodoroScroller={pomodoroScroller}
           />
           <Info
             showInfo={showInfo}

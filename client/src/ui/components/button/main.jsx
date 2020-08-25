@@ -32,10 +32,20 @@ export default ({
         padding: ${padding};
         width: ${width};
         border-radius: ${borderRadius};
-        cursor: pointer;
         ${flex &&
         `display: flex;
         align-items: center;`}
+
+        transition: background-color 0.5s;
+        transition: font-weight 1s;
+
+        &:hover {
+          ${border
+            ? 'background-color: rgba(1, 1, 1, 0.1)'
+            : `p {
+            font-weight: bold;
+          }`};
+        }
 
         &.circle {
           width: 70px;

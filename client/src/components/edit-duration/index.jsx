@@ -8,17 +8,25 @@ import {
   Field,
   FieldBox,
   Fieldset,
+  InputNumber,
   Separator,
   Subtitle,
 } from '../../ui';
-import { useInitialFocusRef, useFocusOnError } from '../../hooks';
+import {
+  useInitialFocusRef,
+  useFocusOnError,
+  useBreakpoint,
+} from '../../hooks';
 
-export default ({ color, onEditDuration, ...props }) => {
+export default ({ color, onEditDuration, pomodoroScroller, ...props }) => {
+  const breakpoint = useBreakpoint();
+  const isDesktop = breakpoint === 'desktop';
+
   const pomodoroInputRef = useInitialFocusRef();
   const shortBreakInputRef = useRef();
   const longBreakInputRef = useRef();
 
-  const [showEdit, setShowEdit] = useState(true);
+  const [showEdit, setShowEdit] = useState(false);
 
   const onEditClick = useCallback(() => {
     setShowEdit(true);
@@ -27,6 +35,7 @@ export default ({ color, onEditDuration, ...props }) => {
   const onSubmitForm = (values) => {
     onEditDuration(values);
     setShowEdit(false);
+    pomodoroScroller();
   };
 
   const formik = useFormik({
@@ -77,9 +86,10 @@ export default ({ color, onEditDuration, ...props }) => {
             em minutos
           </Subtitle>
           <Separator transparent size={4} />
-          <Fieldset width="155px">
+          <Fieldset width="175px">
             <FieldBox>
               <Field
+                as={InputNumber}
                 ref={pomodoroInputRef}
                 id="POMODORO"
                 label="Foco"
@@ -89,24 +99,37 @@ export default ({ color, onEditDuration, ...props }) => {
                 error={formik.touched.POMODORO && formik.errors.POMODORO}
                 color={color}
                 type="number"
+                onMinusClick={() =>
+                  setFieldValue('POMODORO', formik.values.POMODORO - 1)
+                }
+                onPlusClick={() =>
+                  setFieldValue('POMODORO', formik.values.POMODORO + 1)
+                }
               />
             </FieldBox>
             <FieldBox>
               <Field
+                as={InputNumber}
                 ref={shortBreakInputRef}
                 color={color}
                 id="SHORTBREAK"
-                color={color}
                 label="Intervalo curto"
                 type="number"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.SHORTBREAK}
                 error={formik.touched.SHORTBREAK && formik.errors.SHORTBREAK}
+                onMinusClick={() =>
+                  setFieldValue('SHORTBREAK', formik.values.SHORTBREAK - 1)
+                }
+                onPlusClick={() =>
+                  setFieldValue('SHORTBREAK', formik.values.SHORTBREAK + 1)
+                }
               />
             </FieldBox>
             <FieldBox>
               <Field
+                as={InputNumber}
                 ref={longBreakInputRef}
                 id="LONGBREAK"
                 color={color}
@@ -116,16 +139,25 @@ export default ({ color, onEditDuration, ...props }) => {
                 onBlur={formik.handleBlur}
                 value={formik.values.LONGBREAK}
                 error={formik.touched.LONGBREAK && formik.errors.LONGBREAK}
+                onMinusClick={() =>
+                  setFieldValue('LONGBREAK', formik.values.LONGBREAK - 1)
+                }
+                onPlusClick={() =>
+                  setFieldValue('LONGBREAK', formik.values.LONGBREAK + 1)
+                }
               />
             </FieldBox>
           </Fieldset>
 
-          <Separator transparent size={8} />
+          <Separator transparent size={4} />
           <Button.Main
             border
-            borderColor="#fff"
+            transparent
+            color={color}
+            circle
             onClick={formik.handleSubmit}
-            padding="12px 48px"
+            padding="8px"
+            small={!isDesktop}
           >
             <p>SALVAR</p>
           </Button.Main>
