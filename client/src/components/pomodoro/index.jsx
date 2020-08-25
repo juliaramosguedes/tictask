@@ -70,13 +70,13 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
       setLongBreakTime(times.LONGBREAK);
       onSetTime(times[activeTimer] * 60);
     },
-    [setPomodoroTime, setShortBreakTime, setLongBreakTime]
+    [onSetTime, activeTimer]
   );
 
   const onInitiatePomodoro = useCallback(() => {
     initiateTimer(pomodoroTime);
     setActiveTimer(INTERVAL.POMODORO.KEY);
-  }, [initiateTimer, setActiveTimer]);
+  }, [initiateTimer, pomodoroTime, setActiveTimer]);
 
   const onInitiateBreak = useCallback(() => {
     if (counter.pomodoro > 0 && counter.pomodoro % 4 === 0) {
@@ -86,7 +86,7 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
       initiateTimer(shortBreakTime);
     }
-  }, [counter, initiateTimer, setActiveTimer]);
+  }, [counter, initiateTimer, longBreakTime, shortBreakTime, setActiveTimer]);
 
   const onResetTimer = useCallback(() => {
     setRunning(false);

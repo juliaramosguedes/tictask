@@ -13,7 +13,7 @@ import {
 export const INTERVAL = {
   POMODORO: {
     TIME: 25,
-    NAME: 'POMODORO',
+    NAME: 'TIC TASK',
     PHRASE: 'Concentre-se!',
     KEY: 'POMODORO',
     TYPE: 'POMODORO',

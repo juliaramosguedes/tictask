@@ -13,11 +13,13 @@ export const useGetTimer = () => {
     hidden: false,
   });
 
-  const onSetTime = useCallback((time) => {
+  const onSetTime = useCallback((time, updateTimeLimit = true) => {
     setTimeLeft(time);
-    setTimeLimit(time);
-    setRawTimeFraction(time > 0 ? 1 : 0);
     localStorage.setItem('initialTime', DateTime.local());
+    if (updateTimeLimit) {
+      setRawTimeFraction(time > 0 ? 1 : 0);
+      setTimeLimit(time);
+    }
   }, []);
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export const useGetTimer = () => {
       if (storageDifference > timeLeft) {
         onSetTime(0);
       } else {
-        onSetTime(timeLimit - storageDifference);
+        onSetTime(timeLimit - storageDifference, false);
       }
     }
   }, [onSetTime, running, timeLeft, timeLimit, updateTime]);
