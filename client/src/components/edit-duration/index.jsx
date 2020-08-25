@@ -44,8 +44,10 @@ export default ({
 
   const onSubmitForm = (values) => {
     onEditDuration(values);
-    setShowEdit(false);
     pomodoroScroller();
+    setTimeout(() => {
+      setShowEdit(false);
+    }, 500);
   };
 
   const formik = useFormik({
