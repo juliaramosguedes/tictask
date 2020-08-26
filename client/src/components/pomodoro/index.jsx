@@ -32,9 +32,11 @@ export default ({
     timeLeft,
     running,
     finished,
-    setRunning,
     onSetTime,
     rawTimeFraction,
+    playAudio,
+    initiateTimer,
+    onResetTimer,
   } = useGetTimer();
 
   const [counter, setCounter] = useState(() => {
@@ -54,22 +56,17 @@ export default ({
       };
     }
   });
-  const [playAudio, setPlayAudio] = useState(true);
+  const [history, setHistory] = useState({
+    POMODORO: [],
+    SHORTBREAK: [],
+    LONGBREAK: [],
+  });
   const [automatic, setAutomatic] = useState(false);
   const [pomodoroTime, setPomodoroTime] = useState(INTERVAL.POMODORO.TIME);
   const [shortBreakTime, setShortBreakTime] = useState(
     INTERVAL.SHORTBREAK.TIME
   );
   const [longBreakTime, setLongBreakTime] = useState(INTERVAL.LONGBREAK.TIME);
-
-  const initiateTimer = useCallback(
-    (interval) => {
-      setRunning(true);
-      onSetTime(interval * 60);
-      setPlayAudio(true);
-    },
-    [setRunning, onSetTime, setPlayAudio]
-  );
 
   const onEditDuration = useCallback(
     (times) => {
@@ -96,13 +93,6 @@ export default ({
     }
   }, [counter, initiateTimer, longBreakTime, shortBreakTime, setActiveTimer]);
 
-  const onResetTimer = useCallback(() => {
-    setRunning(false);
-    onSetTime(0);
-    setPlayAudio(false);
-    localStorage.setItem('timeLeft', 0);
-  }, [setRunning, onSetTime]);
-
   const playRing = useCallback(() => {
     const audio = document.getElementById('ring');
     audio.volume = 0.5;
@@ -114,7 +104,7 @@ export default ({
   ]);
 
   useEffect(() => {
-    if (finished && playAudio) {
+    if (finished) {
       setCounter((counter) => ({
         ...counter,
         [activeTimer]: counter[activeTimer] + 1,
@@ -126,6 +116,19 @@ export default ({
           [activeTimer]: counter[activeTimer] + 1,
         })
       );
+
+      setHistory((history) => {
+        const updatedHistory =
+          activeTimer === INTERVAL.POMODORO.KEY
+            ? pomodoroTime
+            : activeTimer === INTERVAL.SHORTBREAK.KEY
+            ? shortBreakTime
+            : longBreakTime;
+        return {
+          ...history,
+          [activeTimer]: [...history[activeTimer], updatedHistory],
+        };
+      });
       localStorage.setItem(
         'date',
         JSON.stringify(DateTime.local().toFormat('yyyy-MM-dd'))
@@ -137,7 +140,10 @@ export default ({
           return INTERVAL.POMODORO.KEY;
         }
       });
-      playRing();
+
+      if (playAudio) {
+        playRing();
+      }
 
       if (automatic) {
         if (activeTimer === INTERVAL.POMODORO.KEY) {
@@ -250,6 +256,9 @@ export default ({
           <Separator transparent size={2} />
           <EditDuration
             color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+            secondaryColor={
+              THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON.COLOR
+            }
             onEditDuration={onEditDuration}
             pomodoroScroller={pomodoroScroller}
             settingsRef={settingsRef}
@@ -258,7 +267,7 @@ export default ({
           <Separator transparent size={10} />
           <History
             color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-            counter={counter}
+            history={history}
           />
           <audio id="ring" src={audio}></audio>
         </Container>

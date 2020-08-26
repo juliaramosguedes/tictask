@@ -8,6 +8,7 @@ export const useGetTimer = () => {
   const [rawTimeFraction, setRawTimeFraction] = useState(1);
   const [running, setRunning] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [playAudio, setPlayAudio] = useState(true);
   const [updateTime, setUpdateTime] = useState({
     active: false,
     hidden: false,
@@ -21,6 +22,22 @@ export const useGetTimer = () => {
       setTimeLimit(time);
     }
   }, []);
+
+  const initiateTimer = useCallback(
+    (interval) => {
+      setRunning(true);
+      onSetTime(interval * 60);
+      setPlayAudio(true);
+    },
+    [setRunning, onSetTime, setPlayAudio]
+  );
+
+  const onResetTimer = useCallback(() => {
+    setRunning(false);
+    onSetTime(0);
+    setPlayAudio(false);
+    localStorage.setItem('timeLeft', 0);
+  }, [setRunning, onSetTime]);
 
   useEffect(() => {
     setFinished(false);
@@ -72,6 +89,7 @@ export const useGetTimer = () => {
       setUpdateTime((updateTime) => ({ active: false, hidden: false }));
 
       if (storageDifference > timeLeft) {
+        setPlayAudio(false);
         onSetTime(0);
       } else {
         onSetTime(timeLimit - storageDifference, false);
@@ -82,9 +100,11 @@ export const useGetTimer = () => {
   return {
     timeLeft: Duration.fromMillis(timeLeft * 1000).toFormat('mm:ss'),
     running,
-    setRunning,
     finished,
     onSetTime,
     rawTimeFraction,
+    playAudio,
+    initiateTimer,
+    onResetTimer,
   };
 };

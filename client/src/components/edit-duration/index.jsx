@@ -174,6 +174,7 @@ export default ({
             onClick={formik.handleSubmit}
             padding="8px"
             small={!isDesktop}
+            type="submit"
           >
             <p>SALVAR</p>
           </Button.Main>
