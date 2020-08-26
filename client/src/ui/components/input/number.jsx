@@ -9,6 +9,7 @@ const InputNumber = (
     isLoading,
     placeholder,
     color,
+    secondaryColor,
     onPlusClick,
     onMinusClick,
     ...props
@@ -16,7 +17,7 @@ const InputNumber = (
   ref
 ) => (
   <>
-    <Button.InputNumber color={color} left onClick={onMinusClick} />
+    <Button.InputNumber color={secondaryColor} left onClick={onMinusClick} />
     <Input
       ref={ref}
       placeholder={placeholder}
@@ -25,14 +26,14 @@ const InputNumber = (
         'input-number',
         css`
           color: ${color};
-          border-bottom: 1px solid ${color};
+          border-bottom: 1px solid ${secondaryColor};
           width: 55px;
           margin: 0 4px;
         `,
         props.className
       )}
     />
-    <Button.InputNumber color={color} right onClick={onPlusClick} />
+    <Button.InputNumber color={secondaryColor} right onClick={onPlusClick} />
   </>
 );
 

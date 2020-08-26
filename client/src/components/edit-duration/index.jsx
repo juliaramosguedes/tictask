@@ -22,6 +22,7 @@ export default ({
   color,
   onEditDuration,
   pomodoroScroller,
+  secondaryColor,
   settingsScroller,
   settingsRef,
   ...props
@@ -92,7 +93,7 @@ export default ({
       {showEdit ? (
         <>
           <Separator transparent size={8} />
-          <Subtitle color={color} size={2} center weight="bold">
+          <Subtitle color={secondaryColor} size={2} center weight="bold">
             Personalizar duração
             <br />
             em minutos
@@ -110,6 +111,7 @@ export default ({
                 value={formik.values.POMODORO}
                 error={formik.touched.POMODORO && formik.errors.POMODORO}
                 color={color}
+                secondaryColor={secondaryColor}
                 type="number"
                 onMinusClick={() =>
                   setFieldValue('POMODORO', formik.values.POMODORO - 1)
@@ -124,6 +126,7 @@ export default ({
                 as={InputNumber}
                 ref={shortBreakInputRef}
                 color={color}
+                secondaryColor={secondaryColor}
                 id="SHORTBREAK"
                 label="Intervalo curto"
                 type="number"
@@ -145,6 +148,7 @@ export default ({
                 ref={longBreakInputRef}
                 id="LONGBREAK"
                 color={color}
+                secondaryColor={secondaryColor}
                 label="Intervalo longo"
                 type="number"
                 onChange={formik.handleChange}

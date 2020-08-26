@@ -22,7 +22,8 @@ const Field = (
     success = undefined,
     info = undefined,
     color,
-    labelProps = { color },
+    secondaryColor,
+    labelProps = { color: secondaryColor },
     inputProps = {},
     ...props
   },
@@ -47,6 +48,7 @@ const Field = (
         id,
         name,
         color,
+        secondaryColor,
         hasError: error,
       })}
       {error && <FieldError color={color}>{error}</FieldError>}
