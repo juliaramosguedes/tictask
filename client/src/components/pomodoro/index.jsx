@@ -39,27 +39,22 @@ export default ({
     onResetTimer,
   } = useGetTimer();
 
-  const [counter, setCounter] = useState(() => {
-    let counter = localStorage.getItem('counter');
+  const [history, setHistory] = useState(() => {
+    let history = localStorage.getItem('history');
     let date = localStorage.getItem('date');
     date = JSON.parse(date);
     const currentDate = DateTime.local().toFormat('yyyy-MM-dd');
 
-    if (counter && date === currentDate) {
-      counter = JSON.parse(counter);
-      return counter;
+    if (history && date === currentDate) {
+      history = JSON.parse(history);
+      return history;
     } else {
       return {
-        POMODORO: 0,
-        SHORTBREAK: 0,
-        LONGBREAK: 0,
+        POMODORO: [0],
+        SHORTBREAK: [0],
+        LONGBREAK: [0],
       };
     }
-  });
-  const [history, setHistory] = useState({
-    POMODORO: [],
-    SHORTBREAK: [],
-    LONGBREAK: [],
   });
   const [automatic, setAutomatic] = useState(false);
   const [pomodoroTime, setPomodoroTime] = useState(INTERVAL.POMODORO.TIME);
@@ -84,14 +79,15 @@ export default ({
   }, [initiateTimer, pomodoroTime, setActiveTimer]);
 
   const onInitiateBreak = useCallback(() => {
-    if (counter.pomodoro > 0 && counter.pomodoro % 4 === 0) {
+    if (history.POMODORO.length > 0 && history.POMODORO.length % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
       initiateTimer(longBreakTime);
+      console.log('caiuaqui');
     } else {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
       initiateTimer(shortBreakTime);
     }
-  }, [counter, initiateTimer, longBreakTime, shortBreakTime, setActiveTimer]);
+  }, [history, initiateTimer, longBreakTime, shortBreakTime, setActiveTimer]);
 
   const playRing = useCallback(() => {
     const audio = document.getElementById('ring');
@@ -105,41 +101,30 @@ export default ({
 
   useEffect(() => {
     if (finished) {
-      setCounter((counter) => ({
-        ...counter,
-        [activeTimer]: counter[activeTimer] + 1,
-      }));
-      localStorage.setItem(
-        'counter',
-        JSON.stringify({
-          ...counter,
-          [activeTimer]: counter[activeTimer] + 1,
-        })
-      );
+      const historyToUpdate =
+        activeTimer === INTERVAL.POMODORO.KEY
+          ? pomodoroTime
+          : activeTimer === INTERVAL.SHORTBREAK.KEY
+          ? shortBreakTime
+          : longBreakTime;
 
-      setHistory((history) => {
-        const updatedHistory =
-          activeTimer === INTERVAL.POMODORO.KEY
-            ? pomodoroTime
-            : activeTimer === INTERVAL.SHORTBREAK.KEY
-            ? shortBreakTime
-            : longBreakTime;
-        return {
-          ...history,
-          [activeTimer]: [...history[activeTimer], updatedHistory],
-        };
-      });
+      const updatedHistory = {
+        ...history,
+        [activeTimer]: [...history[activeTimer], historyToUpdate],
+      };
+
+      setHistory((history) => updatedHistory);
+      localStorage.setItem('history', JSON.stringify(updatedHistory));
       localStorage.setItem(
         'date',
         JSON.stringify(DateTime.local().toFormat('yyyy-MM-dd'))
       );
-      setActiveTimer(() => {
-        if (activeTimer === INTERVAL.POMODORO.KEY) {
-          return INTERVAL.SHORTBREAK.KEY;
-        } else {
-          return INTERVAL.POMODORO.KEY;
-        }
-      });
+
+      setActiveTimer((activeTimer) =>
+        activeTimer === INTERVAL.POMODORO.KEY
+          ? INTERVAL.SHORTBREAK.KEY
+          : INTERVAL.POMODORO.KEY
+      );
 
       if (playAudio) {
         playRing();
@@ -154,7 +139,6 @@ export default ({
       }
     }
   }, [
-    counter,
     finished,
     playAudio,
     playRing,
@@ -163,6 +147,10 @@ export default ({
     automatic,
     onInitiateBreak,
     onInitiatePomodoro,
+    pomodoroTime,
+    shortBreakTime,
+    longBreakTime,
+    history,
   ]);
 
   return (
