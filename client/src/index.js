@@ -5,4 +5,11 @@ import './global-styles';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
-serviceWorker.register({ onUpdate: () => window.location.reload() });
+serviceWorker.register({
+  onUpdate: (registration) => {
+    if (registration && registration.waiting) {
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
+    window.location.reload();
+  },
+});
