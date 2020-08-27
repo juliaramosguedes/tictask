@@ -13,14 +13,6 @@ export default ({ icon: Icon, color, left, right, ...props }) => (
         padding: 12px;
         width: 55px;
         background-color: transparent;
-        transition: stroke-width 0.5s;
-
-        &:hover {
-          svg {
-            width: 24px;
-            height: 24px;
-          }
-        }
 
         svg {
           width: 20px;
