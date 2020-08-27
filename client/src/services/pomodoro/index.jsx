@@ -5,41 +5,45 @@ import { INTERVAL } from '../../constants';
 export const useGetTimer = () => {
   const [timeLeft, setTimeLeft] = useState(() => {
     let activeTimer = localStorage.getItem('activeTimer');
-    activeTimer = activeTimer ? activeTimer : INTERVAL.POMODORO.KEY;
+    activeTimer = activeTimer || INTERVAL.POMODORO.KEY;
     let storageTime = localStorage.getItem('initialTime');
     let duration = localStorage.getItem('duration');
     duration = JSON.parse(duration);
+    duration = duration || {
+      POMODORO: INTERVAL.POMODORO.TIME,
+      SHORTBREAK: INTERVAL.SHORTBREAK.TIME,
+      LONGBREAK: INTERVAL.LONGBREAK.TIME,
+    };
 
     if (!activeTimer) return INTERVAL.POMODORO.TIME * 60;
 
-    if (storageTime) {
-      storageTime = DateTime.fromISO(storageTime);
-      const interval = Interval.fromDateTimes(storageTime, DateTime.local());
-      const storageDifference = Math.floor(
-        interval.toDuration('seconds').toObject().seconds
-      );
+    if (!storageTime) return duration[activeTimer] * 60;
 
-      console.log(storageDifference);
+    storageTime = DateTime.fromISO(storageTime);
+    const interval = Interval.fromDateTimes(storageTime, DateTime.local());
+    const storageDifference = Math.floor(
+      interval.toDuration('seconds').toObject().seconds
+    );
 
-      return duration
-        ? (duration[activeTimer] - storageDifference / 60) * 60
-        : (INTERVAL[activeTimer].TIME - storageDifference / 60) * 60;
-    } else {
-      return duration
-        ? duration[activeTimer] * 60
-        : INTERVAL[activeTimer].TIME * 60;
-    }
+    if (storageDifference / 60 >= duration[activeTimer])
+      return duration[activeTimer] * 60;
+
+    return (duration[activeTimer] - storageDifference / 60) * 60;
   });
   const [timeLimit, setTimeLimit] = useState(() => {
     let activeTimer = localStorage.getItem('activeTimer');
-    activeTimer = activeTimer ? activeTimer : INTERVAL.POMODORO.KEY;
+    activeTimer = activeTimer || INTERVAL.POMODORO.KEY;
     let duration = localStorage.getItem('duration');
     duration = JSON.parse(duration);
+    duration = duration || {
+      POMODORO: INTERVAL.POMODORO.TIME,
+      SHORTBREAK: INTERVAL.SHORTBREAK.TIME,
+      LONGBREAK: INTERVAL.LONGBREAK.TIME,
+    };
 
-    if (!activeTimer) return INTERVAL.POMODORO.TIME * 60;
-    return duration
-      ? duration[activeTimer] * 60
-      : INTERVAL[activeTimer].TIME * 60;
+    return !activeTimer
+      ? INTERVAL.POMODORO.TIME * 60
+      : duration[activeTimer] * 60;
   });
   const [rawTimeFraction, setRawTimeFraction] = useState(1);
   const [running, setRunning] = useState(() => {

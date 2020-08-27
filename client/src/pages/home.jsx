@@ -45,7 +45,10 @@ export default () => {
 
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(THEME.BRAND.KEY);
-  const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
+  const [activeTimer, setActiveTimer] = useState(() => {
+    let activeTimer = localStorage.getItem('activeTimer');
+    return activeTimer || INTERVAL.POMODORO.KEY;
+  });
   const [showInfo, setShowInfo] = useState(() => {
     let lastVisit = localStorage.getItem('lastVisit');
 

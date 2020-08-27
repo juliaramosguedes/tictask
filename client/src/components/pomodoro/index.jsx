@@ -157,6 +157,7 @@ export default ({
     onInitiateBreak,
     onInitiatePomodoro,
     history,
+    duration,
   ]);
 
   return (
