@@ -3,6 +3,11 @@ import { DateTime, Duration, Interval } from 'luxon';
 import { INTERVAL } from '../../constants';
 
 export const useGetTimer = () => {
+  const [running, setRunning] = useState(() => {
+    let running = localStorage.getItem('running');
+    running = JSON.parse(running);
+    return running;
+  });
   const [timeLeft, setTimeLeft] = useState(() => {
     let activeTimer = localStorage.getItem('activeTimer');
     activeTimer = activeTimer || INTERVAL.POMODORO.KEY;
@@ -25,8 +30,10 @@ export const useGetTimer = () => {
       interval.toDuration('seconds').toObject().seconds
     );
 
-    if (storageDifference / 60 >= duration[activeTimer])
+    if (storageDifference / 60 >= duration[activeTimer]) {
+      setRunning(false);
       return duration[activeTimer] * 60;
+    }
 
     return (duration[activeTimer] - storageDifference / 60) * 60;
   });
@@ -46,11 +53,6 @@ export const useGetTimer = () => {
       : duration[activeTimer] * 60;
   });
   const [rawTimeFraction, setRawTimeFraction] = useState(1);
-  const [running, setRunning] = useState(() => {
-    let running = localStorage.getItem('running');
-    running = JSON.parse(running);
-    return running;
-  });
   const [finished, setFinished] = useState(false);
   const [playAudio, setPlayAudio] = useState(true);
   const [updateTime, setUpdateTime] = useState({
