@@ -4,18 +4,49 @@ import { INTERVAL } from '../../constants';
 
 export const useGetTimer = () => {
   const [timeLeft, setTimeLeft] = useState(() => {
+    let activeTimer = localStorage.getItem('activeTimer');
+    activeTimer = activeTimer ? activeTimer : INTERVAL.POMODORO.KEY;
+    let storageTime = localStorage.getItem('initialTime');
     let duration = localStorage.getItem('duration');
+    duration = JSON.parse(duration);
 
-    if (duration) {
-      duration = JSON.parse(duration);
-      return duration.POMODORO * 60;
+    if (!activeTimer) return INTERVAL.POMODORO.TIME * 60;
+
+    if (storageTime) {
+      storageTime = DateTime.fromISO(storageTime);
+      const interval = Interval.fromDateTimes(storageTime, DateTime.local());
+      const storageDifference = Math.floor(
+        interval.toDuration('seconds').toObject().seconds
+      );
+
+      console.log(storageDifference);
+
+      return duration
+        ? (duration[activeTimer] - storageDifference / 60) * 60
+        : (INTERVAL[activeTimer].TIME - storageDifference / 60) * 60;
     } else {
-      return INTERVAL.POMODORO.TIME * 60;
+      return duration
+        ? duration[activeTimer] * 60
+        : INTERVAL[activeTimer].TIME * 60;
     }
   });
-  const [timeLimit, setTimeLimit] = useState(timeLeft);
+  const [timeLimit, setTimeLimit] = useState(() => {
+    let activeTimer = localStorage.getItem('activeTimer');
+    activeTimer = activeTimer ? activeTimer : INTERVAL.POMODORO.KEY;
+    let duration = localStorage.getItem('duration');
+    duration = JSON.parse(duration);
+
+    if (!activeTimer) return INTERVAL.POMODORO.TIME * 60;
+    return duration
+      ? duration[activeTimer] * 60
+      : INTERVAL[activeTimer].TIME * 60;
+  });
   const [rawTimeFraction, setRawTimeFraction] = useState(1);
-  const [running, setRunning] = useState(false);
+  const [running, setRunning] = useState(() => {
+    let running = localStorage.getItem('running');
+    running = JSON.parse(running);
+    return running;
+  });
   const [finished, setFinished] = useState(false);
   const [playAudio, setPlayAudio] = useState(true);
   const [updateTime, setUpdateTime] = useState({
@@ -37,21 +68,23 @@ export const useGetTimer = () => {
       setRunning(true);
       onSetTime(interval * 60);
       setPlayAudio(true);
+      localStorage.setItem('running', JSON.stringify(true));
     },
     [setRunning, onSetTime, setPlayAudio]
   );
 
   const onResetTimer = useCallback(() => {
     setRunning(false);
+    localStorage.setItem('running', JSON.stringify(false));
     onSetTime(0);
     setPlayAudio(false);
-    localStorage.setItem('timeLeft', 0);
   }, [setRunning, onSetTime]);
 
   useEffect(() => {
     setFinished(false);
 
     if (!timeLeft && running) {
+      localStorage.setItem('running', JSON.stringify(false));
       setRunning(false);
       setFinished(true);
       return;

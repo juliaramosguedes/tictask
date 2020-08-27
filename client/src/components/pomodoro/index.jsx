@@ -84,15 +84,18 @@ export default ({
   const onInitiatePomodoro = useCallback(() => {
     initiateTimer(duration.POMODORO);
     setActiveTimer(INTERVAL.POMODORO.KEY);
+    localStorage.setItem('activeTimer', INTERVAL.POMODORO.KEY);
   }, [initiateTimer, duration, setActiveTimer]);
 
   const onInitiateBreak = useCallback(() => {
     if (history.POMODORO.length > 0 && history.POMODORO.length % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
       initiateTimer(duration.LONGBREAK);
+      localStorage.setItem('activeTimer', INTERVAL.LONGBREAK.KEY);
     } else {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
       initiateTimer(duration.SHORTBREAK);
+      localStorage.setItem('activeTimer', INTERVAL.SHORTBREAK.KEY);
     }
   }, [history, initiateTimer, duration, setActiveTimer]);
 
@@ -121,6 +124,12 @@ export default ({
       );
 
       setActiveTimer((activeTimer) =>
+        activeTimer === INTERVAL.POMODORO.KEY
+          ? INTERVAL.SHORTBREAK.KEY
+          : INTERVAL.POMODORO.KEY
+      );
+      localStorage.setItem(
+        'activeTimer',
         activeTimer === INTERVAL.POMODORO.KEY
           ? INTERVAL.SHORTBREAK.KEY
           : INTERVAL.POMODORO.KEY
