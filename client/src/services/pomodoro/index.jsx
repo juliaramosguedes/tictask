@@ -3,8 +3,17 @@ import { DateTime, Duration, Interval } from 'luxon';
 import { INTERVAL } from '../../constants';
 
 export const useGetTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(INTERVAL.POMODORO.TIME * 60);
-  const [timeLimit, setTimeLimit] = useState(INTERVAL.POMODORO.TIME * 60);
+  const [timeLeft, setTimeLeft] = useState(() => {
+    let duration = localStorage.getItem('duration');
+
+    if (duration) {
+      duration = JSON.parse(duration);
+      return duration.POMODORO * 60;
+    } else {
+      return INTERVAL.POMODORO.TIME * 60;
+    }
+  });
+  const [timeLimit, setTimeLimit] = useState(timeLeft);
   const [rawTimeFraction, setRawTimeFraction] = useState(1);
   const [running, setRunning] = useState(false);
   const [finished, setFinished] = useState(false);

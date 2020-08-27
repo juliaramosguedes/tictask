@@ -56,38 +56,45 @@ export default ({
       };
     }
   });
+  const [duration, setDuration] = useState(() => {
+    let duration = localStorage.getItem('duration');
+
+    if (duration) {
+      duration = JSON.parse(duration);
+      return duration;
+    } else {
+      return {
+        POMODORO: INTERVAL.POMODORO.TIME,
+        SHORTBREAK: INTERVAL.SHORTBREAK.TIME,
+        LONGBREAK: INTERVAL.LONGBREAK.TIME,
+      };
+    }
+  });
   const [automatic, setAutomatic] = useState(false);
-  const [pomodoroTime, setPomodoroTime] = useState(INTERVAL.POMODORO.TIME);
-  const [shortBreakTime, setShortBreakTime] = useState(
-    INTERVAL.SHORTBREAK.TIME
-  );
-  const [longBreakTime, setLongBreakTime] = useState(INTERVAL.LONGBREAK.TIME);
 
   const onEditDuration = useCallback(
     (times) => {
-      setPomodoroTime(times.POMODORO);
-      setShortBreakTime(times.SHORTBREAK);
-      setLongBreakTime(times.LONGBREAK);
+      setDuration(times);
       onSetTime(times[activeTimer] * 60);
+      localStorage.setItem('duration', JSON.stringify(times));
     },
     [onSetTime, activeTimer]
   );
 
   const onInitiatePomodoro = useCallback(() => {
-    initiateTimer(pomodoroTime);
+    initiateTimer(duration.POMODORO);
     setActiveTimer(INTERVAL.POMODORO.KEY);
-  }, [initiateTimer, pomodoroTime, setActiveTimer]);
+  }, [initiateTimer, duration, setActiveTimer]);
 
   const onInitiateBreak = useCallback(() => {
     if (history.POMODORO.length > 0 && history.POMODORO.length % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
-      initiateTimer(longBreakTime);
-      console.log('caiuaqui');
+      initiateTimer(duration.LONGBREAK);
     } else {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
-      initiateTimer(shortBreakTime);
+      initiateTimer(duration.SHORTBREAK);
     }
-  }, [history, initiateTimer, longBreakTime, shortBreakTime, setActiveTimer]);
+  }, [history, initiateTimer, duration, setActiveTimer]);
 
   const playRing = useCallback(() => {
     const audio = document.getElementById('ring');
@@ -101,16 +108,9 @@ export default ({
 
   useEffect(() => {
     if (finished) {
-      const historyToUpdate =
-        activeTimer === INTERVAL.POMODORO.KEY
-          ? pomodoroTime
-          : activeTimer === INTERVAL.SHORTBREAK.KEY
-          ? shortBreakTime
-          : longBreakTime;
-
       const updatedHistory = {
         ...history,
-        [activeTimer]: [...history[activeTimer], historyToUpdate],
+        [activeTimer]: [...history[activeTimer], duration[activeTimer]],
       };
 
       setHistory((history) => updatedHistory);
@@ -147,9 +147,6 @@ export default ({
     automatic,
     onInitiateBreak,
     onInitiatePomodoro,
-    pomodoroTime,
-    shortBreakTime,
-    longBreakTime,
     history,
   ]);
 
@@ -251,6 +248,7 @@ export default ({
             pomodoroScroller={pomodoroScroller}
             settingsRef={settingsRef}
             settingsScroller={settingsScroller}
+            duration={duration}
           />
           <Separator transparent size={10} />
           <History

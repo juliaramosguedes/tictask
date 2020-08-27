@@ -25,6 +25,7 @@ export default ({
   secondaryColor,
   settingsScroller,
   settingsRef,
+  duration,
   ...props
 }) => {
   const breakpoint = useBreakpoint();
@@ -53,9 +54,9 @@ export default ({
 
   const formik = useFormik({
     initialValues: {
-      POMODORO: 25,
-      SHORTBREAK: 5,
-      LONGBREAK: 15,
+      POMODORO: duration.POMODORO,
+      SHORTBREAK: duration.SHORTBREAK,
+      LONGBREAK: duration.LONGBREAK,
     },
     validationSchema: Yup.object().shape({
       POMODORO: Yup.number()
