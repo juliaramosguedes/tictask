@@ -1,6 +1,5 @@
 import React from 'react';
 import { css, cx } from 'emotion';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
 export default ({ icon: Icon, color, left, right, ...props }) => (
