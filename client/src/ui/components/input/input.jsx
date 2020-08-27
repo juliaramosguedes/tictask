@@ -24,9 +24,9 @@ const Input = ({ hasError, isLoading, placeholder, color, ...props }, ref) => (
         border-bottom: 1px solid ${color};
         color: ${color};
         display: inline-block;
-        font-size: 16px;
+        font-size: 18px;
         outline: 0;
-        padding: 12px;
+        padding: 4px;
         width: 100%;
         text-align: center;
 

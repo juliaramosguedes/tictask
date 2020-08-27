@@ -8,8 +8,9 @@ const FieldLabel = ({ color, ...props }) => (
       'field-label',
       css`
         color: ${color};
-        margin-bottom: 4px;
+        margin-bottom: 0;
         text-align: center;
+        font-size: 14px;
         width: 100%;
       `,
       props.className

@@ -1,6 +1,7 @@
 import React from 'react';
 import { css, cx } from 'emotion';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { FiPlus, FiMinus } from 'react-icons/fi';
 
 export default ({ icon: Icon, color, left, right, ...props }) => (
   <button
@@ -17,21 +18,21 @@ export default ({ icon: Icon, color, left, right, ...props }) => (
 
         &:hover {
           svg {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
           }
         }
 
         svg {
-          width: 16px;
-          height: 16px;
+          width: 20px;
+          height: 20px;
           margin-bottom: 2px;
         }
       `,
       props.className
     )}
   >
-    {left && <AiOutlineMinus color={color} />}
-    {right && <AiOutlinePlus color={color} />}
+    {left && <FiMinus color={color} />}
+    {right && <FiPlus color={color} />}
   </button>
 );
