@@ -47,7 +47,13 @@ export default () => {
   const [theme, setTheme] = useState(THEME.BRAND.KEY);
   const [activeTimer, setActiveTimer] = useState(() => {
     let activeTimer = localStorage.getItem('activeTimer');
-    return activeTimer || INTERVAL.POMODORO.KEY;
+    let date = localStorage.getItem('date');
+    date = JSON.parse(date);
+    const currentDate = DateTime.local().toFormat('yyyy-MM-dd');
+
+    return date === currentDate && activeTimer
+      ? activeTimer
+      : INTERVAL.POMODORO.KEY;
   });
   const [showInfo, setShowInfo] = useState(() => {
     let lastVisit = localStorage.getItem('lastVisit');
