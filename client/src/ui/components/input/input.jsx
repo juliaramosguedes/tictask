@@ -30,9 +30,14 @@ const Input = ({ hasError, isLoading, placeholder, color, ...props }, ref) => (
         width: 100%;
         text-align: center;
 
-        &::-webkit-inner-spin-button,
-        &::-webkit-outer-spin-button {
+        &[type='number']::-webkit-inner-spin-button,
+        &[type='number']::-webkit-outer-spin-button {
           -webkit-appearance: none;
+          margin: 0;
+        }
+
+        &[type='number'] {
+          -moz-appearance: textfield;
         }
 
         &[disabled] {
