@@ -165,8 +165,6 @@ export default ({
               />
             </FieldBox>
           </Fieldset>
-
-          <Separator transparent size={4} />
           <Button.Main
             border
             transparent
