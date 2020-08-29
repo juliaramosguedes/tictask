@@ -21,7 +21,7 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
           width: 40px;
           height: 19px;
           margin: auto 0;
-          font-size: 1px;
+          font-size: 0;
         }
 
         input {
@@ -86,7 +86,7 @@ export default ({ children, color, onToggleAutomatic, ...props }) => (
     )}
   >
     <label htmlFor="switch">
-      .
+      Switch button
       <input id="switch" type="checkbox" onClick={onToggleAutomatic} />
       <span className="slider round" />
     </label>
