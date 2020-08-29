@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { DateTime } from 'luxon';
+// import { findLast, defaultTo } from 'lodash';
 import { INTERVAL, THEME } from '../constants';
 import { useScroller, useBreakpoint } from '../hooks';
 import { Pomodoro, Info, LoadingPomodoro } from '../components';
@@ -15,16 +16,45 @@ export default () => {
   const breakpoint = useBreakpoint();
   const isDesktop = breakpoint === 'desktop';
 
-  const { ref: pomodoroRef, scroller: pomodoroScroller } = useScroller(
-    scrollerSettings
-  );
-  const { ref: infoRef, scroller: infoScroller } = useScroller(
-    scrollerSettings
-  );
+  const {
+    ref: pomodoroRef,
+    scroller: pomodoroScroller,
+    // isInViewport: isPomodoroInViewport,
+  } = useScroller(scrollerSettings);
+  const {
+    ref: infoRef,
+    scroller: infoScroller,
+    // isInViewport: isInfoInViewport,
+  } = useScroller(scrollerSettings);
+  const {
+    ref: settingsRef,
+    scroller: settingsScroller,
+    // isInViewport: isSettingsInViewport,
+  } = useScroller(scrollerSettings);
+
+  // const visibleSection = defaultTo(
+  //   findLast(
+  //     [
+  //       ['pomodoro', isPomodoroInViewport],
+  //       ['info', isInfoInViewport],
+  //     ],
+  //     '1'
+  //   ),
+  //   []
+  // )[0];
 
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(THEME.BRAND.KEY);
-  const [activeTimer, setActiveTimer] = useState(INTERVAL.POMODORO.KEY);
+  const [activeTimer, setActiveTimer] = useState(() => {
+    let activeTimer = localStorage.getItem('activeTimer');
+    let date = localStorage.getItem('date');
+    date = JSON.parse(date);
+    const currentDate = DateTime.local().toFormat('yyyy-MM-dd');
+
+    return date === currentDate && activeTimer
+      ? activeTimer
+      : INTERVAL.POMODORO.KEY;
+  });
   const [showInfo, setShowInfo] = useState(() => {
     let lastVisit = localStorage.getItem('lastVisit');
 
@@ -96,6 +126,9 @@ export default () => {
             activeTimer={activeTimer}
             setActiveTimer={setActiveTimer}
             theme={theme}
+            pomodoroScroller={pomodoroScroller}
+            settingsRef={settingsRef}
+            settingsScroller={settingsScroller}
           />
           <Info
             showInfo={showInfo}

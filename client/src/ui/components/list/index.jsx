@@ -4,12 +4,12 @@ import { ColorBrandBase, SizeMinWidthScreenDesktop } from '../../tokens';
 
 export default ({
   size = 1,
-  bold = false,
-  noMargin = false,
+  bold,
+  noMargin,
   color = ColorBrandBase,
   width = '100%',
-  center = false,
-  white = false,
+  center,
+  white,
   display = 'block',
   maxWidth = '100%',
   messages,
@@ -22,7 +22,7 @@ export default ({
       css`
         font-size: ${10 + size * 2}px;
         font-weight: ${bold ? 'bold' : 'normal'};
-        color: ${white ? 'white' : color};
+        color: ${white ? '#ffffff' : color};
         margin-bottom: ${noMargin ? 0 : '8px'};
         width: ${width};
         max-width: ${maxWidth};

@@ -13,9 +13,18 @@ import {
 import { INTERVAL, THEME } from '../../constants';
 import { useBreakpoint } from '../../hooks';
 import { default as History } from '../history';
+import { default as EditDuration } from '../edit-duration';
 import audio from '../../assets/Bell 03.mp3';
 
-export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
+export default ({
+  pomodoroRef,
+  pomodoroScroller,
+  settingsRef,
+  settingsScroller,
+  activeTimer,
+  setActiveTimer,
+  theme,
+}) => {
   const breakpoint = useBreakpoint();
   const isDesktop = breakpoint === 'desktop';
 
@@ -23,61 +32,72 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
     timeLeft,
     running,
     finished,
-    setRunning,
     onSetTime,
     rawTimeFraction,
+    playAudio,
+    initiateTimer,
+    onResetTimer,
   } = useGetTimer();
 
-  const [counter, setCounter] = useState(() => {
-    let counter = localStorage.getItem('counter');
+  const [history, setHistory] = useState(() => {
+    let history = localStorage.getItem('history');
     let date = localStorage.getItem('date');
     date = JSON.parse(date);
     const currentDate = DateTime.local().toFormat('yyyy-MM-dd');
 
-    if (counter && date === currentDate) {
-      counter = JSON.parse(counter);
-      return counter;
+    if (history && date === currentDate) {
+      history = JSON.parse(history);
+      return history;
     } else {
       return {
-        POMODORO: 0,
-        SHORTBREAK: 0,
-        LONGBREAK: 0,
+        POMODORO: [0],
+        SHORTBREAK: [0],
+        LONGBREAK: [0],
       };
     }
   });
-  const [playAudio, setPlayAudio] = useState(true);
+  const [duration, setDuration] = useState(() => {
+    let duration = localStorage.getItem('duration');
+
+    if (duration) {
+      duration = JSON.parse(duration);
+      return duration;
+    } else {
+      return {
+        POMODORO: INTERVAL.POMODORO.TIME,
+        SHORTBREAK: INTERVAL.SHORTBREAK.TIME,
+        LONGBREAK: INTERVAL.LONGBREAK.TIME,
+      };
+    }
+  });
   const [automatic, setAutomatic] = useState(false);
 
-  const initiateTimer = useCallback(
-    (interval) => {
-      setRunning(true);
-      onSetTime(interval * 60);
-      setPlayAudio(true);
+  const onEditDuration = useCallback(
+    (times) => {
+      setDuration(times);
+      onSetTime(times[activeTimer] * 60);
+      localStorage.setItem('duration', JSON.stringify(times));
     },
-    [setRunning, onSetTime, setPlayAudio]
+    [onSetTime, activeTimer]
   );
 
   const onInitiatePomodoro = useCallback(() => {
-    initiateTimer(INTERVAL.POMODORO.TIME);
+    initiateTimer(duration.POMODORO);
     setActiveTimer(INTERVAL.POMODORO.KEY);
-  }, [initiateTimer, setActiveTimer]);
+    localStorage.setItem('activeTimer', INTERVAL.POMODORO.KEY);
+  }, [initiateTimer, duration, setActiveTimer]);
 
   const onInitiateBreak = useCallback(() => {
-    if (counter.pomodoro > 0 && counter.pomodoro % 4 === 0) {
+    if (history.POMODORO.length > 0 && history.POMODORO.length % 4 === 0) {
       setActiveTimer(INTERVAL.LONGBREAK.KEY);
-      initiateTimer(INTERVAL.LONGBREAK.TIME);
+      initiateTimer(duration.LONGBREAK);
+      localStorage.setItem('activeTimer', INTERVAL.LONGBREAK.KEY);
     } else {
       setActiveTimer(INTERVAL.SHORTBREAK.KEY);
-      initiateTimer(INTERVAL.SHORTBREAK.TIME);
+      initiateTimer(duration.SHORTBREAK);
+      localStorage.setItem('activeTimer', INTERVAL.SHORTBREAK.KEY);
     }
-  }, [counter, initiateTimer, setActiveTimer]);
-
-  const onResetTimer = useCallback(() => {
-    setRunning(false);
-    onSetTime(0);
-    setPlayAudio(false);
-    localStorage.setItem('timeLeft', 0);
-  }, [setRunning, onSetTime]);
+  }, [history, initiateTimer, duration, setActiveTimer]);
 
   const playRing = useCallback(() => {
     const audio = document.getElementById('ring');
@@ -90,30 +110,34 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
   ]);
 
   useEffect(() => {
-    if (finished && playAudio) {
-      setCounter((counter) => ({
-        ...counter,
-        [activeTimer]: counter[activeTimer] + 1,
-      }));
-      localStorage.setItem(
-        'counter',
-        JSON.stringify({
-          ...counter,
-          [activeTimer]: counter[activeTimer] + 1,
-        })
-      );
+    if (finished) {
+      const updatedHistory = {
+        ...history,
+        [activeTimer]: [...history[activeTimer], duration[activeTimer]],
+      };
+
+      setHistory((history) => updatedHistory);
+      localStorage.setItem('history', JSON.stringify(updatedHistory));
       localStorage.setItem(
         'date',
         JSON.stringify(DateTime.local().toFormat('yyyy-MM-dd'))
       );
-      setActiveTimer(() => {
-        if (activeTimer === INTERVAL.POMODORO.KEY) {
-          return INTERVAL.SHORTBREAK.KEY;
-        } else {
-          return INTERVAL.POMODORO.KEY;
-        }
-      });
-      playRing();
+
+      setActiveTimer((activeTimer) =>
+        activeTimer === INTERVAL.POMODORO.KEY
+          ? INTERVAL.SHORTBREAK.KEY
+          : INTERVAL.POMODORO.KEY
+      );
+      localStorage.setItem(
+        'activeTimer',
+        activeTimer === INTERVAL.POMODORO.KEY
+          ? INTERVAL.SHORTBREAK.KEY
+          : INTERVAL.POMODORO.KEY
+      );
+
+      if (playAudio) {
+        playRing();
+      }
 
       if (automatic) {
         if (activeTimer === INTERVAL.POMODORO.KEY) {
@@ -124,7 +148,6 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
       }
     }
   }, [
-    counter,
     finished,
     playAudio,
     playRing,
@@ -133,6 +156,8 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
     automatic,
     onInitiateBreak,
     onInitiatePomodoro,
+    history,
+    duration,
   ]);
 
   return (
@@ -162,8 +187,8 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
           timeLeft={timeLeft}
         />
         <Separator transparent height="36px" />
-        {running ? (
-          <Container display="flex">
+        <Container display="flex" direction="column">
+          {running ? (
             <Button.Main
               onClick={onResetTimer}
               transparent
@@ -175,61 +200,73 @@ export default ({ pomodoroRef, activeTimer, setActiveTimer, theme }) => {
             >
               <p>PARAR</p>
             </Button.Main>
-          </Container>
-        ) : (
-          <Container display="flex">
-            {activeTimer === INTERVAL.SHORTBREAK.KEY ||
-            activeTimer === INTERVAL.LONGBREAK.KEY ? (
-              <Button.Main
-                onClick={onInitiateBreak}
-                transparent
-                color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-                border
-                small={!isDesktop}
-                circle
-                aria-label="Button Initiate Break Time"
-              >
-                <p>RELAXAR</p>
-              </Button.Main>
-            ) : (
-              <Button.Main
-                onClick={onInitiatePomodoro}
-                transparent
-                color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-                border
-                small={!isDesktop}
-                circle
-                aria-label="Button Initiate Pomodoro"
-              >
-                <p>INICIAR</p>
-              </Button.Main>
-            )}
-          </Container>
-        )}
-        <Separator transparent height="24px" />
-        <Switch
-          onToggleAutomatic={onToggleAutomatic}
-          color={
-            THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
-              .BACKGROUND_COLOR
-          }
-        >
-          <Text
-            width="auto"
+          ) : (
+            <>
+              {activeTimer === INTERVAL.SHORTBREAK.KEY ||
+              activeTimer === INTERVAL.LONGBREAK.KEY ? (
+                <Button.Main
+                  onClick={onInitiateBreak}
+                  transparent
+                  color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+                  border
+                  small={!isDesktop}
+                  circle
+                  aria-label="Button Initiate Break Time"
+                >
+                  <p>RELAXAR</p>
+                </Button.Main>
+              ) : (
+                <Button.Main
+                  onClick={onInitiatePomodoro}
+                  transparent
+                  color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+                  border
+                  small={!isDesktop}
+                  circle
+                  aria-label="Button Initiate Pomodoro"
+                >
+                  <p>INICIAR</p>
+                </Button.Main>
+              )}
+            </>
+          )}
+          <Separator transparent height="24px" />
+          <Switch
+            onToggleAutomatic={onToggleAutomatic}
             color={
+              THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON
+                .BACKGROUND_COLOR
+            }
+          >
+            <Text
+              width="auto"
+              color={
+                THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON.COLOR
+              }
+              size={2}
+            >
+              Play automático
+            </Text>
+          </Switch>
+          <Separator transparent size={2} />
+          <EditDuration
+            color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+            secondaryColor={
               THEME[theme][INTERVAL[activeTimer].TYPE].AUTOMATIC_BUTTON.COLOR
             }
-            size={2}
-          >
-            Modo automático
-          </Text>
-        </Switch>
-        <Separator transparent size={10} />
-        <History
-          color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-          counter={counter}
-        />
-        <audio id="ring" src={audio}></audio>
+            onEditDuration={onEditDuration}
+            pomodoroScroller={pomodoroScroller}
+            settingsRef={settingsRef}
+            settingsScroller={settingsScroller}
+            duration={duration}
+          />
+          <Separator transparent size={10} />
+          <History
+            color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+            history={history}
+          />
+          <audio id="ring" src={audio}></audio>
+        </Container>
       </Container>
     </>
   );

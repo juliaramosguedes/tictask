@@ -26,9 +26,9 @@ export default (props) => (
         &.white {
           background-image: linear-gradient(
             -90deg,
-            #fff 0%,
+            #ffffff 0%,
             #e7edf1 50%,
-            #fff 100%
+            #ffffff 100%
           );
         }
       `,

@@ -102,7 +102,7 @@ export default (props) => (
         />
       </filter>
       <clipPath id="clip0">
-        <rect x="1" y="1" width="48" height="48" fill="white" />
+        <rect x="1" y="1" width="48" height="48" fill="#ffffff" />
       </clipPath>
     </defs>
   </svg>

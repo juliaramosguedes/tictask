@@ -74,7 +74,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 [tabindex='-1']:focus {
@@ -268,6 +268,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  cursor: pointer;
 }
 
 button,
@@ -406,6 +407,4 @@ input::-webkit-autofill {
 /* TODO create focus rule */
 *:focus {
   outline: 0 !important;
-}
-\`;
-`;
+}`;

@@ -5,10 +5,10 @@ import { SizeMinWidthScreenDesktop } from '../../tokens';
 export default ({
   size = 2,
   weight = 'normal',
-  noMargin = false,
+  noMargin,
   color,
   width = '100%',
-  center = false,
+  center,
   ...props
 }) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content

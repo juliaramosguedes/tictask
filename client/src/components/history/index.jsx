@@ -4,9 +4,8 @@ import { RiRecordCircleLine, RiIndeterminateCircleLine } from 'react-icons/ri';
 import { BsDot } from 'react-icons/bs';
 import { Container, Subtitle, SizeMinWidthScreenTablet } from '../../ui';
 import { default as HistoryStatus } from '../history-status';
-import { INTERVAL } from '../../constants';
 
-export default ({ color, counter, ...props }) => (
+export default ({ color, history, ...props }) => (
   <>
     <Subtitle color={color} center noMargin weight="bold">
       Como estamos hoje?
@@ -30,7 +29,7 @@ export default ({ color, counter, ...props }) => (
     >
       <HistoryStatus
         color={color}
-        time={counter.POMODORO * INTERVAL.POMODORO.TIME}
+        time={history.POMODORO.reduce((acc, current) => acc + current)}
         icon={RiRecordCircleLine}
         span="foco"
       />
@@ -38,8 +37,8 @@ export default ({ color, counter, ...props }) => (
       <HistoryStatus
         color={color}
         time={
-          counter.SHORTBREAK * INTERVAL.SHORTBREAK.TIME +
-          counter.LONGBREAK * INTERVAL.LONGBREAK.TIME
+          history.SHORTBREAK.reduce((acc, current) => acc + current) +
+          history.LONGBREAK.reduce((acc, current) => acc + current)
         }
         icon={RiIndeterminateCircleLine}
         span="pausa"

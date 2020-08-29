@@ -5,9 +5,9 @@ import { SizeMinWidthScreenDesktop } from '../../tokens';
 export default ({
   size = 2,
   weight = 700,
-  noMargin = false,
+  noMargin,
   color,
-  center = false,
+  center,
   width = '100%',
   maxWidth = '100%',
   ...props

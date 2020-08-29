@@ -6,8 +6,8 @@ import { ColorBrandBase } from '../../tokens';
 export default ({
   size = 32,
   color = ColorBrandBase,
-  fluid = false,
-  fullscreen = false,
+  fluid,
+  fullscreen,
   ...props
 }) => (
   <div
