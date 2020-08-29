@@ -24,22 +24,22 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
       direction="column"
       justifyContent="flex-start"
     >
-      <Title center size={4} color="black" maxWidth="620px">
+      <Title center size={3} color="black" maxWidth="620px">
         O que é a Técnica Pomodoro?
       </Title>
-      <Text color="black" padding="16px" maxWidth="620px" size={3}>
+      <Text color="black" padding="16px" maxWidth="620px" size={2}>
         A Técnica Pomodoro é um método para se obter maior produtividade no
         trabalho e estudo e foi desenvolvida pelo italiano Francesco Cirillo. A
         técnica consiste na utilização de um cronômetro para dividir o trabalho
         em períodos de 25 minutos, separados por breves momentos de descanso.
       </Text>
-      <Text color="black" padding="16px" maxWidth="620px" size={3}>
+      <Text color="black" padding="16px" maxWidth="620px" size={2}>
         Cada intervalo representa um ciclo do pomodoro, da palavra italiana
         pomodoro (tomate), como referência ao timer de cozinha usado pelo
         Cirillo. O método é baseado na ideia de que pausas frequentes podem
         aumentar a agilidade mental.
       </Text>
-      <Text color="black" padding="16px" maxWidth="620px" size={3}>
+      <Text color="black" padding="16px" maxWidth="620px" size={2}>
         O principal propósito da técnica Pomodoro é manter o foco e a
         concentração máxima pelo prazo de 25 minutos. Com isso, é possível
         alcançar alguns objetivos, entre eles:
@@ -48,7 +48,7 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
         color="black"
         padding="16px"
         maxWidth="620px"
-        size={3}
+        size={2}
         messages={[
           'aumentar a concentração',
           'melhorar os resultados dos indicadores de produtividade',
@@ -62,7 +62,7 @@ export default ({ showInfo, onCallToActionClick, infoRef }) => {
           onClick={onCallToActionClick}
           gradient={GradientPomodoro}
           border
-          padding="8px 36px"
+          padding="10px 36px"
           width={isMobile ? '100vh' : '50vh'}
           bold
           aria-label="Button Try App"
