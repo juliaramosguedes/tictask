@@ -10,6 +10,7 @@ export default forwardRef(
       justifyContent = 'center',
       direction = 'row',
       maxWidth = '100%',
+      width = 'auto',
       height = 'auto',
       color = 'transparent',
       position = 'relative',
@@ -35,6 +36,7 @@ export default forwardRef(
           background-color: ${backgroundColor};
           position: ${position};
           align-items: center;
+          width: ${width};
         `,
         props.className
       )}

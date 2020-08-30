@@ -84,6 +84,7 @@ export const useGetTimer = () => {
     localStorage.setItem('running', JSON.stringify(false));
     onSetTime(0);
     setPlayAudio(false);
+    document.title = `Tic Task`;
   }, [setRunning, onSetTime]);
 
   useEffect(() => {
@@ -103,6 +104,9 @@ export const useGetTimer = () => {
             (1 / timeLimit) * (1 - (timeLeft - 1) / timeLimit)
         );
         setTimeLeft((timeLeft) => timeLeft - 1);
+        document.title = `${Duration.fromMillis((timeLeft - 1) * 1000).toFormat(
+          'mm:ss'
+        )} - Tic Task`;
       }
     }, 1000);
 
@@ -139,6 +143,7 @@ export const useGetTimer = () => {
       if (storageDifference > timeLeft) {
         setPlayAudio(false);
         onSetTime(0);
+        document.title = `Tic Task`;
       } else {
         onSetTime(timeLimit - storageDifference, false);
       }
