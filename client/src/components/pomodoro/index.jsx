@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { DateTime } from 'luxon';
+import { FaPlay, FaStop, FaStepForward } from 'react-icons/fa';
+
 import { useGetTimer } from '../../services';
 import {
   Button,
@@ -99,6 +101,14 @@ export default ({
     }
   }, [history, initiateTimer, duration, setActiveTimer]);
 
+  const onSkipTime = useCallback(
+    () =>
+      activeTimer === INTERVAL.POMODORO.KEY
+        ? onInitiateBreak()
+        : onInitiatePomodoro(),
+    [onInitiateBreak, onInitiatePomodoro, activeTimer]
+  );
+
   const playRing = useCallback(() => {
     const audio = document.getElementById('ring');
     audio.volume = 0.5;
@@ -188,48 +198,54 @@ export default ({
         />
         <Separator transparent height="36px" />
         <Container display="flex" direction="column">
-          {running ? (
-            <Button.Main
-              onClick={onResetTimer}
-              transparent
+          <Container
+            display="flex"
+            justifyContent="space-between"
+            width="180px"
+          >
+            <Button.Control
               color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-              border
-              small={!isDesktop}
-              circle
+              onClick={
+                activeTimer === INTERVAL.POMODORO.KEY
+                  ? onInitiatePomodoro
+                  : onInitiateBreak
+              }
+              aria-label={
+                activeTimer === INTERVAL.POMODORO.KEY
+                  ? 'Button Initiate Pomodoro'
+                  : 'Button Initiate Break Time'
+              }
+            >
+              <FaPlay
+                color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+                size={18}
+              />
+            </Button.Control>
+            <Button.Control
+              color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+              onClick={onResetTimer}
               aria-label="Button Stop App"
             >
-              <p>PARAR</p>
-            </Button.Main>
-          ) : (
-            <>
-              {activeTimer === INTERVAL.SHORTBREAK.KEY ||
-              activeTimer === INTERVAL.LONGBREAK.KEY ? (
-                <Button.Main
-                  onClick={onInitiateBreak}
-                  transparent
-                  color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-                  border
-                  small={!isDesktop}
-                  circle
-                  aria-label="Button Initiate Break Time"
-                >
-                  <p>RELAXAR</p>
-                </Button.Main>
-              ) : (
-                <Button.Main
-                  onClick={onInitiatePomodoro}
-                  transparent
-                  color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
-                  border
-                  small={!isDesktop}
-                  circle
-                  aria-label="Button Initiate Pomodoro"
-                >
-                  <p>INICIAR</p>
-                </Button.Main>
-              )}
-            </>
-          )}
+              <FaStop
+                color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+                size={19}
+              />
+            </Button.Control>
+            <Button.Control
+              color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+              onClick={onSkipTime}
+              aria-label={
+                activeTimer === INTERVAL.POMODORO.KEY
+                  ? 'Button Skip Pomodoro'
+                  : 'Button Skip Break Time'
+              }
+            >
+              <FaStepForward
+                color={THEME[theme][INTERVAL[activeTimer].TYPE].COLOR}
+                size={21}
+              />
+            </Button.Control>
+          </Container>
           <Separator transparent height="24px" />
           <Switch
             onToggleAutomatic={onToggleAutomatic}
