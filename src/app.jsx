@@ -5,13 +5,10 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import dotEnv from 'dotenv';
 import { HomePage } from './pages';
 import { BreakpointProvider } from './hooks';
 
 function App() {
-  dotEnv.config();
-
   return (
     <BreakpointProvider>
       <Router>
